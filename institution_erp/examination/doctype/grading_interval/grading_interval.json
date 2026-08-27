@@ -1,0 +1,38 @@
+{
+  "actions": [],
+  "creation": "2026-08-27 00:00:00.000000",
+  "doctype": "DocType",
+  "engine": "InnoDB",
+  "field_order": ["grade_code", "threshold_percent", "grade_description"],
+  "fields": [
+    {
+      "fieldname": "grade_code",
+      "fieldtype": "Data",
+      "in_list_view": 1,
+      "label": "Grade",
+      "reqd": 1
+    },
+    {
+      "fieldname": "threshold_percent",
+      "fieldtype": "Percent",
+      "in_list_view": 1,
+      "label": "Min %",
+      "reqd": 1
+    },
+    {
+      "fieldname": "grade_description",
+      "fieldtype": "Data",
+      "label": "Description"
+    }
+  ],
+  "istable": 1,
+  "links": [],
+  "modified": "2026-08-27 00:00:00.000000",
+  "modified_by": "Administrator",
+  "module": "Examination",
+  "name": "Grading Interval",
+  "owner": "Administrator",
+  "permissions": [],
+  "sort_field": "creation",
+  "sort_order": "ASC"
+}

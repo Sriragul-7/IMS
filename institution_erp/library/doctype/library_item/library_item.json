@@ -1,0 +1,102 @@
+{
+  "actions": [],
+  "allow_rename": 1,
+  "autoname": "naming_series:",
+  "creation": "2026-08-27 00:00:00.000000",
+  "doctype": "DocType",
+  "engine": "InnoDB",
+  "field_order": ["naming_series", "title", "author", "isbn", "book_category", "publisher", "edition", "published_year", "total_copies", "available_copies"],
+  "fields": [
+    {
+      "fieldname": "naming_series",
+      "fieldtype": "Select",
+      "label": "Naming Series",
+      "options": "LIB-BOOK-.#####",
+      "reqd": 1,
+      "set_only_once": 1
+    },
+    {
+      "fieldname": "title",
+      "fieldtype": "Data",
+      "in_list_view": 1,
+      "label": "Title",
+      "reqd": 1
+    },
+    {
+      "fieldname": "author",
+      "fieldtype": "Data",
+      "in_list_view": 1,
+      "label": "Author",
+      "reqd": 1
+    },
+    {
+      "fieldname": "isbn",
+      "fieldtype": "Data",
+      "in_list_view": 1,
+      "label": "ISBN"
+    },
+    {
+      "fieldname": "book_category",
+      "fieldtype": "Link",
+      "label": "Category",
+      "options": "Book Category"
+    },
+    {
+      "fieldname": "publisher",
+      "fieldtype": "Data",
+      "label": "Publisher"
+    },
+    {
+      "fieldname": "edition",
+      "fieldtype": "Data",
+      "label": "Edition"
+    },
+    {
+      "fieldname": "published_year",
+      "fieldtype": "Int",
+      "label": "Published Year"
+    },
+    {
+      "fieldname": "total_copies",
+      "fieldtype": "Int",
+      "label": "Total Copies",
+      "reqd": 1
+    },
+    {
+      "fieldname": "available_copies",
+      "fieldtype": "Int",
+      "in_list_view": 1,
+      "label": "Available Copies",
+      "read_only": 1
+    }
+  ],
+  "links": [],
+  "modified": "2026-08-27 00:00:00.000000",
+  "modified_by": "Administrator",
+  "module": "Library",
+  "name": "Library Item",
+  "naming_rule": "By \"Naming Series\" field",
+  "owner": "Administrator",
+  "permissions": [
+    {
+      "role": "System Manager",
+      "create": 1, "delete": 1, "email": 1, "export": 1,
+      "print": 1, "read": 1, "report": 1, "share": 1, "write": 1
+    },
+    {
+      "role": "Facility Manager",
+      "create": 1, "delete": 1, "email": 1, "export": 1,
+      "print": 1, "read": 1, "report": 1, "share": 1, "write": 1
+    },
+    {
+      "role": "Academic Head",
+      "read": 1
+    }
+  ],
+  "search_fields": "title,author,isbn",
+  "sort_field": "creation",
+  "sort_order": "DESC",
+  "states": [],
+  "title_field": "title",
+  "track_changes": 1
+}

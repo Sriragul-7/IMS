@@ -1,0 +1,104 @@
+{
+  "actions": [],
+  "autoname": "hash",
+  "creation": "2026-08-27 00:00:00.000000",
+  "doctype": "DocType",
+  "engine": "InnoDB",
+  "field_order": ["student", "library_item", "transaction_type", "transaction_date", "due_date", "return_date", "fine_amount", "status"],
+  "fields": [
+    {
+      "fieldname": "student",
+      "fieldtype": "Link",
+      "in_list_view": 1,
+      "in_standard_filter": 1,
+      "label": "Student",
+      "options": "Student",
+      "reqd": 1
+    },
+    {
+      "fieldname": "library_item",
+      "fieldtype": "Link",
+      "in_list_view": 1,
+      "label": "Library Item",
+      "options": "Library Item",
+      "reqd": 1
+    },
+    {
+      "fieldname": "transaction_type",
+      "fieldtype": "Select",
+      "in_list_view": 1,
+      "label": "Transaction Type",
+      "options": "\nIssue\nReturn",
+      "reqd": 1
+    },
+    {
+      "fieldname": "transaction_date",
+      "fieldtype": "Date",
+      "label": "Transaction Date",
+      "default": "Today",
+      "reqd": 1,
+      "set_only_once": 1
+    },
+    {
+      "fieldname": "due_date",
+      "fieldtype": "Date",
+      "label": "Due Date"
+    },
+    {
+      "fieldname": "return_date",
+      "fieldtype": "Date",
+      "label": "Return Date"
+    },
+    {
+      "fieldname": "fine_amount",
+      "fieldtype": "Currency",
+      "label": "Fine Amount",
+      "read_only": 1
+    },
+    {
+      "fieldname": "status",
+      "fieldtype": "Select",
+      "in_list_view": 1,
+      "in_standard_filter": 1,
+      "label": "Status",
+      "options": "\nIssued\nReturned\nOverdue",
+      "reqd": 1
+    }
+  ],
+  "links": [],
+  "modified": "2026-08-27 00:00:00.000000",
+  "modified_by": "Administrator",
+  "module": "Library",
+  "name": "Library Transaction",
+  "naming_rule": "By \"hash\"",
+  "owner": "Administrator",
+  "permissions": [
+    {
+      "role": "System Manager",
+      "create": 1, "delete": 1, "email": 1, "export": 1,
+      "print": 1, "read": 1, "report": 1, "share": 1, "write": 1
+    },
+    {
+      "role": "Facility Manager",
+      "create": 1, "delete": 1, "email": 1, "export": 1,
+      "print": 1, "read": 1, "report": 1, "share": 1, "write": 1
+    },
+    {
+      "role": "Academic Head",
+      "read": 1
+    },
+    {
+      "role": "Student",
+      "read": 1
+    },
+    {
+      "role": "Guardian",
+      "read": 1
+    }
+  ],
+  "search_fields": "student,library_item",
+  "sort_field": "creation",
+  "sort_order": "DESC",
+  "states": [],
+  "track_changes": 1
+}

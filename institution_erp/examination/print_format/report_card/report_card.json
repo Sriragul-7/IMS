@@ -1,0 +1,13 @@
+{
+  "doctype": "Print Format",
+  "name": "Report Card",
+  "doc_type": "Assessment Result",
+  "module": "Examination",
+  "print_format_type": "Jinja",
+  "custom_format": 1,
+  "standard": 0,
+  "creation": "2026-08-27 00:00:00.000000",
+  "modified": "2026-08-27 00:00:00.000000",
+  "modified_by": "Administrator",
+  "owner": "Administrator"
+}

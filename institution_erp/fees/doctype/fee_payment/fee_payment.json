@@ -1,0 +1,107 @@
+{
+  "actions": [],
+  "autoname": "naming_series:",
+  "creation": "2026-08-27 00:00:00.000000",
+  "doctype": "DocType",
+  "engine": "InnoDB",
+  "field_order": ["naming_series", "fees", "student", "payment_date", "amount", "payment_mode", "reference_number", "remarks"],
+  "fields": [
+    {
+      "fieldname": "naming_series",
+      "fieldtype": "Select",
+      "label": "Naming Series",
+      "options": "PMT-.YYYY.-.#####",
+      "reqd": 1,
+      "set_only_once": 1
+    },
+    {
+      "fieldname": "fees",
+      "fieldtype": "Link",
+      "in_list_view": 1,
+      "in_standard_filter": 1,
+      "label": "Fees",
+      "options": "Fees",
+      "reqd": 1
+    },
+    {
+      "fetch_from": "fees.student",
+      "fieldname": "student",
+      "fieldtype": "Link",
+      "in_list_view": 1,
+      "in_standard_filter": 1,
+      "label": "Student",
+      "options": "Student",
+      "read_only": 1,
+      "reqd": 1
+    },
+    {
+      "default": "Today",
+      "fieldname": "payment_date",
+      "fieldtype": "Date",
+      "in_list_view": 1,
+      "label": "Payment Date",
+      "reqd": 1
+    },
+    {
+      "fieldname": "amount",
+      "fieldtype": "Currency",
+      "in_list_view": 1,
+      "label": "Amount",
+      "reqd": 1
+    },
+    {
+      "fieldname": "payment_mode",
+      "fieldtype": "Select",
+      "in_list_view": 1,
+      "label": "Payment Mode",
+      "options": "\nCash\nCheque\nBank Transfer\nCard\nUPI\nOther",
+      "reqd": 1
+    },
+    {
+      "fieldname": "reference_number",
+      "fieldtype": "Data",
+      "label": "Reference Number"
+    },
+    {
+      "fieldname": "remarks",
+      "fieldtype": "Small Text",
+      "label": "Remarks"
+    }
+  ],
+  "links": [],
+  "modified": "2026-08-27 00:00:00.000000",
+  "modified_by": "Administrator",
+  "module": "Fees",
+  "name": "Fee Payment",
+  "naming_rule": "By \"Naming Series\" field",
+  "owner": "Administrator",
+  "permissions": [
+    {
+      "role": "System Manager",
+      "create": 1, "delete": 1, "email": 1, "export": 1,
+      "print": 1, "read": 1, "report": 1, "share": 1, "write": 1
+    },
+    {
+      "role": "Fee Manager",
+      "create": 1, "delete": 1, "email": 1, "export": 1,
+      "print": 1, "read": 1, "report": 1, "share": 1, "write": 1
+    },
+    {
+      "role": "Academic Head",
+      "read": 1
+    },
+    {
+      "role": "Student",
+      "read": 1
+    },
+    {
+      "role": "Guardian",
+      "read": 1
+    }
+  ],
+  "search_fields": "fees,student",
+  "sort_field": "creation",
+  "sort_order": "DESC",
+  "states": [],
+  "track_changes": 1
+}

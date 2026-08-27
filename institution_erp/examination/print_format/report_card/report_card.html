@@ -1,0 +1,81 @@
+{%- set plan = frappe.get_doc("Assessment Plan", doc.assessment_plan) -%}
+{%- set student = frappe.get_doc("Student", doc.student) -%}
+{%- set group_doc = frappe.get_doc("Student Group", plan.student_group) -%}
+{%- set term = frappe.get_value("Academic Term", group_doc.academic_term, "term_name") if group_doc.academic_term else "" -%}
+{%- set program_name = frappe.get_value("Program", group_doc.program, "program_name") if group_doc.program else "" -%}
+
+<div style="font-family: Arial, sans-serif; max-width: 800px; margin: 0 auto; padding: 20px;">
+  <div style="text-align: center; border-bottom: 3px solid #333; padding-bottom: 15px; margin-bottom: 20px;">
+    <h1 style="margin: 0; font-size: 24px; color: #333;">REPORT CARD</h1>
+    <p style="margin: 5px 0; color: #666;">Institution ERP</p>
+  </div>
+
+  <div style="margin-bottom: 20px;">
+    <table style="width: 100%; border-collapse: collapse;">
+      <tr>
+        <td style="padding: 8px; font-weight: bold; width: 150px;">Student Name:</td>
+        <td style="padding: 8px;">{{ student.first_name }} {{ student.last_name or "" }}</td>
+        <td style="padding: 8px; font-weight: bold; width: 150px;">Admission No:</td>
+        <td style="padding: 8px;">{{ student.name }}</td>
+      </tr>
+      <tr>
+        <td style="padding: 8px; font-weight: bold;">Program:</td>
+        <td style="padding: 8px;">{{ program_name }}</td>
+        <td style="padding: 8px; font-weight: bold;">Academic Term:</td>
+        <td style="padding: 8px;">{{ term }}</td>
+      </tr>
+      <tr>
+        <td style="padding: 8px; font-weight: bold;">Student Group:</td>
+        <td style="padding: 8px;">{{ plan.student_group }}</td>
+        <td style="padding: 8px; font-weight: bold;">Exam Date:</td>
+        <td style="padding: 8px;">{{ frappe.utils.formatdate(plan.exam_date, "dd-MM-yyyy") }}</td>
+      </tr>
+    </table>
+  </div>
+
+  <div style="margin-bottom: 20px;">
+    <h2 style="font-size: 18px; border-bottom: 2px solid #333; padding-bottom: 5px;">Assessment Details</h2>
+    <table style="width: 100%; border-collapse: collapse; border: 1px solid #ddd;">
+      <thead>
+        <tr style="background-color: #f5f5f5;">
+          <th style="padding: 10px; border: 1px solid #ddd; text-align: left;">Course</th>
+          <th style="padding: 10px; border: 1px solid #ddd; text-align: center;">Max Marks</th>
+          <th style="padding: 10px; border: 1px solid #ddd; text-align: center;">Marks Obtained</th>
+          <th style="padding: 10px; border: 1px solid #ddd; text-align: center;">Percentage</th>
+          <th style="padding: 10px; border: 1px solid #ddd; text-align: center;">Grade</th>
+          <th style="padding: 10px; border: 1px solid #ddd; text-align: center;">Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td style="padding: 10px; border: 1px solid #ddd;">{{ frappe.get_value("Course", plan.course, "course_name") or plan.course }}</td>
+          <td style="padding: 10px; border: 1px solid #ddd; text-align: center;">{{ plan.max_marks }}</td>
+          <td style="padding: 10px; border: 1px solid #ddd; text-align: center;">{{ doc.marks_obtained }}</td>
+          <td style="padding: 10px; border: 1px solid #ddd; text-align: center;">{{ doc.percentage }}%</td>
+          <td style="padding: 10px; border: 1px solid #ddd; text-align: center; font-weight: bold;">{{ doc.grade }}</td>
+          <td style="padding: 10px; border: 1px solid #ddd; text-align: center; color: {{ '#28a745' if doc.status == 'Pass' else '#dc3545' }}; font-weight: bold;">{{ doc.status }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  {% if doc.remarks %}
+  <div style="margin-bottom: 20px;">
+    <h2 style="font-size: 18px; border-bottom: 2px solid #333; padding-bottom: 5px;">Remarks</h2>
+    <p style="padding: 10px; background-color: #f9f9f9; border: 1px solid #ddd;">{{ doc.remarks }}</p>
+  </div>
+  {% endif %}
+
+  <div style="margin-top: 40px; display: flex; justify-content: space-between;">
+    <div style="text-align: center;">
+      <div style="border-top: 1px solid #333; width: 200px; margin-top: 50px; padding-top: 5px;">
+        Instructor Signature
+      </div>
+    </div>
+    <div style="text-align: center;">
+      <div style="border-top: 1px solid #333; width: 200px; margin-top: 50px; padding-top: 5px;">
+        Principal Signature
+      </div>
+    </div>
+  </div>
+</div>

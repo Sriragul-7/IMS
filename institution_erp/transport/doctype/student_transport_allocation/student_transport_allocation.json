@@ -1,0 +1,81 @@
+{
+  "actions": [],
+  "autoname": "hash",
+  "creation": "2026-08-27 00:00:00.000000",
+  "doctype": "DocType",
+  "engine": "InnoDB",
+  "field_order": ["student", "transport_route", "pickup_stop", "allocation_date", "status"],
+  "fields": [
+    {
+      "fieldname": "student",
+      "fieldtype": "Link",
+      "in_list_view": 1,
+      "in_standard_filter": 1,
+      "label": "Student",
+      "options": "Student",
+      "reqd": 1
+    },
+    {
+      "fieldname": "transport_route",
+      "fieldtype": "Link",
+      "in_list_view": 1,
+      "in_standard_filter": 1,
+      "label": "Transport Route",
+      "options": "Transport Route",
+      "reqd": 1
+    },
+    {
+      "fieldname": "pickup_stop",
+      "fieldtype": "Data",
+      "in_list_view": 1,
+      "label": "Pickup Stop",
+      "reqd": 1
+    },
+    {
+      "fieldname": "allocation_date",
+      "fieldtype": "Date",
+      "label": "Allocation Date",
+      "default": "Today",
+      "reqd": 1,
+      "set_only_once": 1
+    },
+    {
+      "fieldname": "status",
+      "fieldtype": "Select",
+      "in_list_view": 1,
+      "in_standard_filter": 1,
+      "label": "Status",
+      "options": "\nActive\nInactive",
+      "default": "Active",
+      "reqd": 1
+    }
+  ],
+  "links": [],
+  "modified": "2026-08-27 00:00:00.000000",
+  "modified_by": "Administrator",
+  "module": "Transport",
+  "name": "Student Transport Allocation",
+  "naming_rule": "By \"hash\"",
+  "owner": "Administrator",
+  "permissions": [
+    {
+      "role": "System Manager",
+      "create": 1, "delete": 1, "email": 1, "export": 1,
+      "print": 1, "read": 1, "report": 1, "share": 1, "write": 1
+    },
+    {
+      "role": "Facility Manager",
+      "create": 1, "delete": 1, "email": 1, "export": 1,
+      "print": 1, "read": 1, "report": 1, "share": 1, "write": 1
+    },
+    {
+      "role": "Academic Head",
+      "read": 1
+    }
+  ],
+  "search_fields": "student,transport_route",
+  "sort_field": "creation",
+  "sort_order": "DESC",
+  "states": [],
+  "track_changes": 1
+}

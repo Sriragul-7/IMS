@@ -126,13 +126,28 @@ app_license = "mit"
 # -----------
 # Permissions evaluated in scripted ways
 
-# permission_query_conditions = {
-# 	"Event": "frappe.desk.doctype.event.event.get_permission_query_conditions",
-# }
-#
-# has_permission = {
-# 	"Event": "frappe.desk.doctype.event.event.has_permission",
-# }
+permission_query_conditions = {
+	"Student": "institution_erp.api.get_permission_query_conditions_student",
+	"Student Attendance": "institution_erp.api.get_permission_query_conditions_student_attendance",
+	"Staff Attendance": "institution_erp.api.get_permission_query_conditions_staff_attendance",
+	"Assessment Result": "institution_erp.api.get_permission_query_conditions_assessment_result",
+	"Assessment Plan": "institution_erp.api.get_permission_query_conditions_assessment_plan",
+	"Fees": "institution_erp.api.get_permission_query_conditions_fees",
+	"Fee Payment": "institution_erp.api.get_permission_query_conditions_fee_payment",
+	"Library Item": "institution_erp.api.get_permission_query_conditions_library_item",
+	"Library Membership": "institution_erp.api.get_permission_query_conditions_library_membership",
+	"Library Transaction": "institution_erp.api.get_permission_query_conditions_library_transaction",
+	"Hostel": "institution_erp.api.get_permission_query_conditions_hostel",
+	"Hostel Room": "institution_erp.api.get_permission_query_conditions_hostel",
+	"Hostel Room Allocation": "institution_erp.api.get_permission_query_conditions_hostel",
+	"Vehicle": "institution_erp.api.get_permission_query_conditions_transport",
+	"Transport Route": "institution_erp.api.get_permission_query_conditions_transport",
+	"Student Transport Allocation": "institution_erp.api.get_permission_query_conditions_transport",
+	"Notice": "institution_erp.api.get_permission_query_conditions_notice",
+	"Notice Recipient": "institution_erp.api.get_permission_query_conditions_notice_recipient",
+	"Communication Log": "institution_erp.api.get_permission_query_conditions_communication_log",
+	"Feedback": "institution_erp.api.get_permission_query_conditions_feedback",
+}
 
 # Document Events
 # ---------------

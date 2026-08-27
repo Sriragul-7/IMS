@@ -1,0 +1,75 @@
+{
+  "actions": [],
+  "autoname": "field:room_number",
+  "creation": "2026-08-27 00:00:00.000000",
+  "doctype": "DocType",
+  "engine": "InnoDB",
+  "field_order": ["hostel", "room_number", "room_type", "capacity", "occupied_count"],
+  "fields": [
+    {
+      "fieldname": "hostel",
+      "fieldtype": "Link",
+      "in_list_view": 1,
+      "in_standard_filter": 1,
+      "label": "Hostel",
+      "options": "Hostel",
+      "reqd": 1
+    },
+    {
+      "fieldname": "room_number",
+      "fieldtype": "Data",
+      "in_list_view": 1,
+      "label": "Room Number",
+      "reqd": 1,
+      "unique": 1
+    },
+    {
+      "fieldname": "room_type",
+      "fieldtype": "Select",
+      "in_list_view": 1,
+      "label": "Room Type",
+      "options": "\nSingle\nDouble\nDormitory",
+      "reqd": 1
+    },
+    {
+      "fieldname": "capacity",
+      "fieldtype": "Int",
+      "label": "Capacity",
+      "reqd": 1
+    },
+    {
+      "fieldname": "occupied_count",
+      "fieldtype": "Int",
+      "label": "Occupied Count",
+      "read_only": 1
+    }
+  ],
+  "links": [],
+  "modified": "2026-08-27 00:00:00.000000",
+  "modified_by": "Administrator",
+  "module": "Hostel",
+  "name": "Hostel Room",
+  "naming_rule": "By fieldname",
+  "owner": "Administrator",
+  "permissions": [
+    {
+      "role": "System Manager",
+      "create": 1, "delete": 1, "email": 1, "export": 1,
+      "print": 1, "read": 1, "report": 1, "share": 1, "write": 1
+    },
+    {
+      "role": "Facility Manager",
+      "create": 1, "delete": 1, "email": 1, "export": 1,
+      "print": 1, "read": 1, "report": 1, "share": 1, "write": 1
+    },
+    {
+      "role": "Academic Head",
+      "read": 1
+    }
+  ],
+  "search_fields": "room_number,hostel",
+  "sort_field": "creation",
+  "sort_order": "DESC",
+  "states": [],
+  "track_changes": 1
+}

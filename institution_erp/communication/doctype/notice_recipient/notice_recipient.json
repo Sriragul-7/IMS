@@ -1,0 +1,81 @@
+{
+ "actions": [],
+ "autoname": "hash",
+ "creation": "2026-08-27 00:00:00.000000",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": ["notice", "student", "recipient_type", "read_status", "read_on"],
+ "fields": [
+  {
+   "fieldname": "notice",
+   "fieldtype": "Link",
+   "label": "Notice",
+   "options": "Notice",
+   "reqd": 1,
+   "in_list_view": 1,
+   "in_standard_filter": 1
+  },
+  {
+   "fieldname": "student",
+   "fieldtype": "Link",
+   "label": "Student",
+   "options": "Student",
+   "reqd": 1,
+   "in_list_view": 1,
+   "in_standard_filter": 1
+  },
+  {
+   "fieldname": "recipient_type",
+   "fieldtype": "Select",
+   "label": "Recipient Type",
+   "options": "\nStudent\nGuardian\nInstructor",
+   "default": "Student",
+   "reqd": 1
+  },
+  {
+   "fieldname": "read_status",
+   "fieldtype": "Select",
+   "label": "Read Status",
+   "options": "\nUnread\nRead",
+   "default": "Unread",
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "read_on",
+   "fieldtype": "Datetime",
+   "label": "Read On",
+   "read_only": 1
+  }
+ ],
+ "links": [],
+ "modified": "2026-08-27 00:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "Communication",
+ "name": "Notice Recipient",
+ "naming_rule": "By \"hash\"",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "role": "System Manager",
+   "create": 1,
+   "delete": 1,
+   "read": 1,
+   "write": 1
+  },
+  {
+   "role": "Communication Officer",
+   "create": 1,
+   "read": 1,
+   "write": 1
+  },
+  {
+   "role": "Academic Head",
+   "read": 1
+  }
+ ],
+ "search_fields": "notice,student",
+ "sort_field": "creation",
+ "sort_order": "DESC",
+ "states": [],
+ "track_changes": 1
+}

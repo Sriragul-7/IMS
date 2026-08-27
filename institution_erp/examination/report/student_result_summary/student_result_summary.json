@@ -1,0 +1,43 @@
+{
+  "columns": [],
+  "created_by": "Administrator",
+  "doctype": "Report",
+  "dt": "Assessment Result",
+  "filters": [
+    {
+      "fieldname": "student",
+      "fieldtype": "Link",
+      "label": "Student",
+      "options": "Student"
+    },
+    {
+      "fieldname": "student_group",
+      "fieldtype": "Link",
+      "label": "Student Group",
+      "options": "Student Group"
+    },
+    {
+      "fieldname": "assessment_group",
+      "fieldtype": "Link",
+      "label": "Assessment Group",
+      "options": "Assessment Group"
+    }
+  ],
+  "is_standard": 1,
+  "module": "Examination",
+  "name": "Student Result Summary",
+  "owner": "Administrator",
+  "report_name": "Student Result Summary",
+  "report_type": "Script Report",
+  "roles": [
+    {
+      "role": "System Manager"
+    },
+    {
+      "role": "Academic Head"
+    },
+    {
+      "role": "Instructor"
+    }
+  ]
+}

@@ -1,1 +1,15 @@
 Institution Erp
+Academics
+Admissions
+Sis
+Attendance
+Examination
+Fees
+Library
+Hostel
+Transport
+Hr
+Lms
+Communication
+Alumni
+Reports

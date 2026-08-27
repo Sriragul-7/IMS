@@ -1,0 +1,76 @@
+{
+  "actions": [],
+  "allow_rename": 1,
+  "autoname": "field:scale_name",
+  "creation": "2026-08-27 00:00:00.000000",
+  "doctype": "DocType",
+  "editable_grid": 1,
+  "engine": "InnoDB",
+  "field_order": ["scale_name", "section_intervals", "intervals"],
+  "fields": [
+    {
+      "fieldname": "scale_name",
+      "fieldtype": "Data",
+      "in_list_view": 1,
+      "in_standard_filter": 1,
+      "label": "Scale Name",
+      "reqd": 1,
+      "unique": 1
+    },
+    {
+      "fieldname": "section_intervals",
+      "fieldtype": "Section Break",
+      "label": "Grading Intervals"
+    },
+    {
+      "fieldname": "intervals",
+      "fieldtype": "Table",
+      "label": "Grading Intervals",
+      "options": "Grading Interval",
+      "reqd": 1
+    }
+  ],
+  "links": [],
+  "modified": "2026-08-27 00:00:00.000000",
+  "modified_by": "Administrator",
+  "module": "Examination",
+  "name": "Grading Scale",
+  "naming_rule": "By fieldname",
+  "owner": "Administrator",
+  "permissions": [
+    {
+      "role": "System Manager",
+      "create": 1,
+      "delete": 1,
+      "email": 1,
+      "export": 1,
+      "print": 1,
+      "read": 1,
+      "report": 1,
+      "share": 1,
+      "write": 1
+    },
+    {
+      "role": "Academic Head",
+      "create": 1,
+      "delete": 1,
+      "email": 1,
+      "export": 1,
+      "print": 1,
+      "read": 1,
+      "report": 1,
+      "share": 1,
+      "write": 1
+    },
+    {
+      "role": "Instructor",
+      "read": 1
+    }
+  ],
+  "search_fields": "scale_name",
+  "sort_field": "creation",
+  "sort_order": "DESC",
+  "states": [],
+  "title_field": "scale_name",
+  "track_changes": 1
+}

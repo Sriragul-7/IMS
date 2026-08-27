@@ -1,0 +1,168 @@
+{
+ "actions": [],
+ "autoname": "naming_series:",
+ "creation": "2026-08-27 00:00:00.000000",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": ["naming_series", "title", "body", "audience_type", "target_program", "target_student_group", "target_role", "target_student", "section_dates", "publish_date", "expiry_date", "section_publish", "attachment", "status"],
+ "fields": [
+  {
+   "fieldname": "naming_series",
+   "fieldtype": "Select",
+   "label": "Naming Series",
+   "options": "NOTICE-.YYYY.-.#####",
+   "reqd": 1,
+   "set_only_once": 1
+  },
+  {
+   "fieldname": "title",
+   "fieldtype": "Data",
+   "label": "Title",
+   "reqd": 1,
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "body",
+   "fieldtype": "Text Editor",
+   "label": "Body",
+   "reqd": 1
+  },
+  {
+   "fieldname": "audience_type",
+   "fieldtype": "Select",
+   "label": "Audience Type",
+   "options": "\nAll\nProgram-wise\nStudent Group-wise\nRole-wise\nIndividual Student",
+   "reqd": 1,
+   "default": "All",
+   "in_list_view": 1,
+   "in_standard_filter": 1
+  },
+  {
+   "fieldname": "target_program",
+   "fieldtype": "Link",
+   "label": "Target Program",
+   "options": "Program",
+   "depends_on": "eval:doc.audience_type=='Program-wise'"
+  },
+  {
+   "fieldname": "target_student_group",
+   "fieldtype": "Link",
+   "label": "Target Student Group",
+   "options": "Student Group",
+   "depends_on": "eval:doc.audience_type=='Student Group-wise'"
+  },
+  {
+   "fieldname": "target_role",
+   "fieldtype": "Link",
+   "label": "Target Role",
+   "options": "Role",
+   "depends_on": "eval:doc.audience_type=='Role-wise'"
+  },
+  {
+   "fieldname": "target_student",
+   "fieldtype": "Link",
+   "label": "Target Student",
+   "options": "Student",
+   "depends_on": "eval:doc.audience_type=='Individual Student'"
+  },
+  {
+   "fieldname": "section_dates",
+   "fieldtype": "Section Break",
+   "label": "Dates"
+  },
+  {
+   "fieldname": "publish_date",
+   "fieldtype": "Date",
+   "label": "Publish Date",
+   "default": "Today",
+   "reqd": 1,
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "expiry_date",
+   "fieldtype": "Date",
+   "label": "Expiry Date"
+  },
+  {
+   "fieldname": "section_publish",
+   "fieldtype": "Section Break",
+   "label": "Publishing"
+  },
+  {
+   "fieldname": "attachment",
+   "fieldtype": "Attach",
+   "label": "Attachment"
+  },
+  {
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "label": "Status",
+   "options": "\nDraft\nPublished\nArchived",
+   "default": "Draft",
+   "reqd": 1,
+   "in_list_view": 1,
+   "in_standard_filter": 1
+  }
+ ],
+ "links": [
+  {
+   "link_doctype": "Notice Recipient",
+   "link_fieldname": "notice"
+  },
+  {
+   "link_doctype": "Communication Log",
+   "link_fieldname": "reference_notice"
+  }
+ ],
+ "modified": "2026-08-27 00:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "Communication",
+ "name": "Notice",
+ "naming_rule": "By \"Naming Series\" field",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "role": "System Manager",
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "share": 1,
+   "write": 1
+  },
+  {
+   "role": "Communication Officer",
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "share": 1,
+   "write": 1
+  },
+   {
+    "role": "Academic Head",
+    "read": 1,
+    "write": 1,
+    "create": 1
+   },
+   {
+    "role": "Student",
+    "read": 1
+   },
+   {
+    "role": "Guardian",
+    "read": 1
+   }
+  ],
+ "search_fields": "title,body",
+ "sort_field": "creation",
+ "sort_order": "DESC",
+ "states": [],
+ "track_changes": 1
+}

@@ -1,0 +1,25 @@
+{
+ "cards": [
+  {"card": "Total Active Students"},
+  {"card": "Total Outstanding Fees"},
+  {"card": "Books Currently Issued"},
+  {"card": "Hostel Occupancy (Rooms Occupied)"},
+  {"card": "Open Feedback/Complaints"}
+ ],
+ "charts": [
+  {"chart": "Fee Collection Trend", "width": "Full"},
+  {"chart": "Attendance Trend", "width": "Full"}
+ ],
+ "creation": "2026-08-27 00:00:00.000000",
+ "dashboard_name": "Institution Overview",
+ "docstatus": 0,
+ "doctype": "Dashboard",
+ "idx": 0,
+ "is_default": 0,
+ "is_standard": 0,
+ "modified": "2026-08-27 00:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "Communication",
+ "name": "Institution Overview",
+ "owner": "Administrator"
+}

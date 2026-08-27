@@ -1,0 +1,126 @@
+{
+  "actions": [],
+  "autoname": "hash",
+  "creation": "2026-08-27 00:00:00.000000",
+  "doctype": "DocType",
+  "editable_grid": 1,
+  "engine": "InnoDB",
+  "field_order": ["assessment_group", "course", "student_group", "max_marks", "passing_marks", "grading_scale", "exam_date", "section_staff", "room", "instructor"],
+  "fields": [
+    {
+      "fieldname": "assessment_group",
+      "fieldtype": "Link",
+      "in_list_view": 1,
+      "in_standard_filter": 1,
+      "label": "Assessment Group",
+      "options": "Assessment Group",
+      "reqd": 1
+    },
+    {
+      "fieldname": "course",
+      "fieldtype": "Link",
+      "in_list_view": 1,
+      "in_standard_filter": 1,
+      "label": "Course",
+      "options": "Course",
+      "reqd": 1
+    },
+    {
+      "fieldname": "student_group",
+      "fieldtype": "Link",
+      "in_list_view": 1,
+      "in_standard_filter": 1,
+      "label": "Student Group",
+      "options": "Student Group",
+      "reqd": 1
+    },
+    {
+      "fieldname": "max_marks",
+      "fieldtype": "Int",
+      "in_list_view": 1,
+      "label": "Max Marks",
+      "reqd": 1
+    },
+    {
+      "fieldname": "passing_marks",
+      "fieldtype": "Int",
+      "in_list_view": 1,
+      "label": "Passing Marks",
+      "reqd": 1
+    },
+    {
+      "fieldname": "grading_scale",
+      "fieldtype": "Link",
+      "in_list_view": 1,
+      "label": "Grading Scale",
+      "options": "Grading Scale",
+      "reqd": 1
+    },
+    {
+      "fieldname": "exam_date",
+      "fieldtype": "Date",
+      "in_list_view": 1,
+      "in_standard_filter": 1,
+      "label": "Exam Date",
+      "reqd": 1
+    },
+    {
+      "fieldname": "section_staff",
+      "fieldtype": "Section Break",
+      "label": "Staff & Room (Optional)"
+    },
+    {
+      "fieldname": "room",
+      "fieldtype": "Link",
+      "label": "Room",
+      "options": "Room"
+    },
+    {
+      "fieldname": "instructor",
+      "fieldtype": "Link",
+      "label": "Instructor",
+      "options": "Instructor"
+    }
+  ],
+  "links": [],
+  "modified": "2026-08-27 00:00:00.000000",
+  "modified_by": "Administrator",
+  "module": "Examination",
+  "name": "Assessment Plan",
+  "owner": "Administrator",
+  "permissions": [
+    {
+      "role": "System Manager",
+      "create": 1,
+      "delete": 1,
+      "email": 1,
+      "export": 1,
+      "print": 1,
+      "read": 1,
+      "report": 1,
+      "share": 1,
+      "write": 1
+    },
+    {
+      "role": "Academic Head",
+      "create": 1,
+      "delete": 1,
+      "email": 1,
+      "export": 1,
+      "print": 1,
+      "read": 1,
+      "report": 1,
+      "share": 1,
+      "write": 1
+    },
+    {
+      "role": "Instructor",
+      "read": 1
+    }
+  ],
+  "search_fields": "course,student_group",
+  "sort_field": "creation",
+  "sort_order": "DESC",
+  "states": [],
+  "track_changes": 1
+}
