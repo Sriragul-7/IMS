@@ -1,0 +1,242 @@
+{
+ "app": "institution_erp",
+ "charts": [],
+ "content": "[{\"id\": \"heEpxlxVag\", \"type\": \"shortcut\", \"data\": {\"shortcut_name\": \"Library Item\", \"col\": 3}}, {\"id\": \"snwuOBWAGr\", \"type\": \"shortcut\", \"data\": {\"shortcut_name\": \"Library Transaction\", \"col\": 3}}, {\"id\": \"oNhbJgntSV\", \"type\": \"shortcut\", \"data\": {\"shortcut_name\": \"Hostel Room\", \"col\": 3}}, {\"id\": \"wwDpVezFHb\", \"type\": \"shortcut\", \"data\": {\"shortcut_name\": \"Transport Route\", \"col\": 3}}, {\"id\": \"HzKlGNuExM\", \"type\": \"spacer\", \"data\": {\"col\": 12}}, {\"id\": \"zmPAFyttWV\", \"type\": \"card\", \"data\": {\"card_name\": \"Library\", \"col\": 4}}, {\"id\": \"aUgpOklcQr\", \"type\": \"card\", \"data\": {\"card_name\": \"Hostel\", \"col\": 4}}, {\"id\": \"exdlRkZTbl\", \"type\": \"card\", \"data\": {\"card_name\": \"Transport\", \"col\": 4}}, {\"id\": \"KzttjGaBUu\", \"type\": \"card\", \"data\": {\"card_name\": \"Reports\", \"col\": 4}}]",
+ "custom_blocks": [],
+ "docstatus": 0,
+ "doctype": "Workspace",
+ "for_user": "",
+ "hide_custom": 0,
+ "icon": "settings",
+ "idx": 1,
+ "is_hidden": 0,
+ "label": "Facilities",
+ "links": [
+  {
+   "type": "Card Break",
+   "label": "Library",
+   "hidden": 0,
+   "link_count": 0,
+   "link_type": "",
+   "onboard": 0
+  },
+  {
+   "type": "Link",
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Book Category",
+   "link_count": 0,
+   "link_to": "Book Category",
+   "link_type": "DocType",
+   "onboard": 0
+  },
+  {
+   "type": "Link",
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Library Item",
+   "link_count": 0,
+   "link_to": "Library Item",
+   "link_type": "DocType",
+   "onboard": 0
+  },
+  {
+   "type": "Link",
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Library Membership",
+   "link_count": 0,
+   "link_to": "Library Membership",
+   "link_type": "DocType",
+   "onboard": 0
+  },
+  {
+   "type": "Link",
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Library Transaction",
+   "link_count": 0,
+   "link_to": "Library Transaction",
+   "link_type": "DocType",
+   "onboard": 0
+  },
+  {
+   "type": "Card Break",
+   "label": "Hostel",
+   "hidden": 0,
+   "link_count": 0,
+   "link_type": "",
+   "onboard": 0
+  },
+  {
+   "type": "Link",
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Hostel",
+   "link_count": 0,
+   "link_to": "Hostel",
+   "link_type": "DocType",
+   "onboard": 0
+  },
+  {
+   "type": "Link",
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Hostel Room",
+   "link_count": 0,
+   "link_to": "Hostel Room",
+   "link_type": "DocType",
+   "onboard": 0
+  },
+  {
+   "type": "Link",
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Hostel Room Allocation",
+   "link_count": 0,
+   "link_to": "Hostel Room Allocation",
+   "link_type": "DocType",
+   "onboard": 0
+  },
+  {
+   "type": "Card Break",
+   "label": "Transport",
+   "hidden": 0,
+   "link_count": 0,
+   "link_type": "",
+   "onboard": 0
+  },
+  {
+   "type": "Link",
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Vehicle",
+   "link_count": 0,
+   "link_to": "Vehicle",
+   "link_type": "DocType",
+   "onboard": 0
+  },
+  {
+   "type": "Link",
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Transport Route",
+   "link_count": 0,
+   "link_to": "Transport Route",
+   "link_type": "DocType",
+   "onboard": 0
+  },
+  {
+   "type": "Link",
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Student Transport Allocation",
+   "link_count": 0,
+   "link_to": "Student Transport Allocation",
+   "link_type": "DocType",
+   "onboard": 0
+  },
+  {
+   "type": "Card Break",
+   "label": "Reports",
+   "hidden": 0,
+   "link_count": 0,
+   "link_type": "",
+   "onboard": 0
+  },
+  {
+   "type": "Link",
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Library Circulation Report",
+   "link_count": 0,
+   "link_to": "Library Circulation Report",
+   "link_type": "Report",
+   "onboard": 0
+  },
+  {
+   "type": "Link",
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Hostel Occupancy Report",
+   "link_count": 0,
+   "link_to": "Hostel Occupancy Report",
+   "link_type": "Report",
+   "onboard": 0
+  },
+  {
+   "type": "Link",
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Transport Route Utilization",
+   "link_count": 0,
+   "link_to": "Transport Route Utilization",
+   "link_type": "Report",
+   "onboard": 0
+  }
+ ],
+ "modified": "2026-08-27 00:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "Library",
+ "name": "Facilities",
+ "number_cards": [
+  {
+   "number_card_name": "Books Currently Issued",
+   "width": "Half"
+  },
+  {
+   "number_card_name": "Hostel Occupancy (Rooms Occupied)",
+   "width": "Half"
+  }
+ ],
+ "owner": "Administrator",
+ "parent_page": "",
+ "public": 1,
+ "quick_lists": [],
+ "restrict_to_domain": "",
+ "roles": [
+  {
+   "role": "Facility Manager"
+  },
+  {
+   "role": "System Manager"
+  }
+ ],
+ "sequence_id": 1.0,
+ "shortcuts": [
+  {
+   "color": "Grey",
+   "doc_view": "List",
+   "label": "Library Item",
+   "link_to": "Library Item",
+   "stats_filter": "[]",
+   "type": "DocType"
+  },
+  {
+   "color": "Grey",
+   "doc_view": "List",
+   "label": "Library Transaction",
+   "link_to": "Library Transaction",
+   "stats_filter": "[]",
+   "type": "DocType"
+  },
+  {
+   "color": "Grey",
+   "doc_view": "List",
+   "label": "Hostel Room",
+   "link_to": "Hostel Room",
+   "stats_filter": "[]",
+   "type": "DocType"
+  },
+  {
+   "color": "Grey",
+   "doc_view": "List",
+   "label": "Transport Route",
+   "link_to": "Transport Route",
+   "stats_filter": "[]",
+   "type": "DocType"
+  }
+ ],
+ "title": "Facilities",
+ "type": "Workspace"
+}

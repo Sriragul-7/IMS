@@ -1,0 +1,230 @@
+{
+ "app": "institution_erp",
+ "charts": [],
+ "content": "[{\"id\": \"LwaQcADiWE\", \"type\": \"shortcut\", \"data\": {\"shortcut_name\": \"Program\", \"col\": 3}}, {\"id\": \"MDTdYefmDj\", \"type\": \"shortcut\", \"data\": {\"shortcut_name\": \"Course\", \"col\": 3}}, {\"id\": \"iOxSZsQdVf\", \"type\": \"shortcut\", \"data\": {\"shortcut_name\": \"Student Group\", \"col\": 3}}, {\"id\": \"wfKkJjbZCG\", \"type\": \"shortcut\", \"data\": {\"shortcut_name\": \"Instructor\", \"col\": 3}}, {\"id\": \"JPSofSYIiW\", \"type\": \"spacer\", \"data\": {\"col\": 12}}, {\"id\": \"QxoTVkapCC\", \"type\": \"card\", \"data\": {\"card_name\": \"Academic Setup\", \"col\": 4}}, {\"id\": \"EHYRIepzGo\", \"type\": \"card\", \"data\": {\"card_name\": \"Scheduling\", \"col\": 4}}, {\"id\": \"jMWFWlXSMl\", \"type\": \"card\", \"data\": {\"card_name\": \"Attendance & Examination\", \"col\": 4}}]",
+ "custom_blocks": [],
+ "docstatus": 0,
+ "doctype": "Workspace",
+ "for_user": "",
+ "hide_custom": 0,
+ "icon": "academic-cap",
+ "idx": 1,
+ "is_hidden": 0,
+ "label": "Academics",
+ "links": [
+  {
+   "type": "Card Break",
+   "label": "Academic Setup",
+   "hidden": 0,
+   "link_count": 0,
+   "link_type": "",
+   "onboard": 0
+  },
+  {
+   "type": "Link",
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Academic Year",
+   "link_count": 0,
+   "link_to": "Academic Year",
+   "link_type": "DocType",
+   "onboard": 0
+  },
+  {
+   "type": "Link",
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Academic Term",
+   "link_count": 0,
+   "link_to": "Academic Term",
+   "link_type": "DocType",
+   "onboard": 0
+  },
+  {
+   "type": "Link",
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Program",
+   "link_count": 0,
+   "link_to": "Program",
+   "link_type": "DocType",
+   "onboard": 0
+  },
+  {
+   "type": "Link",
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Course",
+   "link_count": 0,
+   "link_to": "Course",
+   "link_type": "DocType",
+   "onboard": 0
+  },
+  {
+   "type": "Card Break",
+   "label": "Scheduling",
+   "hidden": 0,
+   "link_count": 0,
+   "link_type": "",
+   "onboard": 0
+  },
+  {
+   "type": "Link",
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Student Group",
+   "link_count": 0,
+   "link_to": "Student Group",
+   "link_type": "DocType",
+   "onboard": 0
+  },
+  {
+   "type": "Link",
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Course Schedule",
+   "link_count": 0,
+   "link_to": "Course Schedule",
+   "link_type": "DocType",
+   "onboard": 0
+  },
+  {
+   "type": "Link",
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Instructor",
+   "link_count": 0,
+   "link_to": "Instructor",
+   "link_type": "DocType",
+   "onboard": 0
+  },
+  {
+   "type": "Link",
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Room",
+   "link_count": 0,
+   "link_to": "Room",
+   "link_type": "DocType",
+   "onboard": 0
+  },
+  {
+   "type": "Card Break",
+   "label": "Attendance & Examination",
+   "hidden": 0,
+   "link_count": 0,
+   "link_type": "",
+   "onboard": 0
+  },
+  {
+   "type": "Link",
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Student Attendance",
+   "link_count": 0,
+   "link_to": "Student Attendance",
+   "link_type": "DocType",
+   "onboard": 0
+  },
+  {
+   "type": "Link",
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Staff Attendance",
+   "link_count": 0,
+   "link_to": "Staff Attendance",
+   "link_type": "DocType",
+   "onboard": 0
+  },
+  {
+   "type": "Link",
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Assessment Plan",
+   "link_count": 0,
+   "link_to": "Assessment Plan",
+   "link_type": "DocType",
+   "onboard": 0
+  },
+  {
+   "type": "Link",
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Assessment Result",
+   "link_count": 0,
+   "link_to": "Assessment Result",
+   "link_type": "DocType",
+   "onboard": 0
+  },
+  {
+   "type": "Link",
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Grading Scale",
+   "link_count": 0,
+   "link_to": "Grading Scale",
+   "link_type": "DocType",
+   "onboard": 0
+  }
+ ],
+ "modified": "2026-08-27 00:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "Academics",
+ "name": "Academics",
+ "number_cards": [
+  {
+   "number_card_name": "Total Active Students",
+   "width": "Half"
+  }
+ ],
+ "owner": "Administrator",
+ "parent_page": "",
+ "public": 1,
+ "quick_lists": [],
+ "restrict_to_domain": "",
+ "roles": [
+  {
+   "role": "Academic Head"
+  },
+  {
+   "role": "System Manager"
+  }
+ ],
+ "sequence_id": 1.0,
+ "shortcuts": [
+  {
+   "color": "Grey",
+   "doc_view": "List",
+   "label": "Program",
+   "link_to": "Program",
+   "stats_filter": "[]",
+   "type": "DocType"
+  },
+  {
+   "color": "Grey",
+   "doc_view": "List",
+   "label": "Course",
+   "link_to": "Course",
+   "stats_filter": "[]",
+   "type": "DocType"
+  },
+  {
+   "color": "Grey",
+   "doc_view": "List",
+   "label": "Student Group",
+   "link_to": "Student Group",
+   "stats_filter": "[]",
+   "type": "DocType"
+  },
+  {
+   "color": "Grey",
+   "doc_view": "List",
+   "label": "Instructor",
+   "link_to": "Instructor",
+   "stats_filter": "[]",
+   "type": "DocType"
+  }
+ ],
+ "title": "Academics",
+ "type": "Workspace"
+}

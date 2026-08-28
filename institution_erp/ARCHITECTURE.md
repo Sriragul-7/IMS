@@ -385,3 +385,100 @@ Internal (non-whitelisted) helper functions in `api.py`:
 - **Mobile App via REST API** — Expose the existing whitelisted methods and DocType CRUD via Frappe's built-in REST API for mobile consumption
 - **Batch/Section Management** — Add academic batch and section concepts for managing student cohorts across years
 - **Hostel Mess Management** — Extend Hostel with mess/meal planning and attendance
+
+---
+
+## 11. UI Architecture (Phases 1-4)
+
+The UI overhaul (Phases 1-4) introduced a multi-layer frontend architecture on top of the existing Frappe backend.
+
+### 11.1 Design System
+
+A hand-written CSS design system with custom properties (design tokens) — no Tailwind or CSS framework dependency.
+
+**File:** `portal/src/styles/design-system.css`
+
+| Token Category | Examples |
+|----------------|----------|
+| Colors | `--color-primary`, `--color-success`, `--color-warning`, `--color-danger` |
+| Typography | `--text-xs` through `--text-3xl`, `--leading-relaxed` |
+| Spacing | `--space-1` (4px) through `--space-8` (32px) |
+| Radii | `--radius-sm` (6px), `--radius-md` (10px), `--radius-lg` (14px), `--radius-xl` (20px) |
+| Shadows | `--shadow-sm`, `--shadow-md`, `--shadow-lg` |
+| Transitions | `--transition-fast` (150ms), `--transition-base` (200ms) |
+
+**Reusable base components** (Vue SFCs in `portal/src/components/`):
+- `StatCard.vue` — Metric display with icon, value, label, color
+- `StatusBadge.vue` — Colored status pill with dot indicator
+- `EmptyState.vue` — Illustrated empty state with icon, title, description
+- `PageHeader.vue` — Page title + subtitle with consistent spacing
+
+### 11.2 Hybrid Architecture (Staff UI)
+
+A deliberate "Option C" hybrid model was chosen over two alternatives:
+
+| Option | Approach | Why Not Chosen |
+|--------|----------|----------------|
+| A (Full Vue CRUD) | Reimplement all DocType CRUD in Vue | Too risky — duplicates Frappe's validated forms, massive effort |
+| B (Desk Only) | Just re-theme Frappe Desk | Doesn't deliver a portal experience for staff |
+| **C (Hybrid)** | **Vue cockpit + re-themed Desk** | **Chosen** — Vue handles high-frequency actions (quick-mark attendance, record payments), Desk handles full CRUD |
+
+**How it works:**
+1. Staff logs in → lands on role-specific Vue cockpit page
+2. Cockpit shows stats, quick-action links, and overview data
+3. "Open Full Desk" button opens Frappe Desk in a new tab for full CRUD operations
+4. Desk is visually rebranded via `desk-theme.css` (Inter font, BIT primary color, consistent radii)
+
+### 11.3 Cockpit Pages
+
+| Cockpit | Role | API Endpoints | Key Features |
+|---------|------|---------------|--------------|
+| `InstructorCockpit.vue` | Instructor | `portal_get_attendance_summary`, `portal_get_pending_assessments` | Today's classes, attendance stats, pending marks |
+| `FeeManagerCockpit.vue` | Fee Manager | `portal_get_all_fees`, `portal_get_pending_discounts` | Collection overview, pending discounts, quick-pay |
+| `FacilityManagerCockpit.vue` | Facility Manager | `portal_get_library_all`, `portal_get_hostel_overview` | Library active/overdue items, hostel occupancy |
+| `CommunicationCockpit.vue` | Communication Officer | `portal_get_notices`, `portal_get_feedback_queue` | Published notices, feedback queue |
+| `AdmissionsCockpit.vue` | Admissions Officer | `portal_get_admission_inquiries`, `portal_get_admission_pipeline` | Pipeline stages, inquiry list |
+| `AcademicHeadCockpit.vue` | Academic Head | `portal_get_academic_overview`, `portal_get_attendance_overview`, `portal_get_exam_performance` | Programs, attendance, exam stats |
+| `AdminCockpit.vue` | System Manager | `portal_get_admin_overview` | Institution-wide: 10 aggregate stats, module quick access, pipeline, system health |
+
+### 11.4 Student/Guardian Portal
+
+**File:** `portal/src/pages/` (DashboardPage, AttendancePage, ResultsPage, FeesPage, LibraryPage, NoticesPage, FeedbackPage, ProfilePage)
+
+- Vue 3 SPA with hash-based routing (`/institution-portal/#/attendance`)
+- Guardian child switcher in sidebar (dropdown to switch between linked children)
+- All data fetched via `callAPI()` → `frappe.call()` → whitelisted Python methods
+- Row-level security via `permission_query_conditions` (SQL WHERE injection)
+- Results gated by `results_published` on Assessment Group
+
+### 11.5 Routing & Role Detection
+
+**Login flow:**
+1. `LoginPage.vue` authenticates via `/api/method/login`
+2. Calls `portal_get_profile` or `portal_get_staff_profile` to determine role
+3. `main.js` `beforeEach` guard routes based on role:
+   - Student → cockpit page (e.g., `/dashboard`)
+   - Guardian → cockpit page with child switcher
+   - Staff → role-specific cockpit (e.g., `/instructor-cockpit`)
+   - System Manager → `/admin-cockpit`
+
+**`role_home_page` hook** in `hooks.py` maps each role to `institution-portal` (the Vue SPA entry point). The Vue app then handles internal routing.
+
+### 11.6 Desk CSS Injection
+
+- `hooks.py`: `app_include_css = ["/assets/institution_erp/css/inter-font.css", "/assets/institution_erp/css/desk-theme.css"]`
+- Frappe loads these on every `/app` page load
+- No template modification required — hook system handles it
+- Self-hosted Inter font (4 weights, ~24KB each) — zero external CDN dependency
+
+### 11.7 Build Pipeline
+
+```
+portal/src/**/*.vue → Vite build → public/portal/{portal.css, portal.js}
+                                        ↓
+institution_erp/public/portal/ ← cp -r (deploy to Frappe static assets)
+                                        ↓
+institution-portal.html ← <link> + <script> tags reference stable filenames
+```
+
+Key design decision: **stable output filenames** (`portal.css`, `portal.js`) so the HTML template never needs updating after rebuilds.

@@ -1,0 +1,23 @@
+{
+  "name": "institution_erp",
+  "version": "1.0.0",
+  "description": "Institution Student ERP Extension",
+  "type": "module",
+  "scripts": {
+    "dev": "cd portal && vite",
+    "build": "cd portal && vite build",
+    "preview": "cd portal && vite preview"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "frappe-ui": "^0.1.278",
+    "vue": "^3.5.42",
+    "vue-router": "^4.6.4"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^6.0.8",
+    "vite": "^8.2.2"
+  }
+}

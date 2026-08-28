@@ -33,5 +33,10 @@ class FeePayment(Document):
 
         fees_doc = frappe.get_doc("Fees", self.fees)
         fees_doc.recompute_paid_and_status()
-        fees_doc.save(ignore_permissions=True)
+
+        frappe.db.set_value("Fees", self.fees, {
+            "paid_amount": fees_doc.paid_amount,
+            "outstanding_amount": fees_doc.outstanding_amount,
+            "status": fees_doc.status,
+        })
         frappe.db.commit()

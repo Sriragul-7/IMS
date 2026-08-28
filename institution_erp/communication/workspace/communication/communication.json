@@ -1,0 +1,116 @@
+{
+ "app": "institution_erp",
+ "charts": [],
+ "content": "[{\"id\": \"QRvvZyNXAX\", \"type\": \"shortcut\", \"data\": {\"shortcut_name\": \"Notice\", \"col\": 3}}, {\"id\": \"ClnsNnoqcN\", \"type\": \"shortcut\", \"data\": {\"shortcut_name\": \"Feedback\", \"col\": 3}}, {\"id\": \"vcYJGoZicK\", \"type\": \"shortcut\", \"data\": {\"shortcut_name\": \"New Notice\", \"col\": 3}}, {\"id\": \"HLaZnIXVZg\", \"type\": \"spacer\", \"data\": {\"col\": 12}}, {\"id\": \"VYkIXQMafu\", \"type\": \"card\", \"data\": {\"card_name\": \"Communication\", \"col\": 4}}]",
+ "custom_blocks": [],
+ "docstatus": 0,
+ "doctype": "Workspace",
+ "for_user": "",
+ "hide_custom": 0,
+ "icon": "chat",
+ "idx": 1,
+ "is_hidden": 0,
+ "label": "Communication",
+ "links": [
+  {
+   "type": "Card Break",
+   "label": "Communication",
+   "hidden": 0,
+   "link_count": 0,
+   "link_type": "",
+   "onboard": 0
+  },
+  {
+   "type": "Link",
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Notice",
+   "link_count": 0,
+   "link_to": "Notice",
+   "link_type": "DocType",
+   "onboard": 0
+  },
+  {
+   "type": "Link",
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Notice Recipient",
+   "link_count": 0,
+   "link_to": "Notice Recipient",
+   "link_type": "DocType",
+   "onboard": 0
+  },
+  {
+   "type": "Link",
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Feedback",
+   "link_count": 0,
+   "link_to": "Feedback",
+   "link_type": "DocType",
+   "onboard": 0
+  },
+  {
+   "type": "Link",
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Communication Log",
+   "link_count": 0,
+   "link_to": "Communication Log",
+   "link_type": "DocType",
+   "onboard": 0
+  }
+ ],
+ "modified": "2026-08-27 00:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "Communication",
+ "name": "Communication",
+ "number_cards": [
+  {
+   "number_card_name": "Open Feedback/Complaints",
+   "width": "Half"
+  }
+ ],
+ "owner": "Administrator",
+ "parent_page": "",
+ "public": 1,
+ "quick_lists": [],
+ "restrict_to_domain": "",
+ "roles": [
+  {
+   "role": "Communication Officer"
+  },
+  {
+   "role": "System Manager"
+  }
+ ],
+ "sequence_id": 1.0,
+ "shortcuts": [
+  {
+   "color": "Grey",
+   "doc_view": "List",
+   "label": "Notice",
+   "link_to": "Notice",
+   "stats_filter": "[]",
+   "type": "DocType"
+  },
+  {
+   "color": "Grey",
+   "doc_view": "List",
+   "label": "Feedback",
+   "link_to": "Feedback",
+   "stats_filter": "[]",
+   "type": "DocType"
+  },
+  {
+   "color": "Green",
+   "doc_view": "Form",
+   "label": "New Notice",
+   "link_to": "Notice",
+   "stats_filter": "[]",
+   "type": "DocType"
+  }
+ ],
+ "title": "Communication",
+ "type": "Workspace"
+}

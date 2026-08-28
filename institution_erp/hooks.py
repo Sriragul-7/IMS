@@ -25,8 +25,7 @@ app_license = "mit"
 # ------------------
 
 # include js, css files in header of desk.html
-# app_include_css = "/assets/institution_erp/css/institution_erp.css"
-# app_include_js = "/assets/institution_erp/js/institution_erp.js"
+app_include_css = ["/assets/institution_erp/css/inter-font.css", "/assets/institution_erp/css/desk-theme.css"]
 
 # include js, css files in header of web template
 # web_include_css = "/assets/institution_erp/css/institution_erp.css"
@@ -48,6 +47,12 @@ app_license = "mit"
 # doctype_tree_js = {"doctype" : "public/js/doctype_tree.js"}
 # doctype_calendar_js = {"doctype" : "public/js/doctype_calendar.js"}
 
+# Portal
+# ------
+website_route_rules = [
+	{"from_route": "/institution-portal/<path:app_path>", "to_route": "institution-portal"},
+]
+
 # Svg Icons
 # ------------------
 # include app icons in desk
@@ -60,9 +65,16 @@ app_license = "mit"
 # home_page = "login"
 
 # website user home page (by Role)
-# role_home_page = {
-# 	"Role": "home_page"
-# }
+role_home_page = {
+	"Student": "institution-portal",
+	"Guardian": "institution-portal",
+	"Instructor": "institution-portal",
+	"Academic Head": "institution-portal",
+	"Fee Manager": "institution-portal",
+	"Facility Manager": "institution-portal",
+	"Communication Officer": "institution-portal",
+	"System Manager": "institution-portal",
+}
 
 # Generators
 # ----------

@@ -1,0 +1,144 @@
+{
+ "app": "institution_erp",
+ "charts": [],
+ "content": "[{\"id\": \"IxPAXQCGio\", \"type\": \"shortcut\", \"data\": {\"shortcut_name\": \"Admission Inquiry\", \"col\": 3}}, {\"id\": \"ZczLQcVhiH\", \"type\": \"shortcut\", \"data\": {\"shortcut_name\": \"Student Applicant\", \"col\": 3}}, {\"id\": \"zGxCNJrPcQ\", \"type\": \"shortcut\", \"data\": {\"shortcut_name\": \"New Admission Inquiry\", \"col\": 3}}, {\"id\": \"PxVcvffIdI\", \"type\": \"spacer\", \"data\": {\"col\": 12}}, {\"id\": \"tYNpcFEazJ\", \"type\": \"card\", \"data\": {\"card_name\": \"Admissions\", \"col\": 4}}, {\"id\": \"OuaBRweNfq\", \"type\": \"card\", \"data\": {\"card_name\": \"Students\", \"col\": 4}}]",
+ "custom_blocks": [],
+ "docstatus": 0,
+ "doctype": "Workspace",
+ "for_user": "",
+ "hide_custom": 0,
+ "icon": "admissions",
+ "idx": 1,
+ "is_hidden": 0,
+ "label": "Admissions",
+ "links": [
+  {
+   "type": "Card Break",
+   "label": "Admissions",
+   "hidden": 0,
+   "link_count": 0,
+   "link_type": "",
+   "onboard": 0
+  },
+  {
+   "type": "Link",
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Admission Inquiry",
+   "link_count": 0,
+   "link_to": "Admission Inquiry",
+   "link_type": "DocType",
+   "onboard": 0
+  },
+  {
+   "type": "Link",
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Student Applicant",
+   "link_count": 0,
+   "link_to": "Student Applicant",
+   "link_type": "DocType",
+   "onboard": 0
+  },
+  {
+   "type": "Link",
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Entrance Test",
+   "link_count": 0,
+   "link_to": "Entrance Test",
+   "link_type": "DocType",
+   "onboard": 0
+  },
+  {
+   "type": "Link",
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Entrance Test Result",
+   "link_count": 0,
+   "link_to": "Entrance Test Result",
+   "link_type": "DocType",
+   "onboard": 0
+  },
+  {
+   "type": "Card Break",
+   "label": "Students",
+   "hidden": 0,
+   "link_count": 0,
+   "link_type": "",
+   "onboard": 0
+  },
+  {
+   "type": "Link",
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Student",
+   "link_count": 0,
+   "link_to": "Student",
+   "link_type": "DocType",
+   "onboard": 0
+  },
+  {
+   "type": "Link",
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Student Group",
+   "link_count": 0,
+   "link_to": "Student Group",
+   "link_type": "DocType",
+   "onboard": 0
+  }
+ ],
+ "modified": "2026-08-27 00:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "Admissions",
+ "name": "Admissions",
+ "number_cards": [
+  {
+   "number_card_name": "Total Active Students",
+   "width": "Half"
+  }
+ ],
+ "owner": "Administrator",
+ "parent_page": "",
+ "public": 1,
+ "quick_lists": [],
+ "restrict_to_domain": "",
+ "roles": [
+  {
+   "role": "Admissions Officer"
+  },
+  {
+   "role": "Academic Head"
+  }
+ ],
+ "sequence_id": 1.0,
+ "shortcuts": [
+  {
+   "color": "Grey",
+   "doc_view": "List",
+   "label": "Admission Inquiry",
+   "link_to": "Admission Inquiry",
+   "stats_filter": "[]",
+   "type": "DocType"
+  },
+  {
+   "color": "Grey",
+   "doc_view": "List",
+   "label": "Student Applicant",
+   "link_to": "Student Applicant",
+   "stats_filter": "[]",
+   "type": "DocType"
+  },
+  {
+   "color": "Green",
+   "doc_view": "Form",
+   "label": "New Admission Inquiry",
+   "link_to": "Admission Inquiry",
+   "stats_filter": "[]",
+   "type": "DocType"
+  }
+ ],
+ "title": "Admissions",
+ "type": "Workspace"
+}

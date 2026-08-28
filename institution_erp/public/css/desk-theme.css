@@ -1,0 +1,309 @@
+/* BIT Desk Theme — Phase 2 Design System Tokens applied to Frappe Desk */
+
+/* Self-hosted Inter font (Latin subset, weights 400-700) */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('/assets/institution_erp/fonts/inter-400.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url('/assets/institution_erp/fonts/inter-500.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url('/assets/institution_erp/fonts/inter-600.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url('/assets/institution_erp/fonts/inter-700.woff2') format('woff2');
+}
+
+:root {
+  --bit-primary: #1e40af;
+  --bit-primary-hover: #1e3a8a;
+  --bit-primary-light: #dbeafe;
+  --bit-success: #059669;
+  --bit-warning: #d97706;
+  --bit-danger: #dc2626;
+  --bit-info: #2563eb;
+  --bit-purple: #7c3aed;
+  --bit-gray-50: #f9fafb;
+  --bit-gray-100: #f3f4f6;
+  --bit-gray-200: #e5e7eb;
+  --bit-gray-300: #d1d5db;
+  --bit-gray-400: #9ca3af;
+  --bit-gray-500: #6b7280;
+  --bit-gray-600: #4b5563;
+  --bit-gray-700: #374151;
+  --bit-gray-800: #1f2937;
+  --bit-gray-900: #111827;
+  --bit-font: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+}
+
+/* ── Font Override ── */
+body,
+.page-container,
+.page-body,
+.form-page,
+.list-page,
+.desktop-app,
+#app,
+.frappe-control,
+.control-value,
+.filter-area,
+.form-control,
+.btn,
+.btn-primary,
+.btn-default,
+.btn-secondary,
+.input-group .form-control,
+.awesomplete field,
+textarea,
+select,
+.modal-content,
+.dropdown-menu,
+.popover,
+.sidebar-menu,
+.frappe-list .list-row,
+.tree-node .tree-link,
+.tab-pane {
+  font-family: var(--bit-font) !important;
+}
+
+/* ── Primary Color Override ── */
+.btn-primary {
+  background: var(--bit-primary) !important;
+  border-color: var(--bit-primary) !important;
+}
+
+.btn-primary:hover,
+.btn-primary:active,
+.btn-primary:focus {
+  background: var(--bit-primary-hover) !important;
+  border-color: var(--bit-primary-hover) !important;
+}
+
+.btn-primary:active {
+  box-shadow: 0 0 0 3px rgba(30, 64, 175, 0.25) !important;
+}
+
+/* ── Links ── */
+a {
+  color: var(--bit-primary) !important;
+}
+
+a:hover {
+  color: var(--bit-primary-hover) !important;
+}
+
+/* ── Form Input Focus ── */
+.form-control:focus,
+.form-group .form-control:focus,
+.awesomplete field:focus,
+textarea:focus,
+select:focus {
+  border-color: var(--bit-primary) !important;
+  box-shadow: 0 0 0 3px rgba(30, 64, 175, 0.12) !important;
+}
+
+/* ── Sidebar Enhancement ── */
+.sidebar-menu .sidebar-label {
+  font-family: var(--bit-font) !important;
+}
+
+.sidebar-menu .item-anchor {
+  font-family: var(--bit-font) !important;
+}
+
+.sidebar-menu .item-anchor.active,
+.sidebar-menu .item-anchor:hover {
+  background: rgba(30, 64, 175, 0.08) !important;
+}
+
+/* ── Page Header ── */
+.page-header {
+  font-family: var(--bit-font) !important;
+}
+
+.page-head {
+  font-family: var(--bit-font) !important;
+}
+
+/* ── List View Enhancements ── */
+.frappe-list .list-row {
+  font-family: var(--bit-font) !important;
+}
+
+.frappe-list .list-row:hover {
+  background: var(--bit-gray-50) !important;
+}
+
+.frappe-list .list-select-all,
+.frappe-list .list-select {
+  accent-color: var(--bit-primary) !important;
+}
+
+/* ── Form Page ── */
+.form-page {
+  font-family: var(--bit-font) !important;
+}
+
+.section-head {
+  font-family: var(--bit-font) !important;
+  color: var(--bit-gray-700) !important;
+  border-bottom: 2px solid var(--bit-primary) !important;
+}
+
+/* ── Modal Enhancement ── */
+.modal-header {
+  border-bottom-color: var(--bit-gray-200) !important;
+}
+
+.modal-footer {
+  border-top-color: var(--bit-gray-200) !important;
+}
+
+/* ── Badge/Tag Colors ── */
+.badge-primary,
+.label-primary {
+  background: var(--bit-primary) !important;
+}
+
+.badge-success,
+.label-success {
+  background: var(--bit-success) !important;
+}
+
+.badge-warning,
+.label-warning {
+  background: var(--bit-warning) !important;
+}
+
+.badge-danger,
+.label-danger {
+  background: var(--bit-danger) !important;
+}
+
+.badge-info,
+.label-info {
+  background: var(--bit-info) !important;
+}
+
+/* ── Tab Navigation ── */
+.nav-tabs .nav-link {
+  font-family: var(--bit-font) !important;
+  font-weight: 500;
+}
+
+.nav-tabs .nav-link.active {
+  color: var(--bit-primary) !important;
+  border-bottom-color: var(--bit-primary) !important;
+}
+
+/* ── Dropdown Menu ── */
+.dropdown-menu {
+  font-family: var(--bit-font) !important;
+  border-radius: 10px !important;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1) !important;
+  border: 1px solid var(--bit-gray-200) !important;
+  padding: 8px !important;
+}
+
+.dropdown-item {
+  border-radius: 6px !important;
+  padding: 8px 12px !important;
+}
+
+.dropdown-item:hover {
+  background: var(--bit-gray-50) !important;
+  color: var(--bit-primary) !important;
+}
+
+/* ── Page Actions Bar ── */
+.page-actions {
+  border-bottom-color: var(--bit-gray-200) !important;
+}
+
+/* ── Workspace Card Enhancement ── */
+.workspace-section .section-header {
+  font-family: var(--bit-font) !important;
+}
+
+/* ── List Filter Enhancement ── */
+.filter-pill {
+  font-family: var(--bit-font) !important;
+  background: var(--bit-gray-100) !important;
+  border: 1px solid var(--bit-gray-200) !important;
+}
+
+.filter-pill .filter-label {
+  color: var(--bit-gray-600) !important;
+}
+
+/* ── Report Page ── */
+.report-page .page-head {
+  background: var(--bit-gray-50) !important;
+  border-bottom: 1px solid var(--bit-gray-200) !important;
+}
+
+/* ── Smooth Transitions ── */
+.btn,
+.form-control,
+.nav-link,
+.dropdown-item,
+.list-row {
+  transition: all 0.15s ease !important;
+}
+
+/* ── Border Radius Consistency ── */
+.btn {
+  border-radius: 8px !important;
+}
+
+.form-control,
+.form-group .form-control {
+  border-radius: 8px !important;
+}
+
+.modal-content {
+  border-radius: 14px !important;
+  overflow: hidden;
+}
+
+/* ── Notification Enhancement ── */
+.toast-message {
+  font-family: var(--bit-font) !important;
+}
+
+/* ── Hide default Frappe desk header background (make it subtle) ── */
+.desk-container .page-container {
+  background: var(--bit-gray-50) !important;
+}
+
+/* ── Workspace-specific tweaks ── */
+.workspace-header {
+  font-family: var(--bit-font) !important;
+}
+
+.workspace-card {
+  border-radius: 12px !important;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06) !important;
+  border: 1px solid var(--bit-gray-200) !important;
+}
+
+.workspace-card:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08) !important;
+  border-color: var(--bit-primary-light, #dbeafe) !important;
+}

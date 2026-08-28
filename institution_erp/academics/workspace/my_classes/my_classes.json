@@ -1,0 +1,136 @@
+{
+ "app": "institution_erp",
+ "charts": [],
+ "content": "[{\"id\": \"SRUKYbdzFZ\", \"type\": \"shortcut\", \"data\": {\"shortcut_name\": \"Course Schedule\", \"col\": 3}}, {\"id\": \"YTkguYqpue\", \"type\": \"shortcut\", \"data\": {\"shortcut_name\": \"Student Attendance\", \"col\": 3}}, {\"id\": \"QfzmdgyXkk\", \"type\": \"shortcut\", \"data\": {\"shortcut_name\": \"Assessment Plan\", \"col\": 3}}, {\"id\": \"eZWrtRIEAl\", \"type\": \"spacer\", \"data\": {\"col\": 12}}, {\"id\": \"OhlmeWIIcu\", \"type\": \"card\", \"data\": {\"card_name\": \"My Teaching\", \"col\": 4}}, {\"id\": \"gdmsnSAVEe\", \"type\": \"card\", \"data\": {\"card_name\": \"Assessment\", \"col\": 4}}]",
+ "custom_blocks": [],
+ "docstatus": 0,
+ "doctype": "Workspace",
+ "for_user": "",
+ "hide_custom": 0,
+ "icon": "education",
+ "idx": 1,
+ "is_hidden": 0,
+ "label": "My Classes",
+ "links": [
+  {
+   "type": "Card Break",
+   "label": "My Teaching",
+   "hidden": 0,
+   "link_count": 0,
+   "link_type": "",
+   "onboard": 0
+  },
+  {
+   "type": "Link",
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Course Schedule",
+   "link_count": 0,
+   "link_to": "Course Schedule",
+   "link_type": "DocType",
+   "onboard": 0
+  },
+  {
+   "type": "Link",
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Student Group",
+   "link_count": 0,
+   "link_to": "Student Group",
+   "link_type": "DocType",
+   "onboard": 0
+  },
+  {
+   "type": "Link",
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Student Attendance",
+   "link_count": 0,
+   "link_to": "Student Attendance",
+   "link_type": "DocType",
+   "onboard": 0
+  },
+  {
+   "type": "Card Break",
+   "label": "Assessment",
+   "hidden": 0,
+   "link_count": 0,
+   "link_type": "",
+   "onboard": 0
+  },
+  {
+   "type": "Link",
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Assessment Plan",
+   "link_count": 0,
+   "link_to": "Assessment Plan",
+   "link_type": "DocType",
+   "onboard": 0
+  },
+  {
+   "type": "Link",
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Assessment Result",
+   "link_count": 0,
+   "link_to": "Assessment Result",
+   "link_type": "DocType",
+   "onboard": 0
+  },
+  {
+   "type": "Link",
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Grading Scale",
+   "link_count": 0,
+   "link_to": "Grading Scale",
+   "link_type": "DocType",
+   "onboard": 0
+  }
+ ],
+ "modified": "2026-08-27 00:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "Academics",
+ "name": "My Classes",
+ "number_cards": [],
+ "owner": "Administrator",
+ "parent_page": "",
+ "public": 1,
+ "quick_lists": [],
+ "restrict_to_domain": "",
+ "roles": [
+  {
+   "role": "Instructor"
+  }
+ ],
+ "sequence_id": 1.0,
+ "shortcuts": [
+  {
+   "color": "Grey",
+   "doc_view": "List",
+   "label": "Course Schedule",
+   "link_to": "Course Schedule",
+   "stats_filter": "[]",
+   "type": "DocType"
+  },
+  {
+   "color": "Grey",
+   "doc_view": "List",
+   "label": "Student Attendance",
+   "link_to": "Student Attendance",
+   "stats_filter": "[]",
+   "type": "DocType"
+  },
+  {
+   "color": "Grey",
+   "doc_view": "List",
+   "label": "Assessment Plan",
+   "link_to": "Assessment Plan",
+   "stats_filter": "[]",
+   "type": "DocType"
+  }
+ ],
+ "title": "My Classes",
+ "type": "Workspace"
+}

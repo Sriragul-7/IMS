@@ -109,3 +109,42 @@ bench --site institution.localhost execute institution_erp.e2e_test_stage8.execu
 - **Missing roles**: Run `bench --site institution.localhost execute institution_erp.setup_roles.execute`
 - **Number Card counts wrong**: Run `bench --site institution.localhost execute institution_erp.api.backfill_student_status` then `bench --site institution.localhost migrate`
 - **Portal users not seeing data**: Ensure `ensure_all_guardian_users()` / `ensure_all_student_users()` were called and User Permissions were created
+
+## Frontend Rebuild Process
+
+After ANY change to portal source files (`portal/src/**/*.vue`, `portal/src/**/*.js`, `portal/vite.config.js`), you must rebuild and deploy:
+
+```bash
+# One-command rebuild (from app root)
+cd apps/institution_erp && npm run build && rm -rf institution_erp/public/portal && cp -r public/portal institution_erp/public/portal && bench --site institution.localhost clear-cache
+```
+
+This does:
+1. `npm run build` — Vite compiles Vue sources to `public/portal/` (stable filenames: `portal.css`, `portal.js`)
+2. `rm -rf + cp -r` — Deploys built assets to Frappe's public directory
+3. `clear-cache` — Ensures Frappe serves the updated template (CSS link, JS link, brand strings)
+
+**Important:** The Vite config uses stable output filenames (`portal.css`, `portal.js`) so the template's `<link>` and `<script>` tags don't need updating after each build. The CSS `<link>` tag in `institution-portal.html` must always reference `portal.css` — if it's missing, the portal renders unstyled.
+
+## Desk Theming (Phase 3)
+
+The Frappe Desk is rebranded via a custom CSS file injected through Frappe's `app_include_css` hook:
+
+**Mechanism:**
+- `hooks.py` → `app_include_css = ["/assets/institution_erp/css/inter-font.css", "/assets/institution_erp/css/desk-theme.css"]`
+- Frappe loads these CSS files on every Desk page automatically
+- No template modification needed — the hook system handles injection
+
+**What desk-theme.css does:**
+- Self-hosted Inter font via `@font-face` declarations (4 weights: 400, 500, 600, 700)
+- CSS custom properties for BIT brand colors (`--bit-primary: #1e40af`, etc.)
+- Font family override across all Desk elements (body, forms, buttons, modals, dropdowns)
+- Button primary color override to BIT blue
+- Form focus ring styling
+- Border radius consistency (8px buttons/inputs, 14px modals)
+- Sidebar active state highlighting
+- Smooth transitions on interactive elements
+
+**Font files location:** `institution_erp/public/fonts/inter-{400,500,600,700}.woff2`
+
+**To modify desk theming:** Edit `institution_erp/public/css/desk-theme.css` — changes take effect after `bench clear-cache` (no rebuild needed since it's a static CSS file, not compiled by Vite).

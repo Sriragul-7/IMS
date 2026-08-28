@@ -52,22 +52,34 @@ class LibraryTransaction(Document):
         currently_issued = frappe.db.sql(
             "SELECT COUNT(*) FROM `tabLibrary Transaction` "
             "WHERE student = %s AND library_item = %s AND transaction_type = 'Issue' "
-            "AND name NOT IN (SELECT name FROM `tabLibrary Transaction` "
-            "WHERE student = %s AND library_item = %s AND transaction_type = 'Return')",
-            [self.student, self.library_item, self.student, self.library_item],
+            "AND docstatus = 1",
+            [self.student, self.library_item],
         )[0][0]
 
-        unreturned = frappe.db.sql(
-            "SELECT COUNT(*) FROM `tabLibrary Transaction` lt "
-            "WHERE lt.student = %s AND lt.transaction_type = 'Issue' "
-            "AND lt.name NOT IN ("
-            "  SELECT lt2.name FROM `tabLibrary Transaction` lt2 "
-            "  WHERE lt2.transaction_type = 'Return' "
-            "  AND lt2.library_item = lt.library_item "
+        currently_returned = frappe.db.sql(
+            "SELECT COUNT(*) FROM `tabLibrary Transaction` "
+            "WHERE student = %s AND library_item = %s AND transaction_type = 'Return' "
+            "AND docstatus = 1",
+            [self.student, self.library_item],
+        )[0][0]
+
+        if currently_issued > currently_returned:
+            frappe.throw(
+                f"Student '{self.student}' already has an unreturned copy of '{self.library_item}'."
+            )
+
+        unreturned_items = frappe.db.sql(
+            "SELECT DISTINCT lt.library_item FROM `tabLibrary Transaction` lt "
+            "WHERE lt.student = %s AND lt.transaction_type = 'Issue' AND lt.docstatus = 1 "
+            "AND lt.library_item NOT IN ("
+            "  SELECT DISTINCT lt2.library_item FROM `tabLibrary Transaction` lt2 "
+            "  WHERE lt2.transaction_type = 'Return' AND lt2.docstatus = 1 "
             "  AND lt2.student = lt.student"
             ")",
             [self.student],
-        )[0][0]
+        )
+
+        unreturned = len(unreturned_items)
 
         if unreturned >= membership.max_books_allowed:
             frappe.throw(

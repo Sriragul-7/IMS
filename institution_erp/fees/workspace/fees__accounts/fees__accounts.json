@@ -1,0 +1,175 @@
+{
+ "app": "institution_erp",
+ "charts": [
+  {
+   "chart_name": "Fee Collection Trend",
+   "width": "Half"
+  }
+ ],
+ "content": "[{\"id\": \"RfIrOjgxqf\", \"type\": \"shortcut\", \"data\": {\"shortcut_name\": \"Fees\", \"col\": 3}}, {\"id\": \"aWPFmYpujV\", \"type\": \"shortcut\", \"data\": {\"shortcut_name\": \"Fee Payment\", \"col\": 3}}, {\"id\": \"hBlwvpmJMe\", \"type\": \"shortcut\", \"data\": {\"shortcut_name\": \"Fee Structure\", \"col\": 3}}, {\"id\": \"qYWWBvKcjs\", \"type\": \"shortcut\", \"data\": {\"shortcut_name\": \"Fee Schedule\", \"col\": 3}}, {\"id\": \"WkEmKayfgF\", \"type\": \"spacer\", \"data\": {\"col\": 12}}, {\"id\": \"KrQxtvEFJd\", \"type\": \"card\", \"data\": {\"card_name\": \"Fee Setup\", \"col\": 4}}, {\"id\": \"IeSdfeBfAP\", \"type\": \"card\", \"data\": {\"card_name\": \"Transactions\", \"col\": 4}}, {\"id\": \"hHlAxfJWFb\", \"type\": \"card\", \"data\": {\"card_name\": \"Reports\", \"col\": 4}}]",
+ "custom_blocks": [],
+ "docstatus": 0,
+ "doctype": "Workspace",
+ "for_user": "",
+ "hide_custom": 0,
+ "icon": "currency",
+ "idx": 1,
+ "is_hidden": 0,
+ "label": "Fees & Accounts",
+ "links": [
+  {
+   "type": "Card Break",
+   "label": "Fee Setup",
+   "hidden": 0,
+   "link_count": 0,
+   "link_type": "",
+   "onboard": 0
+  },
+  {
+   "type": "Link",
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Fee Category",
+   "link_count": 0,
+   "link_to": "Fee Category",
+   "link_type": "DocType",
+   "onboard": 0
+  },
+  {
+   "type": "Link",
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Fee Structure",
+   "link_count": 0,
+   "link_to": "Fee Structure",
+   "link_type": "DocType",
+   "onboard": 0
+  },
+  {
+   "type": "Link",
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Fee Schedule",
+   "link_count": 0,
+   "link_to": "Fee Schedule",
+   "link_type": "DocType",
+   "onboard": 0
+  },
+  {
+   "type": "Card Break",
+   "label": "Transactions",
+   "hidden": 0,
+   "link_count": 0,
+   "link_type": "",
+   "onboard": 0
+  },
+  {
+   "type": "Link",
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Fees",
+   "link_count": 0,
+   "link_to": "Fees",
+   "link_type": "DocType",
+   "onboard": 0
+  },
+  {
+   "type": "Link",
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Fee Payment",
+   "link_count": 0,
+   "link_to": "Fee Payment",
+   "link_type": "DocType",
+   "onboard": 0
+  },
+  {
+   "type": "Link",
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Fee Discount",
+   "link_count": 0,
+   "link_to": "Fee Discount",
+   "link_type": "DocType",
+   "onboard": 0
+  },
+  {
+   "type": "Card Break",
+   "label": "Reports",
+   "hidden": 0,
+   "link_count": 0,
+   "link_type": "",
+   "onboard": 0
+  },
+  {
+   "type": "Link",
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Fee Dues Report",
+   "link_count": 0,
+   "link_to": "Fee Dues Report",
+   "link_type": "Report",
+   "onboard": 0
+  }
+ ],
+ "modified": "2026-08-27 00:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "Fees",
+ "name": "Fees & Accounts",
+ "number_cards": [
+  {
+   "number_card_name": "Total Outstanding Fees",
+   "width": "Half"
+  }
+ ],
+ "owner": "Administrator",
+ "parent_page": "",
+ "public": 1,
+ "quick_lists": [],
+ "restrict_to_domain": "",
+ "roles": [
+  {
+   "role": "Fee Manager"
+  },
+  {
+   "role": "System Manager"
+  }
+ ],
+ "sequence_id": 1.0,
+ "shortcuts": [
+  {
+   "color": "Grey",
+   "doc_view": "List",
+   "label": "Fees",
+   "link_to": "Fees",
+   "stats_filter": "[]",
+   "type": "DocType"
+  },
+  {
+   "color": "Grey",
+   "doc_view": "List",
+   "label": "Fee Payment",
+   "link_to": "Fee Payment",
+   "stats_filter": "[]",
+   "type": "DocType"
+  },
+  {
+   "color": "Grey",
+   "doc_view": "List",
+   "label": "Fee Structure",
+   "link_to": "Fee Structure",
+   "stats_filter": "[]",
+   "type": "DocType"
+  },
+  {
+   "color": "Grey",
+   "doc_view": "List",
+   "label": "Fee Schedule",
+   "link_to": "Fee Schedule",
+   "stats_filter": "[]",
+   "type": "DocType"
+  }
+ ],
+ "title": "Fees & Accounts",
+ "type": "Workspace"
+}

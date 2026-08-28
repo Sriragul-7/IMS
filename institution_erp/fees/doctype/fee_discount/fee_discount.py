@@ -24,7 +24,14 @@ class FeeDiscount(Document):
         else:
             discount_amount = self.discount_value
 
-        # Set the discount_amount field on the Fees doc
+        # Recompute outstanding with the new discount
         fees_doc.discount_amount = discount_amount
-        fees_doc.save(ignore_permissions=True)
+        fees_doc.recompute_paid_and_status()
+
+        frappe.db.set_value("Fees", self.fees, {
+            "discount_amount": fees_doc.discount_amount,
+            "paid_amount": fees_doc.paid_amount,
+            "outstanding_amount": fees_doc.outstanding_amount,
+            "status": fees_doc.status,
+        })
         frappe.db.commit()
