@@ -21,17 +21,17 @@
       >
         <template #actions>
           <a href="/app" class="btn btn-glass" target="_blank">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+            <span class="icon-svg" v-html="icons.layers"></span>
             Open Full Desk
           </a>
         </template>
       </HeroBanner>
 
       <div class="stats-grid">
-        <StatCard :value="stats.total_programs" label="Programs" color="#0f172a" icon="🎓" variant="default" />
-        <StatCard :value="stats.total_students" label="Students" color="#059669" icon="👥" variant="success" />
-        <StatCard :value="stats.avg_attendance" label="Avg Attendance" format="percent" color="#d97706" icon="📊" variant="amber" :trend="attendanceTrend" trend-variant="positive" />
-        <StatCard :value="stats.total_courses" label="Courses" color="#7c3aed" icon="📚" variant="purple" />
+        <StatCard :value="stats.total_programs" label="Programs" color="#0f172a" :icon="icons.graduation" variant="default" />
+        <StatCard :value="stats.total_students" label="Students" color="#059669" :icon="icons.users" variant="success" />
+        <StatCard :value="stats.avg_attendance" label="Avg Attendance" format="percent" color="#d97706" :icon="icons.chart" variant="amber" :trend="attendanceTrend" trend-variant="positive" />
+        <StatCard :value="stats.total_courses" label="Courses" color="#0d9488" :icon="icons.books" variant="default" />
       </div>
 
       <div class="dash-grid">
@@ -42,40 +42,24 @@
           <div class="card-body">
             <div class="action-grid">
               <a href="/app/student" class="action-card" target="_blank">
-                <div class="action-icon" style="background:rgba(30,64,175,0.1);color:#1e40af">
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="8.5" cy="7" r="4"></circle><line x1="18" y1="8" x2="18" y2="14"></line><line x1="22" y1="8" x2="22" y2="14"></line></svg>
-                </div>
-                <div class="action-content">
-                  <span class="action-label">Students</span>
-                  <span class="action-desc">View and manage all students</span>
-                </div>
+                <div class="action-card__icon" style="background:rgba(15,23,42,0.08);color:#0f172a" v-html="icons.user"></div>
+                <span class="action-card__title">Students</span>
+                <span class="action-card__desc">View and manage all students</span>
               </a>
               <a href="/app/student-group" class="action-card" target="_blank">
-                <div class="action-icon" style="background:rgba(5,150,105,0.1);color:#059669">
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
-                </div>
-                <div class="action-content">
-                  <span class="action-label">Student Groups</span>
-                  <span class="action-desc">Manage groups and sections</span>
-                </div>
+                <div class="action-card__icon" style="background:rgba(5,150,105,0.1);color:#059669" v-html="icons.users"></div>
+                <span class="action-card__title">Student Groups</span>
+                <span class="action-card__desc">Manage groups and sections</span>
               </a>
               <a href="/app/course" class="action-card" target="_blank">
-                <div class="action-icon" style="background:rgba(124,58,237,0.1);color:#7c3aed">
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path></svg>
-                </div>
-                <div class="action-content">
-                  <span class="action-label">Courses</span>
-                  <span class="action-desc">Manage course catalog</span>
-                </div>
+                <div class="action-card__icon" style="background:rgba(13,148,136,0.1);color:#0d9488" v-html="icons.book"></div>
+                <span class="action-card__title">Courses</span>
+                <span class="action-card__desc">Manage course catalog</span>
               </a>
               <a href="/app/program" class="action-card" target="_blank">
-                <div class="action-icon" style="background:rgba(217,119,6,0.1);color:#d97706">
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M22 4v6M22 16v6"></path><path d="M6 10v6M6 4v6M6 16v6"></path></svg>
-                </div>
-                <div class="action-content">
-                  <span class="action-label">Programs</span>
-                  <span class="action-desc">Manage academic programs</span>
-                </div>
+                <div class="action-card__icon" style="background:rgba(217,119,6,0.1);color:#d97706" v-html="icons.graduation"></div>
+                <span class="action-card__title">Programs</span>
+                <span class="action-card__desc">Manage academic programs</span>
               </a>
             </div>
           </div>
@@ -92,7 +76,7 @@
               :vertical="true"
               empty-title="No attendance data"
               empty-description="Attendance data not available"
-              empty-icon="📅"
+              :empty-icon="icons.calendar"
             >
               <template #actions="{ item }">
                 <a :href="`/app/student-attendance?group=${item.groupId}`" target="_blank" class="btn btn-ghost btn-xs">View</a>
@@ -100,7 +84,7 @@
             </TimelineList>
           </div>
           <div class="card-body" v-else>
-            <EmptyState title="No attendance data" description="Attendance data not available" icon="📅" size="sm" />
+            <EmptyState title="No attendance data" description="Attendance data not available" :icon="icons.calendar" size="sm" />
           </div>
         </div>
 
@@ -114,7 +98,7 @@
               :vertical="true"
               empty-title="No exam data"
               empty-description="Exam performance data not available"
-              empty-icon="📝"
+              :empty-icon="icons.document"
             >
               <template #actions="{ item }">
                 <a :href="`/app/assessment-result?assessment_plan=${item.planId}`" target="_blank" class="btn btn-ghost btn-xs">View</a>
@@ -122,7 +106,7 @@
             </TimelineList>
           </div>
           <div class="card-body" v-else>
-            <EmptyState title="No exam data" description="Exam performance data not available" icon="📝" size="sm" />
+            <EmptyState title="No exam data" description="Exam performance data not available" :icon="icons.document" size="sm" />
           </div>
         </div>
 
@@ -162,6 +146,7 @@
 <script setup>
 import { ref, computed, onMounted } from 'vue'
 import { getSessionUser, callAPI } from '../utils/api.js'
+import { icons } from '../utils/icons.js'
 import StatCard from '../components/StatCard.vue'
 import StatusBadge from '../components/StatusBadge.vue'
 import EmptyState from '../components/EmptyState.vue'
@@ -185,7 +170,7 @@ const greeting = computed(() => {
 })
 
 const heroMeta = computed(() => [
-  { label: 'Role', value: 'Academic Head', icon: '📚' }
+  { label: 'Role', value: 'Academic Head', icon: icons.books }
 ])
 
 const attendanceTrend = '+1.5% this term'
@@ -215,7 +200,7 @@ const examTimelineItems = computed(() => {
 const programLegendItems = computed(() => [
   { label: 'B.E. CSE', value: '120', color: '#0f172a' },
   { label: 'B.E. ECE', value: '95', color: '#0d9488' },
-  { label: 'B.E. Mechanical', value: '85', color: '#7c3aed' },
+  { label: 'B.E. Mechanical', value: '85', color: '#334155' },
   { label: 'B.Tech AI&DS', value: '70', color: '#d97706' },
   { label: 'B.Tech IT', value: '65', color: '#2563eb' },
   { label: 'MBA', value: '45', color: '#059669' }
@@ -226,7 +211,7 @@ const programDistributionChartData = computed(() => {
     labels: ['B.E. CSE', 'B.E. ECE', 'B.E. Mechanical', 'B.Tech AI&DS', 'B.Tech IT', 'MBA'],
     datasets: [{
       data: [120, 95, 85, 70, 65, 45],
-      backgroundColor: ['#0f172a', '#0d9488', '#7c3aed', '#d97706', '#2563eb', '#059669'],
+      backgroundColor: ['#0f172a', '#0d9488', '#334155', '#d97706', '#2563eb', '#059669'],
       borderWidth: 0,
       hoverOffset: 8
     }]
@@ -296,13 +281,6 @@ onMounted(async () => {
 .stats-skeleton { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--space-4); }
 .dash-skeleton { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-4); }
 
-.stats-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: var(--space-4);
-  margin-bottom: var(--space-6);
-}
-
 .dash-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -314,35 +292,15 @@ onMounted(async () => {
 }
 
 .action-grid {
-  display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: var(--space-3);
 }
-
-.action-card {
-  display: flex;
-  align-items: flex-start;
-  gap: var(--space-3);
-  padding: var(--space-4);
-  border-radius: var(--radius-lg);
-  border: 1px solid var(--color-border-light);
-  text-decoration: none;
-  transition: all var(--transition-fast);
-}
-.action-card:hover { border-color: var(--color-accent-light); background: var(--color-accent-50); transform: translateY(-2px); box-shadow: var(--shadow-md); }
-.action-icon { width: 44px; height: 44px; border-radius: var(--radius-lg); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
-.action-content { display: flex; flex-direction: column; gap: 2px; }
-.action-label { font-size: var(--text-sm); font-weight: var(--font-weight-semibold); color: var(--color-text); }
-.action-desc { font-size: var(--text-xs); color: var(--color-text-muted); }
 
 @media (max-width: 1024px) {
-  .stats-grid { grid-template-columns: repeat(2, 1fr); }
   .dash-grid { grid-template-columns: repeat(2, 1fr); }
   .dash-card--wide { grid-column: span 2; }
   .action-grid { grid-template-columns: 1fr; }
 }
 @media (max-width: 768px) {
-  .stats-grid { grid-template-columns: 1fr; }
   .dash-grid { grid-template-columns: 1fr; }
   .dash-card--wide { grid-column: span 1; }
 }
