@@ -16,10 +16,10 @@
     <template v-else>
       <!-- Summary Stats -->
       <div class="stats-grid" v-if="data">
-        <StatCard :value="data.percentage" label="Attendance Rate" format="percent" color="#059669" icon="&#9776;" variant="success" :trend="attendanceTrend" trend-variant="positive" />
-        <StatCard :value="data.total" label="Total Days" format="number" color="#0f172a" icon="&#9719;" variant="default" />
-        <StatCard :value="data.summary?.Present || 0" label="Present" format="number" color="#059669" icon="&#10003;" variant="success" />
-        <StatCard :value="data.summary?.Absent || 0" label="Absent" format="number" color="#dc2626" icon="&#10007;" variant="danger" />
+        <StatCard :value="data.percentage" label="Attendance Rate" format="percent" color="#059669" :icon="icons.chart" variant="success" />
+        <StatCard :value="data.total" label="Total Days" format="number" color="#0f172a" :icon="icons.calendar" variant="default" />
+        <StatCard :value="data.summary?.Present || 0" label="Present" format="number" color="#059669" :icon="icons.check" variant="success" />
+        <StatCard :value="data.summary?.Absent || 0" label="Absent" format="number" color="#dc2626" :icon="icons.x" variant="danger" />
       </div>
 
       <!-- Monthly Calendar Heatmap -->
@@ -27,7 +27,7 @@
         <div class="card-header">
           <h3>Monthly Attendance Heatmap</h3>
           <div class="heatmap-nav">
-            <button class="btn btn-ghost btn-sm" @click="prevMonth" :disabled="isCurrentMonth">Prev</button>
+            <button class="btn btn-ghost btn-sm" @click="prevMonth" :disabled="isOldestMonth">Prev</button>
             <span class="heatmap-month">{{ currentMonthLabel }}</span>
             <button class="btn btn-ghost btn-sm" @click="nextMonth" :disabled="isCurrentMonth">Next</button>
           </div>
@@ -48,7 +48,7 @@
               <div class="heatmap-days">
                 <div 
                   v-for="day in heatmapDays" 
-                  :key="day.date" 
+                  :key="day.date || ('pad-' + day.day)" 
                   class="heatmap-day" 
                   :class="{ 'heatmap-day--empty': !day.inMonth, 'heatmap-day--today': day.isToday, 'heatmap-day--has-data': day.hasData }"
                   :style="{ background: day.color }"
@@ -82,7 +82,7 @@
             <StatusBadge :text="row.status" :variant="attVariant(row.status)" size="sm" dot />
           </template>
         </DataTable>
-        <EmptyState v-else title="No attendance records" description="Your attendance hasn't been recorded yet" icon="📅" size="md" />
+        <EmptyState v-else title="No attendance records" description="Your attendance hasn't been recorded yet" :icon="icons.calendar" size="md" />
       </div>
     </template>
   </div>
@@ -91,6 +91,7 @@
 <script setup>
 import { ref, computed, onMounted, watch } from 'vue'
 import { getSessionUser, callAPI } from '../utils/api.js'
+import { icons } from '../utils/icons.js'
 import PageHeader from '../components/PageHeader.vue'
 import StatCard from '../components/StatCard.vue'
 import StatusBadge from '../components/StatusBadge.vue'
@@ -108,6 +109,11 @@ const currentMonthLabel = computed(() => currentMonth.value.toLocaleDateString('
 const isCurrentMonth = computed(() => {
   const now = new Date()
   return currentMonth.value.getMonth() === now.getMonth() && currentMonth.value.getFullYear() === now.getFullYear()
+})
+const isOldestMonth = computed(() => {
+  const now = new Date()
+  const oldest = new Date(now.getFullYear(), now.getMonth() - 12, 1)
+  return currentMonth.value.getFullYear() === oldest.getFullYear() && currentMonth.value.getMonth() === oldest.getMonth()
 })
 
 const weekdays = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
@@ -181,19 +187,19 @@ const heatmapDays = computed(() => {
 })
 
 function prevMonth() {
+  if (isOldestMonth.value) return
   currentMonth.value = new Date(currentMonth.value.getFullYear(), currentMonth.value.getMonth() - 1, 1)
   loadMonthlyData()
 }
 function nextMonth() {
+  if (isCurrentMonth.value) return
   currentMonth.value = new Date(currentMonth.value.getFullYear(), currentMonth.value.getMonth() + 1, 1)
   loadMonthlyData()
 }
 
 const metaItems = computed(() => [
-  { label: 'Current Month', value: currentMonthLabel.value, icon: '📅' }
+  { label: 'Current Month', value: currentMonthLabel.value, icon: icons.calendar }
 ])
-
-const attendanceTrend = '+1.2% vs last month'
 
 const attendanceColumns = [
   { key: 'attendance_date', label: 'Date', format: (v) => v ? new Date(v).toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric', year: 'numeric' }) : '—' },
@@ -245,13 +251,6 @@ watch(() => props.selectedChild, load)
 .page-loading { padding: var(--space-6); }
 .stats-skeleton { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--space-4); }
 
-.stats-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: var(--space-4);
-  margin-bottom: var(--space-6);
-}
-
 .heatmap-nav { display: flex; align-items: center; gap: var(--space-2); }
 .heatmap-month { font-weight: var(--font-weight-semibold); color: var(--color-text); min-width: 140px; text-align: center; }
 
@@ -272,11 +271,7 @@ watch(() => props.selectedChild, load)
 .day-number { line-height: 1; }
 .day-indicator { width: 6px; height: 6px; border-radius: 50%; margin-top: 2px; opacity: 0.8; }
 
-@media (max-width: 1024px) {
-  .stats-grid { grid-template-columns: repeat(2, 1fr); }
-}
 @media (max-width: 640px) {
-  .stats-grid { grid-template-columns: 1fr; }
   .heatmap-day { font-size: 10px; }
   .weekday { font-size: 9px; }
 }
