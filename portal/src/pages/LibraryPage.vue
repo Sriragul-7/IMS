@@ -16,10 +16,10 @@
 
     <template v-else>
       <!-- Summary Stats -->
-      <div class="stats-grid" v-if="stats">
-        <StatCard :value="stats.active" label="Checked Out" color="#d97706" icon="📖" variant="amber" />
-        <StatCard :value="stats.overdue" label="Overdue" color="#dc2626" icon="⚠️" variant="danger" />
-        <StatCard :value="stats.total_transactions" label="Total Transactions" color="#0f172a" icon="📋" variant="default" />
+      <div class="stats-grid stats-grid-3" v-if="stats">
+        <StatCard :value="stats.active" label="Checked Out" color="#d97706" :icon="icons.book" variant="amber" />
+        <StatCard :value="stats.overdue" label="Overdue" color="#dc2626" :icon="icons.alert" variant="danger" />
+        <StatCard :value="stats.total_transactions" label="Total Transactions" color="#0f172a" :icon="icons.clipboard" variant="default" />
       </div>
 
       <!-- Currently Checked Out -->
@@ -32,7 +32,7 @@
           <div class="active-grid">
             <div v-for="item in activeItems" :key="item.name" class="active-card" :class="{ overdue: isOverdue(item.due_date) }">
               <div class="active-header">
-                <div class="book-icon">📖</div>
+                <div class="book-icon" v-html="icons.book"></div>
                 <StatusBadge :text="isOverdue(item.due_date) ? 'Overdue' : 'Active'" :variant="isOverdue(item.due_date) ? 'danger' : 'success'" size="sm" dot />
               </div>
               <div class="book-title">{{ item.library_item_name || item.library_item }}</div>
@@ -51,9 +51,9 @@
               </div>
               <div class="book-progress" v-if="item.due_date">
                 <div class="progress-bar">
-                  <div class="progress-fill" :style="{ width: dueProgress(item.due_date) + '%', background: isOverdue(item.due_date) ? 'var(--color-danger)' : 'var(--color-warning)' }"></div>
+                  <div class="progress-fill" :style="{ width: dueProgress(item) + '%', background: isOverdue(item.due_date) ? 'var(--color-danger)' : 'var(--color-warning)' }"></div>
                 </div>
-                <span class="progress-text">{{ dueProgress(item.due_date) }}% through loan period</span>
+                <span class="progress-text">{{ dueProgress(item) }}% through loan period</span>
               </div>
             </div>
           </div>
@@ -74,14 +74,14 @@
           :loading="false"
         >
           <template #cell(status)="{ row }">
-            <StatusBadge :text="row.status === 'Issue' ? 'Checked Out' : 'Returned'" :variant="row.status === 'Issue' ? 'warning' : 'success'" size="sm" />
+            <StatusBadge :text="row.status === 'Issue' || row.status === 'Issued' ? 'Checked Out' : 'Returned'" :variant="row.status === 'Issue' || row.status === 'Issued' ? 'warning' : 'success'" size="sm" />
           </template>
           <template #cell(fine_amount)="{ row }">
             <span v-if="row.fine_amount > 0" class="text-danger font-mono">{{ formatCurrency(row.fine_amount) }}</span>
             <span v-else class="text-muted">—</span>
           </template>
         </DataTable>
-        <EmptyState v-else title="No transactions" description="No library transactions found" icon="📚" size="md" />
+        <EmptyState v-else title="No transactions" description="No library transactions found" :icon="icons.books" size="md" />
       </div>
     </template>
   </div>
@@ -90,6 +90,7 @@
 <script setup>
 import { ref, computed, onMounted, watch } from 'vue'
 import { getSessionUser, callAPI } from '../utils/api.js'
+import { icons } from '../utils/icons.js'
 import PageHeader from '../components/PageHeader.vue'
 import StatCard from '../components/StatCard.vue'
 import StatusBadge from '../components/StatusBadge.vue'
@@ -104,15 +105,15 @@ const loading = ref(true)
 
 const stats = computed(() => ({
   active: activeItems.value.length,
-  overdue: activeItems.value.filter(isOverdue).length,
+  overdue: activeItems.value.filter(i => isOverdue(i.due_date)).length,
   total_transactions: transactions.value.length
 }))
 
-const overdueCount = computed(() => activeItems.value.filter(isOverdue).length)
+const overdueCount = computed(() => activeItems.value.filter(i => isOverdue(i.due_date)).length)
 
 const metaItems = computed(() => [
-  { label: 'Active', value: stats.value.active, icon: '📖' },
-  { label: 'Overdue', value: stats.value.overdue, icon: '⚠️' }
+  { label: 'Active', value: stats.value.active, icon: icons.book },
+  { label: 'Overdue', value: stats.value.overdue, icon: icons.alert }
 ])
 
 const transactionColumns = [
@@ -142,13 +143,17 @@ function daysOverdue(dueDate) {
   return Math.ceil(diff / (1000 * 60 * 60 * 24))
 }
 
-function dueProgress(dueDate) {
-  if (!dueDate) return 0
-  const issueDate = new Date()
-  // Find the issue date from active items - simplified for now
-  const totalDays = 14 // Standard loan period
-  const daysPassed = totalDays - daysOverdue(dueDate)
-  return Math.max(0, Math.min(100, Math.round((daysPassed / totalDays) * 100)))
+function dueProgress(item) {
+  if (!item?.due_date) return 0
+  const issue = item.transaction_date ? new Date(item.transaction_date) : null
+  const due = new Date(item.due_date)
+  const now = new Date()
+  if (!issue || due <= issue) {
+    return isOverdue(item.due_date) ? 100 : 0
+  }
+  const total = due - issue
+  const elapsed = Math.min(Math.max(now - issue, 0), total)
+  return Math.round((elapsed / total) * 100)
 }
 
 async function load() {
@@ -176,13 +181,6 @@ watch(() => props.selectedChild, load)
 .page-loading { padding: var(--space-6); }
 .stats-skeleton { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-4); }
 
-.stats-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: var(--space-4);
-  margin-bottom: var(--space-6);
-}
-
 .active-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
@@ -207,7 +205,17 @@ watch(() => props.selectedChild, load)
   align-items: center;
   margin-bottom: var(--space-3);
 }
-.book-icon { font-size: 1.5rem; }
+.book-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: var(--radius-md);
+  background: var(--gray-100);
+  color: var(--color-text-secondary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.book-icon :deep(svg) { width: 18px; height: 18px; }
 
 .book-title {
   font-size: var(--text-md);
@@ -231,6 +239,8 @@ watch(() => props.selectedChild, load)
 .meta-label { color: var(--color-text-muted); }
 .text-bold { font-weight: var(--font-weight-semibold); }
 .text-danger { color: var(--color-danger); }
+.text-muted { color: var(--color-text-muted); }
+.font-mono { font-family: var(--font-family-mono); font-variant-numeric: tabular-nums; }
 .overdue-badge {
   display: inline-block;
   margin-left: var(--space-2);
@@ -248,7 +258,6 @@ watch(() => props.selectedChild, load)
 .progress-text { font-size: var(--text-xs); color: var(--color-text-muted); margin-top: var(--space-1); display: block; }
 
 @media (max-width: 768px) {
-  .stats-grid { grid-template-columns: 1fr; }
   .active-grid { grid-template-columns: 1fr; }
 }
 </style>
