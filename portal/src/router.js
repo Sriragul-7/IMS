@@ -14,7 +14,6 @@ import CommunicationCockpit from './pages/CommunicationCockpit.vue'
 import AdmissionsCockpit from './pages/AdmissionsCockpit.vue'
 import AcademicHeadCockpit from './pages/AcademicHeadCockpit.vue'
 import AdminCockpit from './pages/AdminCockpit.vue'
-
 export const routes = [
   { name: 'login', path: '/login', component: LoginPage, meta: { requiresAuth: false } },
   { name: 'dashboard', path: '/', component: DashboardPage, meta: { requiresAuth: true } },
