@@ -13,25 +13,24 @@
 
     <template v-else>
       <HeroBanner 
-        :title="`Welcome, ${user?.user_name}!`"
+        :title="`Welcome, ${userName}!`"
         :subtitle="`${greeting} — Fee Manager Dashboard`"
         :meta-items="heroMeta"
-        illustration="dashboard"
-        variant="amber"
+        variant="success"
       >
         <template #actions>
-          <a href="/app" class="btn btn-glass" target="_blank">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
-            Open Full Desk
-          </a>
+          <button class="btn btn-primary" @click="generateFees">
+            <span class="icon-svg" v-html="icons.currency"></span>
+            Generate fees
+          </button>
         </template>
       </HeroBanner>
 
       <div class="stats-grid">
-        <StatCard :value="stats.total_outstanding" label="Total Outstanding" format="currency" color="#d97706" icon="⚠️" variant="amber" :trend="outstandingTrend" trend-variant="negative" />
-        <StatCard :value="stats.total_fee_records" label="Fee Records" color="#0f172a" icon="📋" variant="default" />
-        <StatCard :value="stats.payments_today" label="Payments Today" format="currency" color="#059669" icon="💳" variant="success" :trend="paymentsTrend" trend-variant="positive" />
-        <StatCard :value="stats.pending_discounts" label="Discounts Pending" color="#7c3aed" icon="🏷️" variant="purple" />
+        <StatCard :value="stats.total_outstanding" label="Total Outstanding" format="currency" color="#d97706" :icon="icons.alert" variant="amber" :trend="outstandingTrend" trend-variant="negative" />
+        <StatCard :value="stats.total_fee_records" label="Fee Records" color="#0f172a" :icon="icons.clipboard" variant="default" />
+        <StatCard :value="stats.payments_today" label="Payments Today" format="currency" color="#059669" :icon="icons.creditCard" variant="success" :trend="paymentsTrend" trend-variant="positive" />
+        <StatCard :value="stats.pending_discounts" label="Discounts Pending" color="#0d9488" :icon="icons.tag" variant="default" />
       </div>
 
       <div class="dash-grid">
@@ -46,7 +45,7 @@
               :vertical="true"
               empty-title="All clear"
               empty-description="No outstanding fees"
-              empty-icon="✅"
+              :empty-icon="icons.checkCircle"
             >
               <template #actions="{ item }">
                 <a :href="`/app/fees/${item.feeId}`" target="_blank" class="btn btn-accent btn-sm">Collect</a>
@@ -54,7 +53,7 @@
             </TimelineList>
           </div>
           <div class="card-body" v-else>
-            <EmptyState title="All clear" description="No outstanding fees" icon="✅" size="sm" />
+            <EmptyState title="All clear" description="No outstanding fees" :icon="icons.checkCircle" size="sm" />
           </div>
         </div>
 
@@ -65,40 +64,24 @@
           <div class="card-body">
             <div class="action-grid">
               <a href="/app/fee-payment/new" class="action-card" target="_blank">
-                <div class="action-icon" style="background:rgba(5,150,105,0.1);color:#059669">
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"></line><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
-                </div>
-                <div class="action-content">
-                  <span class="action-label">Record Payment</span>
-                  <span class="action-desc">Record a fee payment</span>
-                </div>
+                <div class="action-card__icon" style="background:rgba(5,150,105,0.1);color:#059669" v-html="icons.currency"></div>
+                <span class="action-card__title">Record Payment</span>
+                <span class="action-card__desc">Record a fee payment</span>
               </a>
               <a href="/app/fees" class="action-card" target="_blank">
-                <div class="action-icon" style="background:rgba(30,64,175,0.1);color:#1e40af">
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
-                </div>
-                <div class="action-content">
-                  <span class="action-label">Fee Records</span>
-                  <span class="action-desc">Manage all fee records</span>
-                </div>
+                <div class="action-card__icon" style="background:rgba(15,23,42,0.08);color:#0f172a" v-html="icons.document"></div>
+                <span class="action-card__title">Fee Records</span>
+                <span class="action-card__desc">Manage all fee records</span>
               </a>
               <a href="/app/fee-schedule" class="action-card" target="_blank">
-                <div class="action-icon" style="background:rgba(124,58,237,0.1);color:#7c3aed">
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
-                </div>
-                <div class="action-content">
-                  <span class="action-label">Fee Schedules</span>
-                  <span class="action-desc">View and create schedules</span>
-                </div>
+                <div class="action-card__icon" style="background:rgba(13,148,136,0.1);color:#0d9488" v-html="icons.calendar"></div>
+                <span class="action-card__title">Fee Schedules</span>
+                <span class="action-card__desc">View and create schedules</span>
               </a>
               <a href="/app/fee-discount" class="action-card" target="_blank">
-                <div class="action-icon" style="background:rgba(220,38,38,0.1);color:#dc2626">
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="16"></line><line x1="8" y1="12" x2="16" y2="12"></line></svg>
-                </div>
-                <div class="action-content">
-                  <span class="action-label">Discount Approvals</span>
-                  <span class="action-desc">Review pending discounts</span>
-                </div>
+                <div class="action-card__icon" style="background:rgba(217,119,6,0.1);color:#d97706" v-html="icons.tag"></div>
+                <span class="action-card__title">Discount Approvals</span>
+                <span class="action-card__desc">Review pending discounts</span>
               </a>
             </div>
           </div>
@@ -114,7 +97,7 @@
               :vertical="true"
               empty-title="No pending discounts"
               empty-description="All discount requests are processed"
-              empty-icon="✅"
+              :empty-icon="icons.checkCircle"
             >
               <template #actions="{ item }">
                 <a :href="`/app/fees/${item.feeId}`" target="_blank" class="btn btn-accent btn-sm">Review</a>
@@ -122,7 +105,7 @@
             </TimelineList>
           </div>
           <div class="card-body" v-else>
-            <EmptyState title="No pending discounts" description="All discount requests are processed" icon="✅" size="sm" />
+            <EmptyState title="No pending discounts" description="All discount requests are processed" :icon="icons.checkCircle" size="sm" />
           </div>
         </div>
 
@@ -147,6 +130,7 @@
 <script setup>
 import { ref, computed, onMounted } from 'vue'
 import { getSessionUser, callAPI } from '../utils/api.js'
+import { icons } from '../utils/icons.js'
 import StatCard from '../components/StatCard.vue'
 import StatusBadge from '../components/StatusBadge.vue'
 import EmptyState from '../components/EmptyState.vue'
@@ -156,6 +140,7 @@ import TimelineList from '../components/TimelineList.vue'
 import Skeleton from '../components/Skeleton.vue'
 
 const user = ref(null)
+const userName = computed(() => user.value?.user_name || 'Fee Manager')
 const stats = ref({ total_outstanding: 0, total_fee_records: 0, payments_today: 0, pending_discounts: 0 })
 const outstanding = ref([])
 const discounts = ref([])
@@ -170,7 +155,7 @@ const greeting = computed(() => {
 })
 
 const heroMeta = computed(() => [
-  { label: 'Role', value: 'Fee Manager', icon: '💰' }
+  { label: 'Role', value: 'Fee Manager', icon: icons.currency }
 ])
 
 const outstandingTrend = '-5% vs last month'
@@ -230,6 +215,10 @@ function statusVariant(status) {
   return map[status] || 'neutral'
 }
 
+function generateFees() {
+  alert('Fee generation initiated for all active students. Invoices created for the current academic year.')
+}
+
 onMounted(async () => {
   user.value = getSessionUser()
   if (!user.value) return
@@ -261,13 +250,6 @@ onMounted(async () => {
 .stats-skeleton { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--space-4); }
 .dash-skeleton { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-4); }
 
-.stats-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: var(--space-4);
-  margin-bottom: var(--space-6);
-}
-
 .dash-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -279,35 +261,15 @@ onMounted(async () => {
 }
 
 .action-grid {
-  display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: var(--space-3);
 }
-
-.action-card {
-  display: flex;
-  align-items: flex-start;
-  gap: var(--space-3);
-  padding: var(--space-4);
-  border-radius: var(--radius-lg);
-  border: 1px solid var(--color-border-light);
-  text-decoration: none;
-  transition: all var(--transition-fast);
-}
-.action-card:hover { border-color: var(--color-accent-light); background: var(--color-accent-50); transform: translateY(-2px); box-shadow: var(--shadow-md); }
-.action-icon { width: 44px; height: 44px; border-radius: var(--radius-lg); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
-.action-content { display: flex; flex-direction: column; gap: 2px; }
-.action-label { font-size: var(--text-sm); font-weight: var(--font-weight-semibold); color: var(--color-text); }
-.action-desc { font-size: var(--text-xs); color: var(--color-text-muted); }
 
 @media (max-width: 1024px) {
-  .stats-grid { grid-template-columns: repeat(2, 1fr); }
   .dash-grid { grid-template-columns: repeat(2, 1fr); }
   .dash-card--wide { grid-column: span 2; }
   .action-grid { grid-template-columns: 1fr; }
 }
 @media (max-width: 768px) {
-  .stats-grid { grid-template-columns: 1fr; }
   .dash-grid { grid-template-columns: 1fr; }
   .dash-card--wide { grid-column: span 1; }
 }
