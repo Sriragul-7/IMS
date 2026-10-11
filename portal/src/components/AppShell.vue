@@ -1,30 +1,15 @@
 <template>
   <div class="app-shell">
-    <!-- Mobile Menu Button -->
-    <button class="mobile-menu-btn" @click="sidebarOpen = true" aria-label="Open menu" aria-expanded="false">
-      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <line x1="3" y1="6" x2="21" y2="6"></line>
-        <line x1="3" y1="12" x2="21" y2="12"></line>
-        <line x1="3" y1="18" x2="21" y2="18"></line>
-      </svg>
-    </button>
-
-    <!-- Sidebar Overlay (Mobile) -->
-    <div class="sidebar-overlay" v-if="sidebarOpen" @click="sidebarOpen = false" aria-hidden="true"></div>
-
-    <!-- Sidebar -->
-    <aside class="sidebar" :class="{ open: sidebarOpen, collapsed: sidebarCollapsed }" role="navigation" aria-label="Main navigation">
+    <!-- Sidebar - Always Visible -->
+    <aside class="sidebar" :class="{ [`role-${roleClass}`]: user?.role }" role="navigation" aria-label="Main navigation">
       <div class="sidebar-header">
         <div class="sidebar-brand" @click="toggleSidebarCollapse" title="Toggle sidebar">
-          <div class="brand-mark" aria-hidden="true">
-            <svg viewBox="0 0 40 40" width="28" height="28" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <rect width="40" height="40" rx="10" fill="currentColor"/>
-              <path d="M12 14h16M12 20h12M12 26h8" stroke="white" stroke-width="3" stroke-linecap="round"/>
-            </svg>
+          <div class="brand-mark" aria-label="BIT Logo">
+            BIT
           </div>
           <div class="brand-text" v-show="!sidebarCollapsed">
-            <div class="brand-name">Bannari Amman</div>
-            <div class="brand-sub">Institute of Technology</div>
+            <div class="brand-name">BIT Portal</div>
+            <div class="brand-sub" :style="{ color: 'var(--role-active-badge-text)' }">{{ roleSubtitle }}</div>
           </div>
           <button class="sidebar-collapse-btn" @click.stop="toggleSidebarCollapse" aria-label="Collapse sidebar" v-show="!sidebarCollapsed">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -160,7 +145,7 @@
         </div>
         <div class="user-menu-wrapper" @click="toggleUserMenu">
           <AvatarChip :name="user.user_name || user.email" size="sm" :color-index="getColorIndex(user.email)" class="topbar-avatar" />
-          <span class="topbar-user-name" v-show="!isMobile">{{ user.user_name || user.email }}</span>
+          <span class="topbar-user-name">{{ user.user_name || user.email }}</span>
           <svg class="topbar-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <polyline points="18 15 12 9 6 15"></polyline>
           </svg>
@@ -196,6 +181,9 @@
         <slot :selected-child="selectedChild" :user="user" />
       </div>
     </main>
+
+    <!-- Demo Guide Panel -->
+    <DemoGuidePanel v-if="demoGuideOpen" @close="demoGuideOpen = false" :current-route="route.name" :user-role="user?.role" />
   </div>
 </template>
 
@@ -204,6 +192,7 @@ import { ref, computed, onMounted, watch, nextTick } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
 import { getSessionUser, clearSessionUser, logout, callAPI } from '../utils/api.js'
 import AvatarChip from './AvatarChip.vue'
+import DemoGuidePanel from './DemoGuidePanel.vue'
 
 const router = useRouter()
 const route = useRoute()
@@ -218,6 +207,7 @@ const notificationsOpen = ref(false)
 const searchFocused = ref(false)
 const searchQuery = ref('')
 const searchResults = ref([])
+const demoGuideOpen = ref(false)
 
 const STUDENT_NAV = [
   { name: 'dashboard', to: '/', label: 'Dashboard', icon: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1"></rect><rect x="14" y="3" width="7" height="7" rx="1"></rect><rect x="3" y="14" width="7" height="7" rx="1"></rect><rect x="14" y="14" width="7" height="7" rx="1"></rect></svg>' },
@@ -258,6 +248,40 @@ const navItems = computed(() => {
   if (!user.value) return []
   if (user.value.role === 'Guardian' || user.value.role === 'Student') return STUDENT_NAV
   return STAFF_NAV[user.value.role] || STUDENT_NAV
+})
+
+const roleClass = computed(() => {
+  if (!user.value) return ''
+  const r = user.value.role
+  const map = {
+    'Student': 'student',
+    'Guardian': 'guardian',
+    'Instructor': 'instructor',
+    'Fee Manager': 'fee-manager',
+    'Facility Manager': 'facility-manager',
+    'Communication Officer': 'communication-officer',
+    'System Manager': 'system-manager',
+    'Admissions Officer': 'admissions-officer',
+    'Academic Head': 'academic-head',
+  }
+  return map[r] || 'student'
+})
+
+const roleSubtitle = computed(() => {
+  if (!user.value) return ''
+  const r = user.value.role
+  const map = {
+    'Student': 'Student and Guardian',
+    'Guardian': 'Student and Guardian',
+    'Instructor': 'Instructor Cockpit',
+    'Fee Manager': 'Fee Manager Cockpit',
+    'Facility Manager': 'Facility Manager Cockpit',
+    'Communication Officer': 'Communication Cockpit',
+    'System Manager': 'Admin Cockpit',
+    'Admissions Officer': 'Admissions Cockpit',
+    'Academic Head': 'Academic Head Cockpit',
+  }
+  return map[r] || 'Student and Guardian'
 })
 
 const currentPageTitle = computed(() => {
@@ -314,8 +338,7 @@ function switchRole() {
 }
 
 function openDemoGuide() {
-  // Will be implemented in Phase F
-  console.log('Open demo guide')
+  demoGuideOpen.value = true
 }
 
 function toggleUserMenu() {
@@ -400,7 +423,7 @@ document.addEventListener('click', (e) => {
 </script>
 
 <style scoped>
-.app-shell { display: flex; min-height: 100vh; background: var(--color-bg); }
+.app-shell { display: block; min-height: 100vh; background: var(--color-bg); }
 
 /* Mobile Menu Button */
 .mobile-menu-btn {
@@ -428,7 +451,7 @@ document.addEventListener('click', (e) => {
   display: none;
   position: fixed;
   inset: 0;
-  background: rgba(15, 23, 42, 0.5);
+  background: rgba(15, 23, 42, 0.45);
   z-index: calc(var(--z-fixed) - 10);
   backdrop-filter: blur(2px);
   animation: fadeIn var(--transition-base);
@@ -449,12 +472,30 @@ document.addEventListener('click', (e) => {
   z-index: var(--z-fixed);
   overflow-y: auto;
   transition: transform var(--transition-slow), width var(--transition-base), min-width var(--transition-base);
+  border-right: 1px solid rgba(255,255,255,0.04);
 }
+.sidebar.role-student { background: linear-gradient(180deg, #0f172a 0%, #1e1b4b 50%, #0f172a 100%); }
+.sidebar.role-guardian { background: linear-gradient(180deg, #0f172a 0%, #1e1b4b 50%, #0f172a 100%); }
+.sidebar.role-instructor { background: linear-gradient(180deg, #0f172a 0%, #064e3b 50%, #0f172a 100%); }
+.sidebar.role-fee-manager { background: linear-gradient(180deg, #0f172a 0%, #064e3b 50%, #0f172a 100%); }
+.sidebar.role-facility-manager { background: linear-gradient(180deg, #0f172a 0%, #064e3b 50%, #0f172a 100%); }
+.sidebar.role-communication-officer { background: linear-gradient(180deg, #0f172a 0%, #064e3b 50%, #0f172a 100%); }
+.sidebar.role-system-manager { background: linear-gradient(180deg, #0f172a 0%, #4c1d95 50%, #0f172a 100%); }
+.sidebar.role-admissions-officer { background: linear-gradient(180deg, #0f172a 0%, #78350f 50%, #0f172a 100%); }
+.sidebar.role-academic-head { background: linear-gradient(180deg, #0f172a 0%, #78350f 50%, #0f172a 100%); }
 .sidebar.collapsed {
   width: 72px;
   min-width: 72px;
 }
 .sidebar.open { transform: translateX(0); }
+
+@media (max-width: 768px) {
+  .mobile-menu-btn { display: flex; }
+  .sidebar { transform: translateX(-100%); }
+  .sidebar.open { transform: translateX(0); }
+  .sidebar.collapsed { width: 280px; min-width: 280px; transform: translateX(-100%); }
+  .sidebar.collapsed.open { transform: translateX(0); }
+}
 
 .sidebar-header { padding: var(--space-4) var(--space-4); border-bottom: 1px solid rgba(255,255,255,0.06); }
 .sidebar-brand {
@@ -478,6 +519,8 @@ document.addEventListener('click', (e) => {
   flex-shrink: 0;
   color: white;
   box-shadow: var(--shadow-md);
+  font-size: 16px;
+  font-weight: var(--font-weight-bold);
 }
 .brand-text { overflow: hidden; flex: 1; min-width: 0; }
 .brand-name { font-weight: var(--font-weight-semibold); font-size: var(--text-sm); color: white; line-height: 1.2; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
@@ -539,11 +582,10 @@ document.addEventListener('click', (e) => {
   font-weight: var(--font-weight-medium);
   transition: all var(--transition-fast);
   margin-bottom: 2px;
-  role: menuitem;
   white-space: nowrap;
 }
 .nav-item:hover { background: rgba(255,255,255,0.06); color: var(--gray-200); }
-.nav-item.active { background: rgba(14, 184, 166, 0.15); color: white; }
+.nav-item.active { background: rgba(255,255,255,0.08); color: white; border-left: 3px solid var(--role-active-accent); padding-left: calc(var(--space-3) - 3px); }
 .nav-icon { width: 20px; text-align: center; font-size: 18px; flex-shrink: 0; }
 .nav-label { overflow: hidden; text-overflow: ellipsis; }
 
@@ -575,7 +617,7 @@ document.addEventListener('click', (e) => {
 
 /* Top Bar */
 .top-bar {
-  padding: var(--space-4) var(--space-8);
+  padding: var(--space-3) var(--space-8);
   background: var(--color-surface);
   border-bottom: 1px solid var(--color-border-light);
   display: flex;
@@ -583,9 +625,16 @@ document.addEventListener('click', (e) => {
   align-items: center;
   position: sticky;
   top: 0;
+  margin: 0 0 0 280px !important;
   z-index: var(--z-sticky);
   gap: var(--space-4);
   flex-wrap: wrap;
+  width: calc(100% - 280px) !important;
+  transition: margin var(--transition-base), width var(--transition-base);
+}
+.sidebar.collapsed ~ .top-bar { margin: 0 0 0 72px !important; width: calc(100% - 72px) !important; }
+@media (max-width: 768px) {
+  .top-bar { margin: 0 !important; width: 100% !important; }
 }
 .top-bar-left { display: flex; flex-direction: column; gap: var(--space-2); flex: 1; min-width: 0; }
 .page-title { font-size: var(--text-xl); font-weight: var(--font-weight-bold); color: var(--color-text); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
@@ -723,43 +772,32 @@ document.addEventListener('click', (e) => {
 /* Main Content */
 .main-content {
   flex: 1;
-  margin-left: 280px;
+  width: calc(100% - 280px) !important;
+  max-width: none;
+  margin: 0 0 0 280px !important;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  transition: margin-left var(--transition-base);
+  transition: margin var(--transition-base), width var(--transition-base);
 }
-.sidebar.collapsed + .main-content { margin-left: 72px; }
-.page-container { padding: var(--space-6) var(--space-8); flex: 1; width: 100%; }
+.sidebar.collapsed ~ .main-content { width: calc(100% - 72px) !important; margin: 0 0 0 72px !important; }
+@media (max-width: 768px) {
+  .main-content { width: 100% !important; margin: 0 !important; }
+}
+.page-container {
+  padding: var(--space-6) var(--space-8);
+  flex: 1;
+  min-width: 0;
+  width: 100% !important;
+  max-width: none !important;
+  margin: 0 !important;
+  box-sizing: border-box;
+}
+@media (min-width: 1025px) {
+  .page-container { padding: var(--space-8) var(--space-10); }
+}
 
 /* Animations */
 @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 @keyframes slideDown { from { opacity: 0; transform: translateY(-8px); } to { opacity: 1; transform: translateY(0); } }
-
-/* Responsive */
-@media (max-width: 1024px) {
-  .top-bar { padding: var(--space-3) var(--space-6); }
-  .page-container { padding: var(--space-5) var(--space-6); }
-}
-@media (max-width: 768px) {
-  .mobile-menu-btn { display: flex; }
-  .sidebar { transform: translateX(-100%); }
-  .sidebar.open { transform: translateX(0); }
-  .sidebar-overlay { display: block; }
-  .main-content { margin-left: 0; }
-  .sidebar.collapsed + .main-content { margin-left: 0; }
-  .top-bar { padding: var(--space-3) var(--space-4) var(--space-3) 56px; }
-  .page-container { padding: var(--space-4); }
-  .page-title { font-size: var(--text-lg); }
-  .breadcrumb { display: none; }
-  .search-input { width: 200px; }
-  .search-input:focus { width: 240px; }
-  .topbar-user-name { display: none; }
-}
-@media (max-width: 480px) {
-  .top-bar { padding: var(--space-2) var(--space-3) var(--space-2) 50px; }
-  .notifications-dropdown, .user-menu-dropdown { right: -20px; width: calc(100vw - 40px); max-width: 360px; }
-  .search-input { width: 160px; }
-  .search-input:focus { width: 200px; }
-}
 </style>
