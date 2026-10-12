@@ -1,5 +1,39 @@
 /* BIT Desk Theme — Phase 2 Design System Tokens applied to Frappe Desk */
 
+:root {
+  --bit-primary: #0f172a;
+  --bit-primary-hover: #1e293b;
+  --bit-primary-light: #dbeafe;
+  --bit-accent: #0d9488;
+  --bit-accent-hover: #0f766e;
+  --bit-accent-light: #14b8a6;
+  --bit-success: #059669;
+  --bit-warning: #d97706;
+  --bit-danger: #dc2626;
+  --bit-info: #2563eb;
+  --bit-purple: #7c3aed;
+  --bit-amber: #d97706;
+  --bit-gray-50: #f8fafc;
+  --bit-gray-100: #f1f5f9;
+  --bit-gray-200: #e2e8f0;
+  --bit-gray-300: #cbd5e1;
+  --bit-gray-400: #94a3b8;
+  --bit-gray-500: #64748b;
+  --bit-gray-600: #475569;
+  --bit-gray-700: #334155;
+  --bit-gray-800: #1e293b;
+  --bit-gray-900: #0f172a;
+  --bit-font: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --bit-radius-sm: 6px;
+  --bit-radius-md: 10px;
+  --bit-radius-lg: 16px;
+  --bit-radius-xl: 20px;
+  --bit-shadow-sm: 0 1px 3px rgba(15, 23, 42, 0.06), 0 1px 2px rgba(15, 23, 42, 0.04);
+  --bit-shadow-md: 0 4px 6px -1px rgba(15, 23, 42, 0.07), 0 2px 4px -2px rgba(15, 23, 42, 0.05);
+  --bit-shadow-lg: 0 10px 15px -3px rgba(15, 23, 42, 0.08), 0 4px 6px -4px rgba(15, 23, 42, 0.04);
+  --bit-transition: 150ms ease;
+}
+
 /* Self-hosted Inter font (Latin subset, weights 400-700) */
 @font-face {
   font-family: 'Inter';
@@ -28,28 +62,6 @@
   font-weight: 700;
   font-display: swap;
   src: url('/assets/institution_erp/fonts/inter-700.woff2') format('woff2');
-}
-
-:root {
-  --bit-primary: #1e40af;
-  --bit-primary-hover: #1e3a8a;
-  --bit-primary-light: #dbeafe;
-  --bit-success: #059669;
-  --bit-warning: #d97706;
-  --bit-danger: #dc2626;
-  --bit-info: #2563eb;
-  --bit-purple: #7c3aed;
-  --bit-gray-50: #f9fafb;
-  --bit-gray-100: #f3f4f6;
-  --bit-gray-200: #e5e7eb;
-  --bit-gray-300: #d1d5db;
-  --bit-gray-400: #9ca3af;
-  --bit-gray-500: #6b7280;
-  --bit-gray-600: #4b5563;
-  --bit-gray-700: #374151;
-  --bit-gray-800: #1f2937;
-  --bit-gray-900: #111827;
-  --bit-font: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
 }
 
 /* ── Font Override ── */
@@ -82,10 +94,18 @@ select,
   font-family: var(--bit-font) !important;
 }
 
+/* ── Page Background ── */
+.desktop-app,
+.page-container,
+.body-wrapper {
+  background: #f5f7fb !important;
+}
+
 /* ── Primary Color Override ── */
 .btn-primary {
   background: var(--bit-primary) !important;
   border-color: var(--bit-primary) !important;
+  border-radius: var(--bit-radius-md) !important;
 }
 
 .btn-primary:hover,
@@ -96,7 +116,23 @@ select,
 }
 
 .btn-primary:active {
-  box-shadow: 0 0 0 3px rgba(30, 64, 175, 0.25) !important;
+  box-shadow: 0 0 0 3px rgba(15, 23, 42, 0.25) !important;
+}
+
+/* ── Accent Button ── */
+.btn-accent,
+.btn-success,
+.btn-info {
+  background: var(--bit-accent) !important;
+  border-color: var(--bit-accent) !important;
+  border-radius: var(--bit-radius-md) !important;
+}
+
+.btn-accent:hover,
+.btn-success:hover,
+.btn-info:hover {
+  background: var(--bit-accent-hover) !important;
+  border-color: var(--bit-accent-hover) !important;
 }
 
 /* ── Links ── */
@@ -113,40 +149,107 @@ a:hover {
 .form-group .form-control:focus,
 .awesomplete field:focus,
 textarea:focus,
-select:focus {
-  border-color: var(--bit-primary) !important;
-  box-shadow: 0 0 0 3px rgba(30, 64, 175, 0.12) !important;
+select:focus,
+.select2-container--default .select2-selection--single:focus,
+.select2-container--default .select2-selection--multiple:focus {
+  border-color: var(--bit-accent-light) !important;
+  box-shadow: 0 0 0 3px rgba(14, 184, 166, 0.15) !important;
 }
 
 /* ── Sidebar Enhancement ── */
 .sidebar-menu .sidebar-label {
   font-family: var(--bit-font) !important;
+  font-weight: 600;
+  color: var(--bit-gray-700) !important;
 }
 
 .sidebar-menu .item-anchor {
   font-family: var(--bit-font) !important;
+  border-radius: var(--bit-radius-md) !important;
+  margin: 2px 8px !important;
+  padding: 8px 12px !important;
+  transition: all var(--bit-transition) !important;
 }
 
 .sidebar-menu .item-anchor.active,
 .sidebar-menu .item-anchor:hover {
-  background: rgba(30, 64, 175, 0.08) !important;
+  background: rgba(14, 184, 166, 0.1) !important;
+  color: var(--bit-primary) !important;
+}
+
+.sidebar-menu .item-anchor.active {
+  background: rgba(14, 184, 166, 0.15) !important;
+  font-weight: 600;
+}
+
+.sidebar-menu .item-anchor.active::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 3px;
+  height: 60%;
+  background: var(--bit-accent);
+  border-radius: 0 3px 3px 0;
+}
+
+/* ── Sidebar Brand ── */
+.sidebar-menu .brand {
+  background: var(--bit-primary) !important;
+  border-radius: 0 0 var(--bit-radius-xl) var(--bit-radius-xl) !important;
+  padding: 20px 16px !important;
+}
+
+.sidebar-menu .brand-link {
+  color: white !important;
+}
+
+.sidebar-menu .brand-text {
+  color: white !important;
 }
 
 /* ── Page Header ── */
-.page-header {
-  font-family: var(--bit-font) !important;
-}
-
+.page-header,
 .page-head {
   font-family: var(--bit-font) !important;
+  border-bottom: 1px solid var(--bit-gray-200) !important;
+  padding: 16px 24px !important;
+  background: white !important;
+  border-radius: var(--bit-radius-lg) var(--bit-radius-lg) 0 0 !important;
+}
+
+.page-head .page-title {
+  font-weight: 700 !important;
+  color: var(--bit-gray-900) !important;
+  font-size: 1.5rem !important;
+}
+
+.page-head .page-description {
+  color: var(--bit-gray-500) !important;
 }
 
 /* ── List View Enhancements ── */
 .frappe-list .list-row {
   font-family: var(--bit-font) !important;
+  transition: all var(--bit-transition) !important;
 }
 
 .frappe-list .list-row:hover {
+  background: var(--bit-gray-50) !important;
+}
+
+.frappe-list .list-row .list-row-col {
+  padding: 12px 16px !important;
+  border-bottom: 1px solid var(--bit-gray-100) !important;
+}
+
+.frappe-list .list-row-head .list-row-col {
+  font-weight: 600 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.05em !important;
+  font-size: 0.7rem !important;
+  color: var(--bit-gray-400) !important;
   background: var(--bit-gray-50) !important;
 }
 
@@ -158,21 +261,66 @@ select:focus {
 /* ── Form Page ── */
 .form-page {
   font-family: var(--bit-font) !important;
+  background: white !important;
+  border-radius: var(--bit-radius-lg) !important;
+  box-shadow: var(--bit-shadow-sm) !important;
+  border: 1px solid var(--bit-gray-200) !important;
 }
 
 .section-head {
   font-family: var(--bit-font) !important;
+  font-weight: 600 !important;
   color: var(--bit-gray-700) !important;
   border-bottom: 2px solid var(--bit-primary) !important;
+  padding-bottom: 8px !important;
+  margin-bottom: 16px !important;
+}
+
+.section-body .form-group {
+  margin-bottom: 16px !important;
+}
+
+.control-label {
+  font-weight: 500 !important;
+  color: var(--bit-gray-700) !important;
+  font-size: 0.875rem !important;
+}
+
+.form-control {
+  border-radius: var(--bit-radius-md) !important;
+  border: 1px solid var(--bit-gray-300) !important;
+  padding: 10px 12px !important;
+  font-size: 0.875rem !important;
+  transition: all var(--bit-transition) !important;
+}
+
+.form-control:hover {
+  border-color: var(--bit-gray-400) !important;
 }
 
 /* ── Modal Enhancement ── */
+.modal-content {
+  border-radius: var(--bit-radius-xl) !important;
+  overflow: hidden !important;
+  box-shadow: var(--bit-shadow-lg) !important;
+  border: none !important;
+}
+
 .modal-header {
   border-bottom-color: var(--bit-gray-200) !important;
+  padding: 16px 24px !important;
+  background: var(--bit-gray-50) !important;
+}
+
+.modal-header .modal-title {
+  font-weight: 600 !important;
+  color: var(--bit-gray-900) !important;
 }
 
 .modal-footer {
   border-top-color: var(--bit-gray-200) !important;
+  padding: 16px 24px !important;
+  background: var(--bit-gray-50) !important;
 }
 
 /* ── Badge/Tag Colors ── */
@@ -201,29 +349,61 @@ select:focus {
   background: var(--bit-info) !important;
 }
 
+.badge-accent,
+.label-accent {
+  background: var(--bit-accent) !important;
+}
+
+/* ── Tag/Badge Pill Style ── */
+.tag,
+.badge,
+.label {
+  border-radius: var(--bit-radius-full) !important;
+  font-weight: 500 !important;
+  padding: 4px 10px !important;
+  font-size: 0.75rem !important;
+}
+
 /* ── Tab Navigation ── */
 .nav-tabs .nav-link {
   font-family: var(--bit-font) !important;
-  font-weight: 500;
+  font-weight: 500 !important;
+  border-radius: var(--bit-radius-md) var(--bit-radius-md) 0 0 !important;
+  margin-right: 4px !important;
+  color: var(--bit-gray-600) !important;
+  padding: 12px 20px !important;
+  border: 1px solid transparent !important;
+  border-bottom: none !important;
+}
+
+.nav-tabs .nav-link:hover {
+  background: var(--bit-gray-50) !important;
+  color: var(--bit-primary) !important;
 }
 
 .nav-tabs .nav-link.active {
   color: var(--bit-primary) !important;
-  border-bottom-color: var(--bit-primary) !important;
+  background: white !important;
+  border-color: var(--bit-gray-200) !important;
+  border-bottom: 1px solid white !important;
+  margin-bottom: -1px !important;
 }
 
 /* ── Dropdown Menu ── */
 .dropdown-menu {
   font-family: var(--bit-font) !important;
-  border-radius: 10px !important;
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1) !important;
+  border-radius: var(--bit-radius-lg) !important;
+  box-shadow: var(--bit-shadow-lg) !important;
   border: 1px solid var(--bit-gray-200) !important;
   padding: 8px !important;
+  margin-top: 8px !important;
 }
 
 .dropdown-item {
-  border-radius: 6px !important;
-  padding: 8px 12px !important;
+  border-radius: var(--bit-radius-md) !important;
+  padding: 10px 16px !important;
+  font-size: 0.875rem !important;
+  transition: all var(--bit-transition) !important;
 }
 
 .dropdown-item:hover {
@@ -231,14 +411,73 @@ select:focus {
   color: var(--bit-primary) !important;
 }
 
+.dropdown-divider {
+  border-color: var(--bit-gray-200) !important;
+  margin: 8px 0 !important;
+}
+
 /* ── Page Actions Bar ── */
 .page-actions {
   border-bottom-color: var(--bit-gray-200) !important;
+  padding: 12px 24px !important;
+  background: white !important;
 }
 
 /* ── Workspace Card Enhancement ── */
 .workspace-section .section-header {
   font-family: var(--bit-font) !important;
+  font-weight: 600 !important;
+  color: var(--bit-gray-700) !important;
+}
+
+.workspace-card {
+  border-radius: var(--bit-radius-lg) !important;
+  box-shadow: var(--bit-shadow-sm) !important;
+  border: 1px solid var(--bit-gray-200) !important;
+  transition: all var(--bit-transition) !important;
+}
+
+.workspace-card:hover {
+  box-shadow: var(--bit-shadow-md) !important;
+  border-color: var(--bit-accent-light) !important;
+  transform: translateY(-2px) !important;
+}
+
+.workspace-card .workspace-card-title {
+  font-weight: 600 !important;
+  color: var(--bit-gray-900) !important;
+}
+
+.workspace-card .workspace-card-description {
+  color: var(--bit-gray-500) !important;
+  font-size: 0.875rem !important;
+}
+
+/* ── Number Card / Stat Card ── */
+.number-card {
+  border-radius: var(--bit-radius-lg) !important;
+  box-shadow: var(--bit-shadow-sm) !important;
+  border: 1px solid var(--bit-gray-200) !important;
+  background: white !important;
+  transition: all var(--bit-transition) !important;
+}
+
+.number-card:hover {
+  box-shadow: var(--bit-shadow-md) !important;
+  transform: translateY(-2px) !important;
+}
+
+.number-card .number-card-value {
+  font-weight: 700 !important;
+  color: var(--bit-gray-900) !important;
+  font-variant-numeric: tabular-nums !important;
+}
+
+.number-card .number-card-label {
+  color: var(--bit-gray-500) !important;
+  font-size: 0.75rem !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.05em !important;
 }
 
 /* ── List Filter Enhancement ── */
@@ -246,16 +485,28 @@ select:focus {
   font-family: var(--bit-font) !important;
   background: var(--bit-gray-100) !important;
   border: 1px solid var(--bit-gray-200) !important;
+  border-radius: var(--bit-radius-full) !important;
+  padding: 6px 14px !important;
+  font-size: 0.75rem !important;
+  font-weight: 500 !important;
 }
 
 .filter-pill .filter-label {
   color: var(--bit-gray-600) !important;
 }
 
+.filter-pill.active,
+.filter-pill.active .filter-label {
+  background: var(--bit-primary) !important;
+  border-color: var(--bit-primary) !important;
+  color: white !important;
+}
+
 /* ── Report Page ── */
 .report-page .page-head {
   background: var(--bit-gray-50) !important;
   border-bottom: 1px solid var(--bit-gray-200) !important;
+  border-radius: var(--bit-radius-lg) var(--bit-radius-lg) 0 0 !important;
 }
 
 /* ── Smooth Transitions ── */
@@ -263,47 +514,395 @@ select:focus {
 .form-control,
 .nav-link,
 .dropdown-item,
-.list-row {
-  transition: all 0.15s ease !important;
+.list-row,
+.workspace-card,
+.number-card,
+.filter-pill {
+  transition: all var(--bit-transition) !important;
 }
 
-/* ── Border Radius Consistency ── */
+/* ── Button Radius Consistency ── */
 .btn {
-  border-radius: 8px !important;
+  border-radius: var(--bit-radius-md) !important;
+  font-weight: 500 !important;
+  padding: 8px 16px !important;
+  font-size: 0.8125rem !important;
 }
 
+.btn-sm {
+  padding: 6px 12px !important;
+  font-size: 0.75rem !important;
+}
+
+.btn-lg {
+  padding: 12px 24px !important;
+  font-size: 0.9375rem !important;
+}
+
+/* ── Form Control Radius ── */
 .form-control,
 .form-group .form-control {
-  border-radius: 8px !important;
+  border-radius: var(--bit-radius-md) !important;
 }
 
-.modal-content {
-  border-radius: 14px !important;
-  overflow: hidden;
+/* ── Card/Section Radius ── */
+.card,
+.section,
+.panel {
+  border-radius: var(--bit-radius-lg) !important;
 }
 
 /* ── Notification Enhancement ── */
 .toast-message {
   font-family: var(--bit-font) !important;
+  border-radius: var(--bit-radius-md) !important;
+  box-shadow: var(--bit-shadow-lg) !important;
 }
 
-/* ── Hide default Frappe desk header background (make it subtle) ── */
-.desk-container .page-container {
+.toast-success {
+  background: var(--bit-success) !important;
+}
+
+.toast-error {
+  background: var(--bit-danger) !important;
+}
+
+.toast-warning {
+  background: var(--bit-warning) !important;
+}
+
+.toast-info {
+  background: var(--bit-info) !important;
+}
+
+/* ── Input Group ── */
+.input-group .form-control {
+  border-radius: var(--bit-radius-md) !important;
+}
+
+.input-group-text {
   background: var(--bit-gray-50) !important;
+  border-color: var(--bit-gray-300) !important;
+  color: var(--bit-gray-600) !important;
+  border-radius: var(--bit-radius-md) !important;
 }
 
-/* ── Workspace-specific tweaks ── */
-.workspace-header {
-  font-family: var(--bit-font) !important;
+/* ── Select2 Styling ── */
+.select2-container--default .select2-selection--single,
+.select2-container--default .select2-selection--multiple {
+  border-radius: var(--bit-radius-md) !important;
+  border: 1px solid var(--bit-gray-300) !important;
+  min-height: 40px !important;
 }
 
-.workspace-card {
-  border-radius: 12px !important;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06) !important;
+.select2-container--default .select2-selection--single .select2-selection__rendered {
+  line-height: 38px !important;
+  padding-left: 12px !important;
+}
+
+.select2-container--default .select2-selection--single .select2-selection__arrow {
+  height: 38px !important;
+}
+
+.select2-container--default .select2-search--dropdown .select2-search__field {
+  border-radius: var(--bit-radius-md) !important;
+  border: 1px solid var(--bit-gray-300) !important;
+}
+
+.select2-container--default .select2-results__option--highlighted[aria-selected] {
+  background: rgba(14, 184, 166, 0.1) !important;
+  color: var(--bit-primary) !important;
+}
+
+/* ── Date Picker ── */
+.datepicker,
+.bootstrap-datetimepicker-widget {
+  border-radius: var(--bit-radius-lg) !important;
+  box-shadow: var(--bit-shadow-lg) !important;
   border: 1px solid var(--bit-gray-200) !important;
 }
 
-.workspace-card:hover {
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08) !important;
-  border-color: var(--bit-primary-light, #dbeafe) !important;
+.datepicker table tr td.active,
+.datepicker table tr td.active:hover {
+  background: var(--bit-primary) !important;
+}
+
+.bootstrap-datetimepicker-widget table td.active,
+.bootstrap-datetimepicker-widget table td.active:hover {
+  background: var(--bit-primary) !important;
+}
+
+/* ── Tree View ── */
+.tree-view .tree-node .tree-link {
+  border-radius: var(--bit-radius-sm) !important;
+  padding: 6px 10px !important;
+  transition: all var(--bit-transition) !important;
+}
+
+.tree-view .tree-node .tree-link:hover {
+  background: var(--bit-gray-50) !important;
+  color: var(--bit-primary) !important;
+}
+
+.tree-view .tree-node .tree-link.active {
+  background: rgba(14, 184, 166, 0.1) !important;
+  color: var(--bit-primary) !important;
+  font-weight: 600;
+}
+
+/* ── Form Section Collapsible ── */
+.section-head .section-toggle {
+  color: var(--bit-gray-500) !important;
+}
+
+.section-head .section-toggle:hover {
+  color: var(--bit-primary) !important;
+}
+
+/* ── Print Format ── */
+.print-format {
+  font-family: var(--bit-font) !important;
+}
+
+.print-format .section-head {
+  border-bottom: 2px solid var(--bit-primary) !important;
+}
+
+/* ── Scrollbar ── */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--bit-gray-300);
+  border-radius: var(--bit-radius-full);
+  border: 2px solid transparent;
+  background-clip: content-box;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--bit-gray-400);
+  background-clip: content-box;
+}
+
+/* ── Focus Ring ── */
+:focus-visible {
+  outline: 2px solid var(--bit-accent-light) !important;
+  outline-offset: 2px !important;
+}
+
+/* ── Dashboard Number Cards ── */
+.dashboard-wrapper .number-card {
+  border-left: 4px solid var(--bit-primary) !important;
+}
+
+.dashboard-wrapper .number-card:nth-child(2n) {
+  border-left-color: var(--bit-accent) !important;
+}
+
+.dashboard-wrapper .number-card:nth-child(3n) {
+  border-left-color: var(--bit-warning) !important;
+}
+
+.dashboard-wrapper .number-card:nth-child(4n) {
+  border-left-color: var(--bit-purple) !important;
+}
+
+/* ── Home Page / Workspace ── */
+.module-card {
+  border-radius: var(--bit-radius-lg) !important;
+  box-shadow: var(--bit-shadow-sm) !important;
+  border: 1px solid var(--bit-gray-200) !important;
+  transition: all var(--bit-transition) !important;
+}
+
+.module-card:hover {
+  box-shadow: var(--bit-shadow-md) !important;
+  border-color: var(--bit-accent-light) !important;
+}
+
+.module-card .module-icon {
+  width: 48px !important;
+  height: 48px !important;
+  border-radius: var(--bit-radius-lg) !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+/* ── Chart Container ── */
+.chart-container {
+  border-radius: var(--bit-radius-lg) !important;
+  background: white !important;
+  border: 1px solid var(--bit-gray-200) !important;
+}
+
+/* ── File Upload ── */
+.file-upload-wrapper {
+  border-radius: var(--bit-radius-md) !important;
+  border: 2px dashed var(--bit-gray-300) !important;
+}
+
+.file-upload-wrapper:hover {
+  border-color: var(--bit-accent) !important;
+}
+
+/* ── Editor ── */
+.ql-container {
+  border-radius: 0 0 var(--bit-radius-md) var(--bit-radius-md) !important;
+  border: 1px solid var(--bit-gray-300) !important;
+}
+
+.ql-toolbar {
+  border-radius: var(--bit-radius-md) var(--bit-radius-md) 0 0 !important;
+  border: 1px solid var(--bit-gray-300) !important;
+  background: var(--bit-gray-50) !important;
+}
+
+/* ── Avatar ── */
+.avatar,
+.user-avatar {
+  border-radius: 50% !important;
+  background: var(--bit-primary) !important;
+  color: white !important;
+}
+
+/* ── Progress Bar ── */
+.progress {
+  border-radius: var(--bit-radius-full) !important;
+  height: 8px !important;
+  background: var(--bit-gray-200) !important;
+}
+
+.progress-bar {
+  border-radius: var(--bit-radius-full) !important;
+  background: var(--bit-primary) !important;
+}
+
+/* ── Alert ── */
+.alert {
+  border-radius: var(--bit-radius-md) !important;
+  border: none !important;
+}
+
+.alert-success {
+  background: var(--bit-success-light) !important;
+  color: var(--bit-success-dark) !important;
+  border-color: var(--bit-success) !important;
+}
+
+.alert-warning {
+  background: var(--bit-warning-light) !important;
+  color: var(--bit-warning-dark) !important;
+  border-color: var(--bit-warning) !important;
+}
+
+.alert-danger {
+  background: var(--bit-danger-light) !important;
+  color: var(--bit-danger-dark) !important;
+  border-color: var(--bit-danger) !important;
+}
+
+.alert-info {
+  background: var(--bit-info-light) !important;
+  color: var(--bit-info) !important;
+  border-color: var(--bit-info) !important;
+}
+
+/* ── Data Table (Report/List) ── */
+.data-table {
+  border-radius: var(--bit-radius-lg) !important;
+  overflow: hidden !important;
+}
+
+.data-table th {
+  background: var(--bit-gray-50) !important;
+  color: var(--bit-gray-500) !important;
+  font-weight: 600 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.05em !important;
+  font-size: 0.7rem !important;
+  padding: 12px 16px !important;
+  border-bottom: 1px solid var(--bit-gray-200) !important;
+}
+
+.data-table td {
+  padding: 12px 16px !important;
+  border-bottom: 1px solid var(--bit-gray-100) !important;
+  font-size: 0.875rem !important;
+  color: var(--bit-gray-700) !important;
+}
+
+.data-table tbody tr:hover {
+  background: var(--bit-gray-50) !important;
+}
+
+/* ── Sidebar Module Icons ── */
+.sidebar-menu .module-icon {
+  color: var(--bit-gray-500) !important;
+}
+
+.sidebar-menu .item-anchor.active .module-icon {
+  color: var(--bit-accent) !important;
+}
+
+/* ── User Menu / Profile Dropdown ── */
+.user-menu .dropdown-menu {
+  min-width: 220px !important;
+}
+
+.user-menu .dropdown-item {
+  display: flex !important;
+  align-items: center !important;
+  gap: 10px !important;
+}
+
+.user-menu .dropdown-item svg {
+  width: 16px !important;
+  height: 16px !important;
+}
+
+/* ── Workspace Header ── */
+.workspace-header {
+  background: linear-gradient(135deg, var(--bit-primary) 0%, #1e293b 100%) !important;
+  border-radius: var(--bit-radius-xl) var(--bit-radius-xl) 0 0 !important;
+  color: white !important;
+  padding: 24px !important;
+}
+
+.workspace-header h1 {
+  color: white !important;
+  font-weight: 700 !important;
+}
+
+/* ── Enhanced Table Row Striping ── */
+.frappe-list .list-row:nth-child(even) .list-row-col {
+  background: var(--bit-gray-50) !important;
+}
+
+.frappe-list .list-row:nth-child(odd) .list-row-col {
+  background: white !important;
+}
+
+/* ── Form Section ── */
+.form-section {
+  background: white !important;
+  border-radius: var(--bit-radius-lg) !important;
+  border: 1px solid var(--bit-gray-200) !important;
+  padding: 24px !important;
+  margin-bottom: 16px !important;
+}
+
+/* ── Dashboard Chart Card ── */
+.dashboard-chart-card {
+  background: white !important;
+  border-radius: var(--bit-radius-lg) !important;
+  border: 1px solid var(--bit-gray-200) !important;
+  box-shadow: var(--bit-shadow-sm) !important;
+  padding: 20px !important;
 }
