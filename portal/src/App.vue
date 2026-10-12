@@ -11,7 +11,7 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue'
+import { ref, watch, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
 import { getSessionUser, clearSessionUser, logout, callAPI } from './utils/api.js'
 import AppShell from './components/AppShell.vue'
@@ -22,8 +22,29 @@ const selectedChild = ref(null)
 
 const PUBLIC_ROUTES = ['login']
 
+const ROLE_BODY_CLASS = {
+  'Student': 'role-student',
+  'Guardian': 'role-guardian',
+  'Instructor': 'role-instructor',
+  'Fee Manager': 'role-fee-manager',
+  'Facility Manager': 'role-facility-manager',
+  'Communication Officer': 'role-communication-officer',
+  'System Manager': 'role-system-manager',
+  'Admissions Officer': 'role-admissions-officer',
+  'Academic Head': 'role-academic-head',
+}
+
+function updateBodyClass(role) {
+  const roleClasses = Object.values(ROLE_BODY_CLASS)
+  document.body.classList.remove(...roleClasses)
+  if (role && ROLE_BODY_CLASS[role]) {
+    document.body.classList.add(ROLE_BODY_CLASS[role])
+  }
+}
+
 onMounted(async () => {
   user.value = getSessionUser()
+  if (user.value?.role) updateBodyClass(user.value.role)
   
   // Check if current route requires auth
   const requiresAuth = !PUBLIC_ROUTES.includes(router.currentRoute.value.name)
@@ -53,6 +74,11 @@ onMounted(async () => {
   }
 })
 
+// Watch user changes to update body class
+watch(user, (newVal) => {
+  if (newVal?.role) updateBodyClass(newVal.role)
+})
+
 function redirectToDashboard() {
   if (!user.value) return
   
@@ -77,5 +103,10 @@ function redirectToDashboard() {
 </script>
 
 <style scoped>
-.app-layout { min-height: 100vh; }
+.app-layout {
+  width: 100% !important;
+  max-width: none !important;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
 </style>
