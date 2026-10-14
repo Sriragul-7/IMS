@@ -1,0 +1,97 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="900" viewBox="0 0 1400 900">
+  <defs>
+    <linearGradient id="gradHeader" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#2563eb;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#1d4ed8;stop-opacity:1" />
+    </linearGradient>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="9" refY="5" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,10 L10,5 Z" fill="#2563eb" />
+    </marker>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="3" stdDeviation="3" flood-color="#000" flood-opacity="0.12" />
+    </filter>
+  </defs>
+  <rect width="1400" height="900" fill="#ffffff" />
+  <text x="700" y="40" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="24" font-weight="bold" fill="#1e293b">System Architecture — Four-Layer Hybrid Model</text>
+
+  <!-- Layer 1: Presentation (top) -->
+  <g transform="translate(60, 90)">
+    <rect x="0" y="0" width="1280" height="150" fill="#f1f5f9" stroke="#2563eb" stroke-width="3" rx="10" filter="url(#shadow)" />
+    <text x="20" y="30" font-family="Segoe UI, Arial, sans-serif" font-size="17" font-weight="bold" fill="#2563eb">LAYER 1 — PRESENTATION</text>
+    <rect x="40" y="50" width="390" height="90" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5" rx="8" />
+    <text x="60" y="72" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="bold" fill="#1e293b">Student / Guardian Portal</text>
+    <text x="60" y="92" font-family="Segoe UI, Arial, sans-serif" font-size="11.5" fill="#64748b">Vue 3 SPA • /institution-portal</text>
+    <text x="60" y="112" font-family="Segoe UI, Arial, sans-serif" font-size="11.5" fill="#64748b">Hash routing • Child switcher • Read-only scoped</text>
+    <rect x="460" y="50" width="390" height="90" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5" rx="8" />
+    <text x="480" y="72" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="bold" fill="#1e293b">Staff Cockpits (7 roles)</text>
+    <text x="480" y="92" font-family="Segoe UI, Arial, sans-serif" font-size="11.5" fill="#64748b">Quick-actions • Stats • Overview cards</text>
+    <text x="480" y="112" font-family="Segoe UI, Arial, sans-serif" font-size="11.5" fill="#64748b">Open Full Desk → full CRUD</text>
+    <rect x="880" y="50" width="390" height="90" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5" rx="8" />
+    <text x="900" y="72" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="bold" fill="#1e293b">Frappe Desk (re-themed)</text>
+    <text x="900" y="92" font-family="Segoe UI, Arial, sans-serif" font-size="11.5" fill="#64748b">Inter font • BIT primary #2563eb</text>
+    <text x="900" y="112" font-family="Segoe UI, Arial, sans-serif" font-size="11.5" fill="#64748b">Desk CSS via app_include_css hook</text>
+  </g>
+
+  <!-- Layer 2: API -->
+  <g transform="translate(60, 270)">
+    <rect x="0" y="0" width="1280" height="140" fill="#f8fafc" stroke="#1d4ed8" stroke-width="3" rx="10" filter="url(#shadow)" />
+    <text x="20" y="30" font-family="Segoe UI, Arial, sans-serif" font-size="17" font-weight="bold" fill="#1d4ed8">LAYER 2 — API / INTEGRATION</text>
+    <rect x="40" y="50" width="610" height="80" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5" rx="8" />
+    <text x="60" y="72" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="bold" fill="#1e293b">Whitelisted API Methods (11)</text>
+    <text x="60" y="92" font-family="Segoe UI, Arial, sans-serif" font-size="11.5" fill="#64748b">mark_bulk_* • generate_fees_from_schedule</text>
+    <text x="60" y="112" font-family="Segoe UI, Arial, sans-serif" font-size="11.5" fill="#64748b">dispatch_notice • ensure_student/guardian_user</text>
+    <rect x="680" y="50" width="590" height="80" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5" rx="8" />
+    <text x="700" y="72" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="bold" fill="#1e293b">REST API &amp; Auth</text>
+    <text x="700" y="92" font-family="Segoe UI, Arial, sans-serif" font-size="11.5" fill="#64748b">frappe.call() • Session / JWT • CSRF</text>
+    <text x="700" y="112" font-family="Segoe UI, Arial, sans-serif" font-size="11.5" fill="#64748b">Role-based routing guard (main.js)</text>
+  </g>
+
+  <!-- Layer 3: Business Logic -->
+  <g transform="translate(60, 440)">
+    <rect x="0" y="0" width="1280" height="160" fill="#f1f5f9" stroke="#2563eb" stroke-width="3" rx="10" filter="url(#shadow)" />
+    <text x="20" y="30" font-family="Segoe UI, Arial, sans-serif" font-size="17" font-weight="bold" fill="#2563eb">LAYER 3 — BUSINESS LOGIC / SERVER</text>
+    <rect x="40" y="50" width="390" height="100" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5" rx="8" />
+    <text x="60" y="72" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="bold" fill="#1e293b">DocType Controllers (48 DocTypes)</text>
+    <text x="60" y="92" font-family="Segoe UI, Arial, sans-serif" font-size="11.5" fill="#64748b">validate() • on_submit() • on_update() hooks</text>
+    <text x="60" y="112" font-family="Segoe UI, Arial, sans-serif" font-size="11.5" fill="#64748b">10 modules • Admissions → Graduation</text>
+    <rect x="460" y="50" width="390" height="100" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5" rx="8" />
+    <text x="480" y="72" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="bold" fill="#1e293b">Permission Engine</text>
+    <text x="480" y="92" font-family="Segoe UI, Arial, sans-serif" font-size="11.5" fill="#64748b">16 permission_query_conditions</text>
+    <text x="480" y="112" font-family="Segoe UI, Arial, sans-serif" font-size="11.5" fill="#64748b">19 DocTypes • Row-level SQL WHERE</text>
+    <rect x="880" y="50" width="390" height="100" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5" rx="8" />
+    <text x="900" y="72" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="bold" fill="#1e293b">Workflow &amp; Automation</text>
+    <text x="900" y="92" font-family="Segoe UI, Arial, sans-serif" font-size="11.5" fill="#64748b">Student Applicant 4-state workflow</text>
+    <text x="900" y="112" font-family="Segoe UI, Arial, sans-serif" font-size="11.5" fill="#64748b">Fee Discount • Auto grade calc • Fine→Fee</text>
+  </g>
+
+  <!-- Layer 4: Data -->
+  <g transform="translate(60, 630)">
+    <rect x="0" y="0" width="1280" height="150" fill="#f8fafc" stroke="#1d4ed8" stroke-width="3" rx="10" filter="url(#shadow)" />
+    <text x="20" y="30" font-family="Segoe UI, Arial, sans-serif" font-size="17" font-weight="bold" fill="#1d4ed8">LAYER 4 — DATA / STORAGE</text>
+    <rect x="40" y="50" width="390" height="90" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5" rx="8" />
+    <text x="60" y="72" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="bold" fill="#1e293b">MariaDB 10.6+</text>
+    <text x="60" y="92" font-family="Segoe UI, Arial, sans-serif" font-size="11.5" fill="#64748b">Relational metadata-driven schema</text>
+    <text x="60" y="112" font-family="Segoe UI, Arial, sans-serif" font-size="11.5" fill="#64748b">Student, Guardian, Fees, Library…</text>
+    <rect x="460" y="50" width="390" height="90" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5" rx="8" />
+    <text x="480" y="72" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="bold" fill="#1e293b">Redis 7+</text>
+    <text x="480" y="92" font-family="Segoe UI, Arial, sans-serif" font-size="11.5" fill="#64748b">Caching • Sessions • Queue</text>
+    <text x="480" y="112" font-family="Segoe UI, Arial, sans-serif" font-size="11.5" fill="#64748b">Pub/sub • Real-time events</text>
+    <rect x="880" y="50" width="390" height="90" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5" rx="8" />
+    <text x="900" y="72" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="bold" fill="#1e293b">File System</text>
+    <text x="900" y="92" font-family="Segoe UI, Arial, sans-serif" font-size="11.5" fill="#64748b">Applicant documents • Fee receipts</text>
+    <text x="900" y="112" font-family="Segoe UI, Arial, sans-serif" font-size="11.5" fill="#64748b">Library items • Notice attachments</text>
+  </g>
+
+  <!-- Data flow arrows (downward) -->
+  <line x1="700" y1="240" x2="700" y2="270" stroke="#475569" stroke-width="3" marker-end="url(#arrow)" />
+  <line x1="700" y1="410" x2="700" y2="440" stroke="#475569" stroke-width="3" marker-end="url(#arrow)" />
+  <line x1="700" y1="600" x2="700" y2="630" stroke="#475569" stroke-width="3" marker-end="url(#arrow)" />
+
+  <!-- Feedback arrows (upward, dashed) -->
+  <line x1="300" y1="630" x2="300" y2="600" stroke="#94a3b8" stroke-width="2" stroke-dasharray="6,4" marker-end="url(#arrow)" />
+  <line x1="300" y1="440" x2="300" y2="410" stroke="#94a3b8" stroke-width="2" stroke-dasharray="6,4" marker-end="url(#arrow)" />
+  <line x1="300" y1="270" x2="300" y2="240" stroke="#94a3b8" stroke-width="2" stroke-dasharray="6,4" marker-end="url(#arrow)" />
+
+  <text x="285" y="228" font-family="Segoe UI, Arial, sans-serif" font-size="11" fill="#64748b" text-anchor="middle">Request</text>
+  <text x="285" y="640" font-family="Segoe UI, Arial, sans-serif" font-size="11" fill="#64748b" text-anchor="middle">Response</text>
+</svg>

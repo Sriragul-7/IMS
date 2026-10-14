@@ -1,0 +1,28 @@
+
+digraph WFApplicant {
+    rankdir=LR;
+    node [fontname="Helvetica", fontsize=10, style=filled, shape=box, rounded=true];
+    edge [fontname="Helvetica", fontsize=9];
+    
+    Draft [label="Draft", fillcolor="#fef3c7"];
+    Applied [label="Applied", fillcolor="#dbeafe"];
+    UnderReview [label="Under Review", fillcolor="#fef3c7"];
+    Approved [label="Approved", fillcolor="#dcfce7", style="filled,bold"];
+    Rejected [label="Rejected", fillcolor="#fee2e2"];
+    
+    Draft -> Applied [label="Submit Application"];
+    Applied -> UnderReview [label="Officer Reviews"];
+    UnderReview -> Approved [label="Approve
+→ Creates Student+Guardian"];
+    UnderReview -> Rejected [label="Reject"];
+    Approved -> Rejected [label="Reopen (if needed)"];
+    Rejected -> Applied [label="Re-apply"];
+    
+    // Auto-creation note
+    Note [label="on_update hook:
+workflow_state='Approved'
+→ create Guardian
+→ create Student
+→ link both", shape=note, fillcolor="#fef3c7"];
+    Approved -> Note [style=dashed];
+}

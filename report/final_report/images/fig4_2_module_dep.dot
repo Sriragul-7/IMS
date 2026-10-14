@@ -1,0 +1,32 @@
+
+digraph ModuleDep {
+    rankdir=LR;
+    node [fontname="Helvetica", fontsize=10, style=filled, shape=box, rounded=true];
+    edge [fontname="Helvetica", fontsize=9];
+    
+    Academics [label="Academics\n(10 DocTypes)", fillcolor="#dbeafe"];
+    SIS [label="SIS\n(2 DocTypes)", fillcolor="#dcfce7"];
+    Admissions [label="Admissions\n(5 DocTypes)", fillcolor="#fef3c7"];
+    Attendance [label="Attendance\n(2 DocTypes)", fillcolor="#fce7f3"];
+    Examination [label="Examination\n(5 DocTypes)", fillcolor="#ede9fe"];
+    Fees [label="Fees\n(9 DocTypes)", fillcolor="#fee2e2"];
+    Library [label="Library\n(4 DocTypes)", fillcolor="#dcfce7"];
+    Hostel [label="Hostel\n(3 DocTypes)", fillcolor="#fef3c7"];
+    Transport [label="Transport\n(4 DocTypes)", fillcolor="#fce7f3"];
+    Communication [label="Communication\n(4 DocTypes)", fillcolor="#ede9fe"];
+    
+    // Core dependencies
+    SIS -> Academics [label="Student Group Member"];
+    Admissions -> Academics [label="Program, Academic Year"];
+    Admissions -> SIS [label="Creates Student+Guardian"];
+    Attendance -> Academics [label="Course Schedule, Student Group"];
+    Attendance -> SIS [label="Student, Instructor"];
+    Examination -> Academics [label="Course, Student Group, Grading Scale"];
+    Fees -> SIS [label="Student"];
+    Fees -> Academics [label="Academic Year, Student Group"];
+    Library -> SIS [label="Student"];
+    Hostel -> SIS [label="Student"];
+    Transport -> SIS [label="Student"];
+    Communication -> SIS [label="Student, Guardian"];
+    Communication -> Academics [label="Student Group, Program"];
+}

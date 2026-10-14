@@ -1,0 +1,55 @@
+
+digraph TechStack {
+    rankdir=TB;
+    node [fontname="Helvetica", fontsize=11, style=filled, fillcolor="#f0f4f8", shape=box, rounded=true];
+    edge [fontname="Helvetica", fontsize=10];
+    
+    subgraph cluster_presentation {
+        label="Presentation Layer";
+        style=dashed;
+        color="#64748b";
+        Portal [label="Vue 3 SPA\n(Student/Guardian Portal)", fillcolor="#dbeafe"];
+        Cockpit [label="Vue 3 Cockpits\n(7 Staff Roles)", fillcolor="#dbeafe"];
+        Desk [label="Frappe Desk\n(Rebranded: Inter + BIT Blue)", fillcolor="#fef3c7"];
+    }
+    
+    subgraph cluster_api {
+        label="API Layer";
+        style=dashed;
+        color="#64748b";
+        Whitelisted [label="11 Whitelisted Methods\n(frappe.call / REST)", fillcolor="#dcfce7"];
+        REST [label="Frappe REST API\n(DocType CRUD)", fillcolor="#dcfce7"];
+    }
+    
+    subgraph cluster_logic {
+        label="Business Logic Layer";
+        style=dashed;
+        color="#64748b";
+        Controllers [label="DocType Controllers\n(22 files, validation)", fillcolor="#fce7f3"];
+        Hooks [label="Hooks & Events\n(on_update, on_submit)", fillcolor="#fce7f3"];
+        Permissions [label="16 permission_query_conditions\n(Row-level Security)", fillcolor="#fce7f3"];
+        Workflows [label="Workflow Engine\n(Student Applicant, Fee Discount)", fillcolor="#fce7f3"];
+    }
+    
+    subgraph cluster_data {
+        label="Data Layer";
+        style=dashed;
+        color="#64748b";
+        MariaDB [label="MariaDB 10.6+\n(48 DocTypes, 8 Child Tables)", fillcolor="#fef3c7"];
+        Redis [label="Redis 7+\n(Caching, Sessions, Queues)", fillcolor="#fef3c7"];
+    }
+    
+    Portal -> Whitelisted;
+    Cockpit -> Whitelisted;
+    Desk -> REST;
+    Whitelisted -> Controllers;
+    Whitelisted -> Permissions;
+    REST -> Controllers;
+    Controllers -> Hooks;
+    Controllers -> Workflows;
+    Hooks -> MariaDB;
+    Controllers -> MariaDB;
+    Permissions -> MariaDB;
+    Workflows -> MariaDB;
+    Controllers -> Redis;
+}

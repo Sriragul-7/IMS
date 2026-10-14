@@ -1,0 +1,39 @@
+
+digraph SeqAssessment {
+    rankdir=TB;
+    node [fontname="Helvetica", fontsize=10, shape=box, style=filled];
+    edge [fontname="Helvetica", fontsize=9];
+    
+    Instructor [label="Instructor", fillcolor="#fef3c7"];
+    System [label="Institution ERP", fillcolor="#dbeafe"];
+    DB [label="MariaDB", shape=cylinder, fillcolor="#fef3c7"];
+    StudentPortal [label="Student Portal", fillcolor="#dbeafe"];
+    
+    Instructor -> System [label="1. mark_bulk_assessment_results
+(assessment_plan, results_data)"];
+    System -> DB [label="2. VALIDATE
+marks ≤ max_marks", dir=both];
+    System -> DB [label="3. READ Grading Scale
+intervals", dir=both];
+    System -> System [label="4. FOR each result:
+   percentage = marks/max*100
+   grade = matching interval
+   status = Pass/Fail"];
+    System -> DB [label="5. UPSERT Assessment Result
+(prevents duplicate)", dir=both];
+    System -> Instructor [label="6. Return Created
+Results"];
+    
+    // Results published gate
+    Instructor -> System [label="7. Set Assessment Group
+results_published = 1"];
+    System -> DB [label="8. UPDATE Assessment Group", dir=both];
+    StudentPortal -> System [label="9. portal_get_results
+(student, assessment_plan)"];
+    System -> System [label="10. CHECK
+results_published = 1?"];
+    System -> DB [label="11. IF yes: READ Results
+ELSE: Return 'Not Published'", dir=both];
+    System -> StudentPortal [label="12. Return Results
+OR 'Not Published' banner"];
+}

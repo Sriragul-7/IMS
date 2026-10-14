@@ -1,0 +1,87 @@
+
+digraph RoleMatrix {
+    rankdir=TB;
+    node [fontname="Helvetica", fontsize=10, shape=plaintext];
+    
+    // Title
+    Title [label=<<TABLE BORDER="0" CELLBORDER="0" CELLSPACING="0">
+        <TR><TD COLSPAN="11" ALIGN="CENTER"><FONT POINT-SIZE="14"><B>Role-Permission Matrix (Write Access)</B></FONT></TD></TR>
+    </TABLE>>];
+    
+    // Header row
+    Header [label=<<TABLE BORDER="1" CELLBORDER="1" CELLSPACING="0">
+        <TR>
+            <TD BGCOLOR="#1e40af"><FONT COLOR="white"><B>Role</B></FONT></TD>
+            <TD BGCOLOR="#1e40af"><FONT COLOR="white"><B>Student</B></FONT></TD>
+            <TD BGCOLOR="#1e40af"><FONT COLOR="white"><B>Guardian</B></FONT></TD>
+            <TD BGCOLOR="#1e40af"><FONT COLOR="white"><B>Admissions</B></FONT></TD>
+            <TD BGCOLOR="#1e40af"><FONT COLOR="white"><B>Academic</B></FONT></TD>
+            <TD BGCOLOR="#1e40af"><FONT COLOR="white"><B>Instructor</B></FONT></TD>
+            <TD BGCOLOR="#1e40af"><FONT COLOR="white"><B>Fee Mgr</B></FONT></TD>
+            <TD BGCOLOR="#1e40af"><FONT COLOR="white"><B>Facility</B></FONT></TD>
+            <TD BGCOLOR="#1e40af"><FONT COLOR="white"><B>Comm</B></FONT></TD>
+            <TD BGCOLOR="#1e40af"><FONT COLOR="white"><B>Sys Mgr</B></FONT></TD>
+        </TR>
+    </TABLE>>];
+    
+    // Data rows
+    StudentRec [label=<<TABLE BORDER="1" CELLBORDER="1" CELLSPACING="0">
+        <TR><TD BGCOLOR="#f0f4f8"><B>Student</B></TD>
+            <TD BGCOLOR="#dcfce7">Own</TD><TD BGCOLOR="#fee2e2">—</TD><TD BGCOLOR="#fee2e2">—</TD><TD BGCOLOR="#fee2e2">—</TD><TD BGCOLOR="#fee2e2">—</TD><TD BGCOLOR="#fee2e2">—</TD><TD BGCOLOR="#fee2e2">—</TD><TD BGCOLOR="#fee2e2">—</TD><TD BGCOLOR="#fee2e2">—</TD><TD BGCOLOR="#fee2e2">—</TD>
+        </TR>
+    </TABLE>>];
+    
+    GuardianRec [label=<<TABLE BORDER="1" CELLBORDER="1" CELLSPACING="0">
+        <TR><TD BGCOLOR="#f0f4f8"><B>Guardian</B></TD>
+            <TD BGCOLOR="#dcfce7">Linked</TD><TD BGCOLOR="#dcfce7">Own</TD><TD BGCOLOR="#fee2e2">—</TD><TD BGCOLOR="#fee2e2">—</TD><TD BGCOLOR="#fee2e2">—</TD><TD BGCOLOR="#fee2e2">—</TD><TD BGCOLOR="#fee2e2">—</TD><TD BGCOLOR="#fee2e2">—</TD><TD BGCOLOR="#fee2e2">—</TD><TD BGCOLOR="#fee2e2">—</TD>
+        </TR>
+    </TABLE>>];
+    
+    AdmissionsRec [label=<<TABLE BORDER="1" CELLBORDER="1" CELLSPACING="0">
+        <TR><TD BGCOLOR="#f0f4f8"><B>Admissions</B></TD>
+            <TD BGCOLOR="#fee2e2">—</TD><TD BGCOLOR="#fee2e2">—</TD><TD BGCOLOR="#dcfce7">Full</TD><TD BGCOLOR="#fef3c7">Read</TD><TD BGCOLOR="#fee2e2">—</TD><TD BGCOLOR="#fee2e2">—</TD><TD BGCOLOR="#fee2e2">—</TD><TD BGCOLOR="#fee2e2">—</TD><TD BGCOLOR="#fee2e2">—</TD><TD BGCOLOR="#dcfce7">Full</TD>
+        </TR>
+    </TABLE>>];
+    
+    AcademicRec [label=<<TABLE BORDER="1" CELLBORDER="1" CELLSPACING="0">
+        <TR><TD BGCOLOR="#f0f4f8"><B>Academic Head</B></TD>
+            <TD BGCOLOR="#dcfce7">Read</TD><TD BGCOLOR="#dcfce7">Read</TD><TD BGCOLOR="#dcfce7">Read</TD><TD BGCOLOR="#dcfce7">Full</TD><TD BGCOLOR="#dcfce7">Full</TD><TD BGCOLOR="#dcfce7">Read</TD><TD BGCOLOR="#dcfce7">Read</TD><TD BGCOLOR="#dcfce7">Read</TD><TD BGCOLOR="#dcfce7">Read</TD><TD BGCOLOR="#dcfce7">Full</TD>
+        </TR>
+    </TABLE>>];
+    
+    InstructorRec [label=<<TABLE BORDER="1" CELLBORDER="1" CELLSPACING="0">
+        <TR><TD BGCOLOR="#f0f4f8"><B>Instructor</B></TD>
+            <TD BGCOLOR="#fee2e2">—</TD><TD BGCOLOR="#fee2e2">—</TD><TD BGCOLOR="#fee2e2">—</TD><TD BGCOLOR="#fef3c7">Read</TD><TD BGCOLOR="#dcfce7">Own Groups</TD><TD BGCOLOR="#fee2e2">—</TD><TD BGCOLOR="#fee2e2">—</TD><TD BGCOLOR="#fee2e2">—</TD><TD BGCOLOR="#fee2e2">—</TD><TD BGCOLOR="#dcfce7">Full</TD>
+        </TR>
+    </TABLE>>];
+    
+    FeeRec [label=<<TABLE BORDER="1" CELLBORDER="1" CELLSPACING="0">
+        <TR><TD BGCOLOR="#f0f4f8"><B>Fee Manager</B></TD>
+            <TD BGCOLOR="#fee2e2">—</TD><TD BGCOLOR="#fee2e2">—</TD><TD BGCOLOR="#fee2e2">—</TD><TD BGCOLOR="#fee2e2">—</TD><TD BGCOLOR="#fee2e2">—</TD><TD BGCOLOR="#dcfce7">Full</TD><TD BGCOLOR="#fee2e2">—</TD><TD BGCOLOR="#fee2e2">—</TD><TD BGCOLOR="#fee2e2">—</TD><TD BGCOLOR="#dcfce7">Full</TD>
+        </TR>
+    </TABLE>>];
+    
+    FacilityRec [label=<<TABLE BORDER="1" CELLBORDER="1" CELLSPACING="0">
+        <TR><TD BGCOLOR="#f0f4f8"><B>Facility Mgr</B></TD>
+            <TD BGCOLOR="#fee2e2">—</TD><TD BGCOLOR="#fee2e2">—</TD><TD BGCOLOR="#fee2e2">—</TD><TD BGCOLOR="#fee2e2">—</TD><TD BGCOLOR="#fee2e2">—</TD><TD BGCOLOR="#fee2e2">—</TD><TD BGCOLOR="#dcfce7">Full</TD><TD BGCOLOR="#dcfce7">Full</TD><TD BGCOLOR="#fee2e2">—</TD><TD BGCOLOR="#dcfce7">Full</TD>
+        </TR>
+    </TABLE>>];
+    
+    CommRec [label=<<TABLE BORDER="1" CELLBORDER="1" CELLSPACING="0">
+        <TR><TD BGCOLOR="#f0f4f8"><B>Comm Officer</B></TD>
+            <TD BGCOLOR="#fee2e2">—</TD><TD BGCOLOR="#fee2e2">—</TD><TD BGCOLOR="#fee2e2">—</TD><TD BGCOLOR="#fee2e2">—</TD><TD BGCOLOR="#fee2e2">—</TD><TD BGCOLOR="#fee2e2">—</TD><TD BGCOLOR="#fee2e2">—</TD><TD BGCOLOR="#dcfce7">Full</TD><TD BGCOLOR="#dcfce7">Full</TD><TD BGCOLOR="#dcfce7">Full</TD>
+        </TR>
+    </TABLE>>];
+    
+    SysRec [label=<<TABLE BORDER="1" CELLBORDER="1" CELLSPACING="0">
+        <TR><TD BGCOLOR="#f0f4f8"><B>System Mgr</B></TD>
+            <TD BGCOLOR="#dcfce7">Full</TD><TD BGCOLOR="#dcfce7">Full</TD><TD BGCOLOR="#dcfce7">Full</TD><TD BGCOLOR="#dcfce7">Full</TD><TD BGCOLOR="#dcfce7">Full</TD><TD BGCOLOR="#dcfce7">Full</TD><TD BGCOLOR="#dcfce7">Full</TD><TD BGCOLOR="#dcfce7">Full</TD><TD BGCOLOR="#dcfce7">Full</TD><TD BGCOLOR="#dcfce7">Full</TD>
+        </TR>
+    </TABLE>>];
+    
+    Legend [label=<<TABLE BORDER="1" CELLBORDER="1" CELLSPACING="0">
+        <TR><TD BGCOLOR="#dcfce7">Full / Own / Linked</TD><TD BGCOLOR="#fef3c7">Read Only</TD><TD BGCOLOR="#fee2e2">No Access</TD></TR>
+    </TABLE>>];
+    
+    Title -> Header -> StudentRec -> GuardianRec -> AdmissionsRec -> AcademicRec -> InstructorRec -> FeeRec -> FacilityRec -> CommRec -> SysRec -> Legend;
+}

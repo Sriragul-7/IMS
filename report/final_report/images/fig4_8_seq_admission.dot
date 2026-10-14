@@ -1,0 +1,38 @@
+
+digraph SeqAdmission {
+    rankdir=TB;
+    node [fontname="Helvetica", fontsize=10, shape=box, style=filled];
+    edge [fontname="Helvetica", fontsize=9];
+    
+    // Lifelines
+    AdmOfficer [label="Admissions
+Officer", fillcolor="#fef3c7"];
+    System [label="Institution ERP", fillcolor="#dbeafe"];
+    DB [label="MariaDB", shape=cylinder, fillcolor="#fef3c7"];
+    
+    // Sequence
+    AdmOfficer -> System [label="1. Review Applicant
+(Workflow: Under Review)"];
+    System -> DB [label="2. READ Student Applicant", dir=both];
+    AdmOfficer -> System [label="3. Approve Applicant
+(Workflow: Approved)"];
+    System -> System [label="4. on_update Trigger
+(Student Applicant)"];
+    System -> DB [label="5. CREATE Guardian
+DocType", dir=both];
+    System -> DB [label="6. CREATE Student
+DocType (STU-.YYYY.-.#####)", dir=both];
+    System -> DB [label="7. LINK Guardian→Student
+(guardian field)", dir=both];
+    System -> DB [label="8. SET created_student
+= Student Name", dir=both];
+    System -> AdmOfficer [label="9. Return Success
+(Student + Guardian created)"];
+    
+    // Notes
+    Note1 [label="Auto-creation happens
+in on_update hook
+when workflow_state=
+'Approved'", shape=note, fillcolor="#fef3c7"];
+    System -> Note1 [style=dashed];
+}

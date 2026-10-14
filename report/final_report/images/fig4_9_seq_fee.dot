@@ -1,0 +1,30 @@
+
+digraph SeqFee {
+    rankdir=TB;
+    node [fontname="Helvetica", fontsize=10, shape=box, style=filled];
+    edge [fontname="Helvetica", fontsize=9];
+    
+    FeeMgr [label="Fee Manager", fillcolor="#fef3c7"];
+    System [label="Institution ERP", fillcolor="#dbeafe"];
+    DB [label="MariaDB", shape=cylinder, fillcolor="#fef3c7"];
+    
+    FeeMgr -> System [label="1. Create Fee Payment
+(amount, mode, ref)"];
+    System -> DB [label="2. VALIDATE
+payment ≤ outstanding", dir=both];
+    System -> DB [label="3. INSERT Fee Payment
+(docstatus=1 on submit)", dir=both];
+    System -> System [label="4. on_submit Hook
+(recompute_paid_and_status)"];
+    System -> DB [label="5. READ all Fee Payments
+for this Fees", dir=both];
+    System -> System [label="6. CALCULATE
+paid = Σ payments
+discount = discount_amount
+outstanding = total - paid - discount"];
+    System -> DB [label="7. UPDATE Fees
+paid_amount, outstanding_amount
+status (Unpaid/Partial/Paid/Overdue)", dir=both];
+    System -> FeeMgr [label="8. Return Updated
+Fees + Payment"];
+}

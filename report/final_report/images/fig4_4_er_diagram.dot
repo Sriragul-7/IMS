@@ -1,0 +1,112 @@
+
+digraph ERDiagram {
+    rankdir=LR;
+    node [fontname="Helvetica", fontsize=10, shape=box, style=filled];
+    edge [fontname="Helvetica", fontsize=9, arrowhead=crow, arrowtail=crow, dir=both];
+    
+    // Core entities
+    Student [label=<<B>Student</B><BR/>STU-.YYYY.-.#####<BR/>first_name, last_name<BR/>program, guardian<BR/>email_address, status>, fillcolor="#dbeafe"];
+    Guardian [label=<<B>Guardian</B><BR/>{name}-{###}<BR/>guardian_name<BR/>guardian_email<BR/>relation_to_student<BR/>phone_number>, fillcolor="#dbeafe"];
+    Program [label=<<B>Program</B><BR/>field:program_name<BR/>program_code, department>, fillcolor="#dcfce7"];
+    Course [label=<<B>Course</B><BR/>field:course_name<BR/>course_code, credits<BR/>course_type>, fillcolor="#dcfce7"];
+    AcademicYear [label=<<B>Academic Year</B><BR/>field:academic_year_name<BR/>year_start_date, year_end_date>, fillcolor="#dcfce7"];
+    AcademicTerm [label=<<B>Academic Term</B><BR/>field:term_name<BR/>academic_year, dates>, fillcolor="#dcfce7"];
+    StudentGroup [label=<<B>Student Group</B><BR/>field:group_name<BR/>program, academic_year<BR/>course, max_strength>, fillcolor="#dcfce7"];
+    CourseSchedule [label=<<B>Course Schedule</B><BR/>hash<BR/>course, student_group<BR/>instructor, room<BR/>day, from_time, to_time>, fillcolor="#fef3c7"];
+    Instructor [label=<<B>Instructor</B><BR/>INST-.####<BR/>instructor_name<BR/>employee_id, department<BR/>email, status>, fillcolor="#fef3c7"];
+    Room [label=<<B>Room</B><BR/>field:room_name<BR/>building, floor<BR/>capacity, room_type>, fillcolor="#fef3c7"];
+    
+    // Admissions
+    AdmInquiry [label=<<B>Admission Inquiry</B><BR/>ADM-INQ-.YYYY.-.####<BR/>applicant_name, program<BR/>source, status>, fillcolor="#fce7f3"];
+    StuApplicant [label=<<B>Student Applicant</B><BR/>STU-APP-.YYYY.-.####<BR/>applicant_name, program<BR/>workflow_state<BR/>created_student>, fillcolor="#fce7f3"];
+    EntranceTest [label=<<B>Entrance Test</B><BR/>field:test_name<BR/>test_date, max_marks<BR/>passing_marks>, fillcolor="#fce7f3"];
+    TestResult [label=<<B>Entrance Test Result</B><BR/>hash<BR/>entrance_test, applicant<BR/>marks_obtained, result>, fillcolor="#fce7f3"];
+    
+    // Examination
+    GradingScale [label=<<B>Grading Scale</B><BR/>field:scale_name>, fillcolor="#ede9fe"];
+    AssessmentGroup [label=<<B>Assessment Group</B><BR/>field:group_name<BR/>academic_term<BR/>results_published<BR/>weightage_percent>, fillcolor="#ede9fe"];
+    AssessmentPlan [label=<<B>Assessment Plan</B><BR/>hash<BR/>assessment_group, course<BR/>student_group, max_marks<BR/>grading_scale>, fillcolor="#ede9fe"];
+    AssessmentResult [label=<<B>Assessment Result</B><BR/>hash<BR/>assessment_plan, student<BR/>marks_obtained, grade<BR/>percentage, status>, fillcolor="#ede9fe"];
+    
+    // Fees
+    FeeCategory [label=<<B>Fee Category</B><BR/>field:category_name>, fillcolor="#fee2e2"];
+    FeeStructure [label=<<B>Fee Structure</B><BR/>field:structure_name<BR/>program, academic_year<BR/>total_amount>, fillcolor="#fee2e2"];
+    FeeSchedule [label=<<B>Fee Schedule</B><BR/>hash<BR/>fee_structure, student_group<BR/>due_date>, fillcolor="#fee2e2"];
+    Fees [label=<<B>Fees</B><BR/>FEE-.YYYY.-.####<BR/>student, fee_schedule<BR/>total_amount, discount<BR/>paid, outstanding, status>, fillcolor="#fee2e2"];
+    FeePayment [label=<<B>Fee Payment</B><BR/>PMT-.YYYY.-.#####<BR/>fees, student<BR/>amount, mode, ref>, fillcolor="#fee2e2"];
+    FeeDiscount [label=<<B>Fee Discount</B><BR/>hash<BR/>student, fees<BR/>type, value, status>, fillcolor="#fee2e2"];
+    
+    // Facilities
+    BookCategory [label=<<B>Book Category</B><BR/>field:category_name>, fillcolor="#dcfce7"];
+    LibraryItem [label=<<B>Library Item</B><BR/>LIB-BOOK-.#####<BR/>title, author, isbn<BR/>total_copies, available>, fillcolor="#dcfce7"];
+    LibraryMembership [label=<<B>Library Membership</B><BR/>LIB-MEM-.YYYY.-.####<BR/>student, valid_upto<BR/>max_books, status>, fillcolor="#dcfce7"];
+    LibraryTransaction [label=<<B>Library Transaction</B><BR/>hash<BR/>student, library_item<BR/>type, dates, fine<BR/>status>, fillcolor="#dcfce7"];
+    
+    Hostel [label=<<B>Hostel</B><BR/>field:hostel_name<BR/>hostel_type, warden<BR/>total_capacity>, fillcolor="#fef3c7"];
+    HostelRoom [label=<<B>Hostel Room</B><BR/>field:room_number<BR/>hostel, room_type<BR/>capacity, occupied_count>, fillcolor="#fef3c7"];
+    RoomAllocation [label=<<B>Room Allocation</B><BR/>hash<BR/>student, hostel_room<BR/>allocation_date, status>, fillcolor="#fef3c7"];
+    
+    Vehicle [label=<<B>Vehicle</B><BR/>field:vehicle_number<BR/>capacity, driver<BR/>status>, fillcolor="#fce7f3"];
+    TransportRoute [label=<<B>Transport Route</B><BR/>field:route_name<BR/>vehicle, fee_amount>, fillcolor="#fce7f3"];
+    TransportAlloc [label=<<B>Student Transport Alloc</B><BR/>hash<BR/>student, route<BR/>pickup_stop, status>, fillcolor="#fce7f3"];
+    
+    // Communication
+    Notice [label=<<B>Notice</B><BR/>NOTICE-.YYYY.-.#####<BR/>title, body, audience<BR/>publish_date, status>, fillcolor="#ede9fe"];
+    NoticeRecipient [label=<<B>Notice Recipient</B><BR/>hash<BR/>notice, student<BR/>recipient_type, read>, fillcolor="#ede9fe"];
+    Feedback [label=<<B>Feedback</B><BR/>FDBK-.YYYY.-.#####<BR/>student, guardian<BR/>category, status<BR/>resolution_notes>, fillcolor="#ede9fe"];
+    
+    // Relationships (key ones)
+    Student -> Guardian [label="guardian", style=bold];
+    Student -> Program [label="program"];
+    Guardian -> Student [label="linked students", style=dashed];
+    Program -> Course [label="courses"];
+    AcademicYear -> AcademicTerm [label="terms"];
+    AcademicYear -> StudentGroup [label="groups"];
+    Program -> StudentGroup [label="program"];
+    Course -> StudentGroup [label="course"];
+    CourseSchedule -> Course [label="course"];
+    CourseSchedule -> StudentGroup [label="student_group"];
+    CourseSchedule -> Instructor [label="instructor"];
+    CourseSchedule -> Room [label="room"];
+    StudentGroup -> Student [label="members", style=dashed];
+    
+    AdmInquiry -> StuApplicant [label="converts to"];
+    StuApplicant -> Student [label="creates on approve", style=bold, color="#1e40af"];
+    StuApplicant -> Guardian [label="creates on approve", style=bold, color="#1e40af"];
+    StuApplicant -> EntranceTest [label="takes"];
+    EntranceTest -> TestResult [label="results"];
+    StuApplicant -> TestResult [label="applicant"];
+    
+    GradingScale -> AssessmentGroup [label="used by"];
+    AssessmentGroup -> AssessmentPlan [label="plans"];
+    Course -> AssessmentPlan [label="course"];
+    StudentGroup -> AssessmentPlan [label="student_group"];
+    AssessmentPlan -> AssessmentResult [label="results"];
+    Student -> AssessmentResult [label="student"];
+    
+    FeeCategory -> FeeStructure [label="components"];
+    FeeStructure -> FeeSchedule [label="schedules"];
+    StudentGroup -> FeeSchedule [label="student_group"];
+    FeeSchedule -> Fees [label="generates"];
+    Student -> Fees [label="student"];
+    Fees -> FeePayment [label="payments"];
+    Fees -> FeeDiscount [label="discounts"];
+    
+    BookCategory -> LibraryItem [label="category"];
+    Student -> LibraryMembership [label="membership"];
+    Student -> LibraryTransaction [label="transactions"];
+    LibraryItem -> LibraryTransaction [label="item"];
+    
+    Hostel -> HostelRoom [label="rooms"];
+    HostelRoom -> RoomAllocation [label="allocations"];
+    Student -> RoomAllocation [label="student"];
+    
+    Vehicle -> TransportRoute [label="vehicle"];
+    TransportRoute -> TransportAlloc [label="allocations"];
+    Student -> TransportAlloc [label="student"];
+    
+    Notice -> NoticeRecipient [label="recipients"];
+    Student -> NoticeRecipient [label="student"];
+    Student -> Feedback [label="student"];
+    Guardian -> Feedback [label="guardian"];
+}

@@ -1,0 +1,48 @@
+
+digraph ActStudent {
+    rankdir=TB;
+    node [fontname="Helvetica", fontsize=10, style=filled];
+    edge [fontname="Helvetica", fontsize=9];
+    
+    Start [label="Start", shape=circle, fillcolor="#1e40af", fontcolor="white", width=0.5];
+    Login [label="Login at
+/institution-portal", fillcolor="#dbeafe"];
+    Auth [label="Authenticate
+JWT Token", fillcolor="#dbeafe"];
+    RoleCheck [label="Role = Student?", shape=diamond, fillcolor="#fef3c7"];
+    Dashboard [label="Student Dashboard
+(StatCards, Charts,
+Recent Notices/Fees)", fillcolor="#dbeafe"];
+    NavMenu [label="Sidebar Navigation", fillcolor="#dbeafe"];
+    
+    // Pages
+    Attendance [label="Attendance Page
+50 records, status badges
+Summary: 84%", fillcolor="#dbeafe"];
+    Results [label="Results Page
+6 Assessment Results
+Blue banner if unpublished", fillcolor="#dbeafe"];
+    Fees [label="Fees Page
+1 Fee (₹48,000, Paid)
+Payment History", fillcolor="#dbeafe"];
+    Library [label="Library Page
+3 Active Issues
+5 Transaction History", fillcolor="#dbeafe"];
+    Notices [label="Notices Page
+6 Published Notices
+Expandable", fillcolor="#dbeafe"];
+    Feedback [label="Feedback Page
+Submit Form + History", fillcolor="#dbeafe"];
+    Profile [label="Profile Page
+View/Edit Details", fillcolor="#dbeafe"];
+    Logout [label="Logout", fillcolor="#dbeafe"];
+    End [label="End", shape=circle, fillcolor="#1e40af", fontcolor="white", width=0.5];
+    
+    Start -> Login -> Auth -> RoleCheck;
+    RoleCheck -> Dashboard [label="Yes"];
+    RoleCheck -> End [label="No (Guardian/Staff)"];
+    Dashboard -> NavMenu;
+    NavMenu -> {Attendance Results Fees Library Notices Feedback Profile};
+    {Attendance Results Fees Library Notices Feedback Profile} -> NavMenu;
+    NavMenu -> Logout -> End;
+}

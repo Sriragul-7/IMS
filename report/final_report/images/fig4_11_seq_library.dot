@@ -1,0 +1,35 @@
+
+digraph SeqLibrary {
+    rankdir=TB;
+    node [fontname="Helvetica", fontsize=10, shape=box, style=filled];
+    edge [fontname="Helvetica", fontsize=9];
+    
+    FacilityMgr [label="Facility Manager", fillcolor="#fef3c7"];
+    System [label="Institution ERP", fillcolor="#dbeafe"];
+    DB [label="MariaDB", shape=cylinder, fillcolor="#fef3c7"];
+    
+    FacilityMgr -> System [label="1. Submit Library Transaction
+(type=Return, return_date)"];
+    System -> DB [label="2. VALIDATE
+open Issue exists", dir=both];
+    System -> System [label="3. CALCULATE
+fine = days_overdue × ₹5"];
+    System -> DB [label="4. UPDATE Library Transaction
+fine_amount, status=Returned
+available_copies++", dir=both];
+    
+    // Fine > 0 creates Fee
+    System -> System [label="5. IF fine > 0:
+   CREATE Fees Record
+   (category=Library Fine)"];
+    System -> DB [label="6. INSERT Fees
+(outstanding = fine)", dir=both];
+    System -> FacilityMgr [label="7. Return Transaction
++ Fine Fee Created"];
+    
+    Note1 [label="LIMITATION: Fine
+creates Fee immediately
+without Fee Manager
+approval workflow", shape=note, fillcolor="#fee2e2"];
+    System -> Note1 [style=dashed];
+}

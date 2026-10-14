@@ -1,0 +1,48 @@
+
+digraph DFD_L0 {
+    rankdir=LR;
+    node [fontname="Helvetica", fontsize=11, style=filled, shape=box, rounded=true];
+    edge [fontname="Helvetica", fontsize=10];
+    
+    // External entities
+    StudentExt [label="Student", shape=oval, fillcolor="#dbeafe"];
+    GuardianExt [label="Guardian", shape=oval, fillcolor="#dbeafe"];
+    InstructorExt [label="Instructor", shape=oval, fillcolor="#fef3c7"];
+    AdmissionsExt [label="Admissions Officer", shape=oval, fillcolor="#fef3c7"];
+    FeeMgrExt [label="Fee Manager", shape=oval, fillcolor="#fef3c7"];
+    FacilityExt [label="Facility Manager", shape=oval, fillcolor="#fef3c7"];
+    CommExt [label="Comm Officer", shape=oval, fillcolor="#fef3c7"];
+    AcademicExt [label="Academic Head", shape=oval, fillcolor="#fef3c7"];
+    SysMgrExt [label="System Manager", shape=oval, fillcolor="#fce7f3"];
+    
+    // Central process
+    System [label="Institution ERP
+(Process 0)", shape=circle, fillcolor="#1e40af", fontcolor="white", fontsize=14, width=2.5, height=1.5];
+    
+    // Data stores
+    DB [label="MariaDB
+(48 DocTypes)", shape=cylinder, fillcolor="#fef3c7", width=1.5];
+    
+    // Flows
+    StudentExt -> System [label="Portal Access
+(Attendance, Results, Fees, Library, Notices, Feedback)"];
+    GuardianExt -> System [label="Portal Access
+(Child Switcher, Multi-student view)"];
+    InstructorExt -> System [label="Cockpit + Desk
+(Attendance, Marks, Schedule)"];
+    AdmissionsExt -> System [label="Cockpit + Desk
+(Inquiry→Applicant→Approval)"];
+    FeeMgrExt -> System [label="Cockpit + Desk
+(Fees, Payments, Discounts, Reports)"];
+    FacilityExt -> System [label="Cockpit + Desk
+(Library, Hostel, Transport)"];
+    CommExt -> System [label="Cockpit + Desk
+(Notices, Feedback, Dashboard)"];
+    AcademicExt -> System [label="Cockpit + Desk
+(Academics Overview, Attendance, Exams)"];
+    SysMgrExt -> System [label="Admin Cockpit + Desk
+(Institution-wide, All Modules)"];
+    
+    System -> DB [label="Read/Write
+All DocTypes", dir=both];
+}

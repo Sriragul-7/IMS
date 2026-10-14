@@ -1,0 +1,81 @@
+
+digraph UseCase {
+    rankdir=LR;
+    node [fontname="Helvetica", fontsize=10];
+    edge [fontname="Helvetica", fontsize=9];
+    
+    // Actors
+    Student [label="Student", shape=actor, fillcolor="#dbeafe", style=filled];
+    Guardian [label="Guardian", shape=actor, fillcolor="#dbeafe", style=filled];
+    Instructor [label="Instructor", shape=actor, fillcolor="#fef3c7", style=filled];
+    Admissions [label="Admissions Officer", shape=actor, fillcolor="#fef3c7", style=filled];
+    FeeMgr [label="Fee Manager", shape=actor, fillcolor="#fef3c7", style=filled];
+    Facility [label="Facility Manager", shape=actor, fillcolor="#fef3c7", style=filled];
+    Comm [label="Comm Officer", shape=actor, fillcolor="#fef3c7", style=filled];
+    Academic [label="Academic Head", shape=actor, fillcolor="#fef3c7", style=filled];
+    SysMgr [label="System Manager", shape=actor, fillcolor="#fce7f3", style=filled];
+    
+    // Use cases - Portal
+    subgraph cluster_portal {
+        label="Student/Guardian Portal";
+        style=dashed; color="#64748b";
+        UC1 [label="View Dashboard", shape=ellipse, fillcolor="#dbeafe", style=filled];
+        UC2 [label="View Attendance", shape=ellipse, fillcolor="#dbeafe", style=filled];
+        UC3 [label="View Results", shape=ellipse, fillcolor="#dbeafe", style=filled];
+        UC4 [label="View Fees & Payments", shape=ellipse, fillcolor="#dbeafe", style=filled];
+        UC5 [label="View Library Transactions", shape=ellipse, fillcolor="#dbeafe", style=filled];
+        UC6 [label="View Notices", shape=ellipse, fillcolor="#dbeafe", style=filled];
+        UC7 [label="Submit Feedback", shape=ellipse, fillcolor="#dbeafe", style=filled];
+        UC8 [label="Switch Child (Guardian)", shape=ellipse, fillcolor="#dbeafe", style=filled];
+    }
+    
+    // Use cases - Staff Cockpit
+    subgraph cluster_cockpit {
+        label="Staff Cockpits";
+        style=dashed; color="#64748b";
+        UC9 [label="View Role Dashboard", shape=ellipse, fillcolor="#fef3c7", style=filled];
+        UC10 [label="Quick Actions", shape=ellipse, fillcolor="#fef3c7", style=filled];
+    }
+    
+    // Use cases - Desk (Full CRUD)
+    subgraph cluster_desk {
+        label="Frappe Desk (Full CRUD)";
+        style=dashed; color="#64748b";
+        UC11 [label="Manage Admissions Pipeline", shape=ellipse, fillcolor="#fce7f3", style=filled];
+        UC12 [label="Manage Academics", shape=ellipse, fillcolor="#fce7f3", style=filled];
+        UC13 [label="Mark Attendance", shape=ellipse, fillcolor="#fce7f3", style=filled];
+        UC14 [label="Enter Assessment Marks", shape=ellipse, fillcolor="#fce7f3", style=filled];
+        UC15 [label="Manage Fees & Payments", shape=ellipse, fillcolor="#fce7f3", style=filled];
+        UC16 [label="Manage Library/Hostel/Transport", shape=ellipse, fillcolor="#fce7f3", style=filled];
+        UC17 [label="Dispatch Notices", shape=ellipse, fillcolor="#fce7f3", style=filled];
+        UC18 [label="Manage Feedback", shape=ellipse, fillcolor="#fce7f3", style=filled];
+        UC19 [label="View Reports & Dashboard", shape=ellipse, fillcolor="#fce7f3", style=filled];
+        UC20 [label="Administer System", shape=ellipse, fillcolor="#fce7f3", style=filled];
+    }
+    
+    // Relationships
+    Student -> {UC1 UC2 UC3 UC4 UC5 UC6 UC7}
+    Guardian -> {UC1 UC2 UC3 UC4 UC5 UC6 UC7 UC8}
+    Instructor -> {UC9 UC10 UC13 UC14}
+    Admissions -> {UC9 UC10 UC11}
+    FeeMgr -> {UC9 UC10 UC15}
+    Facility -> {UC9 UC10 UC16}
+    Comm -> {UC9 UC10 UC17 UC18 UC19}
+    Academic -> {UC9 UC10 UC12 UC13 UC14 UC19}
+    SysMgr -> {UC9 UC10 UC11 UC12 UC13 UC14 UC15 UC16 UC17 UC18 UC19 UC20}
+    
+    // Include/extend
+    UC3 -> UC2 [label="<<extend>>
+(results gating)", style=dashed, dir=back];
+    UC10 -> UC11 [label="<<include>>
+(Open Full Desk)", style=dashed];
+    UC10 -> UC12 [label="<<include>>"];
+    UC10 -> UC13 [label="<<include>>"];
+    UC10 -> UC14 [label="<<include>>"];
+    UC10 -> UC15 [label="<<include>>"];
+    UC10 -> UC16 [label="<<include>>"];
+    UC10 -> UC17 [label="<<include>>"];
+    UC10 -> UC18 [label="<<include>>"];
+    UC10 -> UC19 [label="<<include>>"];
+    UC10 -> UC20 [label="<<include>>"];
+}

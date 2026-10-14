@@ -1,0 +1,70 @@
+
+digraph SysArch {
+    rankdir=TB;
+    node [fontname="Helvetica", fontsize=11, style=filled, shape=box, rounded=true];
+    edge [fontname="Helvetica", fontsize=10];
+    
+    subgraph cluster_user {
+        label="Users";
+        style=dashed;
+        Student [label="Student", fillcolor="#dbeafe"];
+        Guardian [label="Guardian", fillcolor="#dbeafe"];
+        Instructor [label="Instructor", fillcolor="#fef3c7"];
+        Admissions [label="Admissions Officer", fillcolor="#fef3c7"];
+        FeeMgr [label="Fee Manager", fillcolor="#fef3c7"];
+        FacilityMgr [label="Facility Manager", fillcolor="#fef3c7"];
+        CommOfficer [label="Comm Officer", fillcolor="#fef3c7"];
+        AcademicHead [label="Academic Head", fillcolor="#fef3c7"];
+        SysMgr [label="System Manager", fillcolor="#fce7f3"];
+    }
+    
+    subgraph cluster_frontend {
+        label="Frontend";
+        style=dashed;
+        PortalUI [label="Vue 3 Portal SPA\n/institution-portal", fillcolor="#dbeafe", shape=component];
+        CockpitUI [label="Vue 3 Staff Cockpits\n/institution-portal/<role>", fillcolor="#fef3c7", shape=component];
+        DeskUI [label="Frappe Desk (Rebranded)\n/app", fillcolor="#fce7f3", shape=component];
+    }
+    
+    subgraph cluster_backend {
+        label="Backend (Frappe v16.26.3)";
+        style=dashed;
+        Auth [label="Authentication\nJWT + Session", fillcolor="#fce7f3"];
+        API [label="Whitelisted API (11 methods)", fillcolor="#dcfce7"];
+        Controllers [label="DocType Controllers\n(Validation, Hooks)", fillcolor="#fce7f3"];
+        PermQC [label="permission_query_conditions\n(16 functions)", fillcolor="#fce7f3"];
+    }
+    
+    subgraph cluster_db {
+        label="Database";
+        style=dashed;
+        MariaDB [label="MariaDB\n48 DocTypes", fillcolor="#fef3c7", shape=cylinder];
+        Redis [label="Redis\nCache/Queue/Session", fillcolor="#fef3c7", shape=cylinder];
+    }
+    
+    Student -> PortalUI;
+    Guardian -> PortalUI;
+    Instructor -> CockpitUI;
+    Admissions -> CockpitUI;
+    FeeMgr -> CockpitUI;
+    FacilityMgr -> CockpitUI;
+    CommOfficer -> CockpitUI;
+    AcademicHead -> CockpitUI;
+    SysMgr -> CockpitUI;
+    
+    CockpitUI -> DeskUI [label="Open Full Desk", style=dashed, color="#64748b"];
+    
+    PortalUI -> Auth;
+    CockpitUI -> Auth;
+    DeskUI -> Auth;
+    
+    PortalUI -> API;
+    CockpitUI -> API;
+    DeskUI -> API [label="REST/Desk API"];
+    
+    API -> Controllers;
+    Controllers -> PermQC;
+    Controllers -> MariaDB;
+    Controllers -> Redis;
+    PermQC -> MariaDB;
+}

@@ -1,0 +1,34 @@
+
+digraph ActStaff {
+    rankdir=TB;
+    node [fontname="Helvetica", fontsize=10, style=filled];
+    edge [fontname="Helvetica", fontsize=9];
+    
+    Start [label="Start", shape=circle, fillcolor="#1e40af", fontcolor="white", width=0.5];
+    Login [label="Staff Login
+(Frappe Desk)", fillcolor="#fef3c7"];
+    RoleDetect [label="Detect Role
+(Instructor/FeeMgr/etc.)", fillcolor="#fef3c7"];
+    Redirect [label="Redirect to
+/institution-portal/<role>", fillcolor="#fef3c7"];
+    Cockpit [label="Role-Specific Cockpit
+(Stats, Quick Actions,
+Pending Items)", fillcolor="#fef3c7"];
+    QuickAction [label="Click Quick Action
+(e.g., Mark Attendance)", fillcolor="#fef3c7"];
+    OpenDesk [label="Opens Desk in
+New Tab
+(Full CRUD)", fillcolor="#fce7f3"];
+    DeskWork [label="Perform Full CRUD
+Create/Edit/Delete/Submit
+Run Reports", fillcolor="#fce7f3"];
+    ReturnCockpit [label="Return to Cockpit
+(Refresh for Updated Stats)", fillcolor="#fef3c7"];
+    Logout [label="Logout", fillcolor="#fef3c7"];
+    End [label="End", shape=circle, fillcolor="#1e40af", fontcolor="white", width=0.5];
+    
+    Start -> Login -> RoleDetect -> Redirect -> Cockpit;
+    Cockpit -> QuickAction -> OpenDesk -> DeskWork;
+    DeskWork -> ReturnCockpit -> Cockpit;
+    Cockpit -> Logout -> End;
+}

@@ -1,0 +1,106 @@
+
+digraph DFD_L1 {
+    rankdir=TB;
+    node [fontname="Helvetica", fontsize=10, style=filled, shape=box, rounded=true];
+    edge [fontname="Helvetica", fontsize=9];
+    
+    // External entities (simplified)
+    Student [label="Student", shape=oval, fillcolor="#dbeafe"];
+    Guardian [label="Guardian", shape=oval, fillcolor="#dbeafe"];
+    Staff [label="Staff Roles", shape=oval, fillcolor="#fef3c7"];
+    
+    // Processes
+    P1 [label="1. Admissions
+Inquiry → Applicant → Test → Approval
+Auto Student/Guardian Creation", fillcolor="#fce7f3", width=2.2];
+    P2 [label="2. Academics
+Program/Course/Schedule/Group
+Instructor/Room Management", fillcolor="#dbeafe", width=2.2];
+    P3 [label="3. Fees
+Structure → Schedule → Invoice
+Payment → Discount → Dues Report", fillcolor="#fee2e2", width=2.2];
+    P4 [label="4. Facilities
+Library (Issue/Return/Fine)
+Hostel (Room/Allocation)
+Transport (Route/Allocation)", fillcolor="#dcfce7", width=2.2];
+    P5 [label="5. Communication
+Notice (Targeted Dispatch)
+Feedback (Track/Resolve)
+Dashboard (Cards/Charts)", fillcolor="#ede9fe", width=2.2];
+    P6 [label="6. Examination
+Grading Scale → Group → Plan
+Bulk Marks → Auto Grade
+Results Published Gate", fillcolor="#fef3c7", width=2.2];
+    P7 [label="7. Attendance
+Student (per Course Schedule)
+Staff (per Instructor)
+Bulk Mark APIs", fillcolor="#fef3c7", width=2.2];
+    P8 [label="8. Portal Access
+Student/Guardian SPA
+Row-level Security
+Results Gating", fillcolor="#dbeafe", width=2.2];
+    
+    // Data stores
+    DS1 [label="D1: Student &
+Guardian Master", shape=cylinder, fillcolor="#fef3c7"];
+    DS2 [label="D2: Academic
+Structure", shape=cylinder, fillcolor="#fef3c7"];
+    DS3 [label="D3: Fees &
+Payments", shape=cylinder, fillcolor="#fef3c7"];
+    DS4 [label="D4: Assessment
+& Results", shape=cylinder, fillcolor="#fef3c7"];
+    DS5 [label="D5: Attendance
+Records", shape=cylinder, fillcolor="#fef3c7"];
+    DS6 [label="D6: Facilities
+(Lib/Hostel/Trans)", shape=cylinder, fillcolor="#fef3c7"];
+    DS7 [label="D7: Communication
+(Notices/Feedback)", shape=cylinder, fillcolor="#fef3c7"];
+    DS8 [label="D8: Admissions
+Pipeline", shape=cylinder, fillcolor="#fef3c7"];
+    
+    // Flows
+    Student -> P1 [label="Inquiry/Application"];
+    Staff -> P1 [label="Review/Approve"];
+    P1 -> DS8 [label="Admission Records", dir=both];
+    P1 -> DS1 [label="Creates Student+Guardian", dir=both];
+    
+    Staff -> P2 [label="Manage Programs/Courses"];
+    P2 -> DS2 [label="Academic Data", dir=both];
+    
+    Staff -> P3 [label="Manage Fees"];
+    Student -> P3 [label="View/Pay Fees"];
+    P3 -> DS3 [label="Fee Records", dir=both];
+    P3 -> DS1 [label="Student Link", dir=both];
+    
+    Staff -> P4 [label="Manage Facilities"];
+    Student -> P4 [label="Library/Hostel/Transport"];
+    P4 -> DS6 [label="Facility Records", dir=both];
+    P4 -> DS1 [label="Student Link", dir=both];
+    
+    Staff -> P5 [label="Dispatch Notices"];
+    Student -> P5 [label="View Notices/Feedback"];
+    Guardian -> P5 [label="View Notices/Feedback"];
+    P5 -> DS7 [label="Comm Records", dir=both];
+    P5 -> DS1 [label="Recipient Link", dir=both];
+    
+    Staff -> P6 [label="Create Assessments/Enter Marks"];
+    Student -> P6 [label="View Results (if published)"];
+    P6 -> DS4 [label="Assessment Data", dir=both];
+    P6 -> DS2 [label="Course/Group Link", dir=both];
+    P6 -> DS1 [label="Student Link", dir=both];
+    
+    Staff -> P7 [label="Mark Attendance"];
+    Student -> P7 [label="View Attendance"];
+    P7 -> DS5 [label="Attendance Records", dir=both];
+    P7 -> DS2 [label="Schedule/Group Link", dir=both];
+    P7 -> DS1 [label="Student/Instructor Link", dir=both];
+    
+    Student -> P8 [label="Portal Login"];
+    Guardian -> P8 [label="Portal Login"];
+    P8 -> DS1 [label="Own/Linked Records", dir=both];
+    P8 -> DS3 [label="Own Fees", dir=both];
+    P8 -> DS4 [label="Own Results (published)", dir=both];
+    P8 -> DS5 [label="Own Attendance", dir=both];
+    P8 -> DS6 [label="Own Facility Records", dir=both];
+    P8 -> DS7 [label="Own Notices/Feedback", dir=both];
+}
