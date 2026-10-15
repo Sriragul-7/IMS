@@ -15,7 +15,7 @@
     <template v-else>
       <div v-if="notices.length" class="notices-list">
         <div v-for="n in notices" :key="n.name" class="notice-card card card-hover" :class="{ expanded: expanded === n.name }">
-          <button class="notice-header" @click="toggle(n.name)" aria-expanded="expanded === n.name">
+          <button class="notice-header" @click="toggle(n.name)" :aria-expanded="expanded === n.name">
             <div class="notice-left">
               <div class="notice-date-badge">
                 <span class="date-month">{{ formatMonth(n.publish_date) }}</span>
@@ -38,14 +38,15 @@
           <div class="notice-body" v-if="expanded === n.name" v-html="n.body"></div>
         </div>
       </div>
-      <EmptyState v-else title="No notices" description="There are no published notices at this time" icon="📢" size="lg" />
+      <EmptyState v-else title="No notices" description="There are no published notices at this time" :icon="icons.bell" size="lg" />
     </template>
   </div>
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue'
+import { ref, computed, onMounted } from 'vue'
 import { callAPI } from '../utils/api.js'
+import { icons } from '../utils/icons.js'
 import PageHeader from '../components/PageHeader.vue'
 import StatusBadge from '../components/StatusBadge.vue'
 import EmptyState from '../components/EmptyState.vue'
@@ -56,7 +57,7 @@ const expanded = ref(null)
 const loading = ref(true)
 
 const metaItems = computed(() => [
-  { label: 'Total', value: notices.value.length, icon: '📢' }
+  { label: 'Total', value: notices.value.length, icon: icons.bell }
 ])
 
 function toggle(name) {
