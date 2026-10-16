@@ -33,7 +33,10 @@
               <textarea v-model="form.message" class="form-textarea" rows="5" placeholder="Your feedback or complaint..." required></textarea>
             </div>
             <div class="form-actions">
-              <span class="success-msg" v-if="success">✅ Feedback submitted successfully!</span>
+              <span class="success-msg" v-if="success">
+                <span class="success-icon" v-html="icons.checkCircle"></span>
+                Feedback submitted successfully
+              </span>
               <button type="submit" class="btn btn-primary btn-lg" :disabled="submitting">
                 <span v-if="submitting" class="btn-spinner">
                   <svg class="spinner" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><circle cx="12" cy="12" r="10" stroke-opacity="0.25"></circle><path d="M12 2a10 10 0 0 1 10 10" stroke-opacity="1"></path></svg>
@@ -56,7 +59,7 @@
             :vertical="true"
             empty-title="No feedback yet"
             empty-description="Submit your first feedback above"
-            empty-icon="💬"
+            :empty-icon="icons.message"
           >
             <template #actions="{ item }">
               <router-link v-if="item.canView" :to="`/feedback/${item.id}`" class="btn btn-ghost btn-xs">View Details</router-link>
@@ -69,7 +72,7 @@
           <h3>Your Feedback History</h3>
         </div>
         <div class="card-body">
-          <EmptyState title="No feedback yet" description="Submit your first feedback using the form on the left" icon="💬" size="md" />
+          <EmptyState title="No feedback yet" description="Submit your first feedback using the form on the left" :icon="icons.message" size="md" />
         </div>
       </div>
     </div>
@@ -79,8 +82,8 @@
 <script setup>
 import { ref, reactive, onMounted, computed } from 'vue'
 import { getSessionUser, callAPI } from '../utils/api.js'
+import { icons } from '../utils/icons.js'
 import PageHeader from '../components/PageHeader.vue'
-import StatusBadge from '../components/StatusBadge.vue'
 import EmptyState from '../components/EmptyState.vue'
 import TimelineList from '../components/TimelineList.vue'
 
@@ -90,7 +93,7 @@ const submitting = ref(false)
 const success = ref(false)
 
 const metaItems = computed(() => [
-  { label: 'Submitted', value: history.value.length, icon: '💬' }
+  { label: 'Submitted', value: history.value.length, icon: icons.message }
 ])
 
 const form = reactive({
@@ -113,10 +116,6 @@ const feedbackTimelineItems = computed(() => {
     canView: false
   }))
 })
-
-function formatDate(d) {
-  return d ? new Date(d).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }) : ''
-}
 
 function fbVariant(status) {
   const map = { Open: 'warning', 'In Progress': 'info', Resolved: 'success', Closed: 'neutral' }
@@ -173,7 +172,19 @@ onMounted(loadHistory)
   gap: var(--space-3);
   margin-top: var(--space-4);
 }
-.success-msg { color: var(--color-success); font-size: var(--text-sm); font-weight: var(--font-weight-medium); }
+.success-msg {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  color: var(--color-success);
+  font-size: var(--text-sm);
+  font-weight: var(--font-weight-medium);
+}
+.success-icon {
+  display: inline-flex;
+  color: var(--color-success);
+}
+.success-icon :deep(svg) { width: 16px; height: 16px; }
 .btn-spinner { display: inline-flex; }
 .spinner { animation: spin 0.8s linear infinite; }
 @keyframes spin { to { transform: rotate(360deg); } }
