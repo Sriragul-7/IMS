@@ -21,17 +21,17 @@
       >
         <template #actions>
           <a href="/app" class="btn btn-glass" target="_blank">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+            <span class="icon-svg" v-html="icons.layers"></span>
             Open Full Desk
           </a>
         </template>
       </HeroBanner>
 
       <div class="stats-grid">
-        <StatCard :value="stats.available_books" label="Available Books" color="#0f172a" icon="📚" variant="default" />
-        <StatCard :value="stats.active_issues" label="Active Issues" color="#d97706" icon="📖" variant="amber" />
-        <StatCard :value="stats.overdue_items" label="Overdue Items" color="#dc2626" icon="⚠️" variant="danger" :trend="overdueTrend" trend-variant="negative" />
-        <StatCard :value="stats.hostel_occupancy" label="Hostel Occupancy" color="#059669" icon="🏠" variant="success" :trend="occupancyTrend" trend-variant="positive" />
+        <StatCard :value="stats.available_books" label="Available Books" color="#0f172a" :icon="icons.books" variant="default" />
+        <StatCard :value="stats.active_issues" label="Active Issues" color="#d97706" :icon="icons.book" variant="amber" />
+        <StatCard :value="stats.overdue_items" label="Overdue Items" color="#dc2626" :icon="icons.alert" variant="danger" :trend="overdueTrend" trend-variant="negative" />
+        <StatCard :value="stats.hostel_occupancy" label="Hostel Occupancy" color="#059669" :icon="icons.home" variant="success" :trend="occupancyTrend" trend-variant="positive" />
       </div>
 
       <div class="dash-grid">
@@ -42,40 +42,24 @@
           <div class="card-body">
             <div class="action-grid">
               <a href="/app/library-transaction/new" class="action-card" target="_blank">
-                <div class="action-icon" style="background:rgba(5,150,105,0.1);color:#059669">
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg>
-                </div>
-                <div class="action-content">
-                  <span class="action-label">Issue Book</span>
-                  <span class="action-desc">Issue a library item</span>
-                </div>
+                <div class="action-card__icon" style="background:rgba(5,150,105,0.1);color:#059669" v-html="icons.book"></div>
+                <span class="action-card__title">Issue Book</span>
+                <span class="action-card__desc">Issue a library item</span>
               </a>
               <a href="/app/library-transaction" class="action-card" target="_blank">
-                <div class="action-icon" style="background:rgba(217,119,6,0.1);color:#d97706">
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 8 12 3 17 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg>
-                </div>
-                <div class="action-content">
-                  <span class="action-label">Return Book</span>
-                  <span class="action-desc">Process returns</span>
-                </div>
+                <div class="action-card__icon" style="background:rgba(217,119,6,0.1);color:#d97706" v-html="icons.refresh"></div>
+                <span class="action-card__title">Return Book</span>
+                <span class="action-card__desc">Process returns</span>
               </a>
               <a href="/app/hostel-room-allocation" class="action-card" target="_blank">
-                <div class="action-icon" style="background:rgba(30,64,175,0.1);color:#1e40af">
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
-                </div>
-                <div class="action-content">
-                  <span class="action-label">Hostel Allocations</span>
-                  <span class="action-desc">Manage room assignments</span>
-                </div>
+                <div class="action-card__icon" style="background:rgba(15,23,42,0.08);color:#0f172a" v-html="icons.home"></div>
+                <span class="action-card__title">Hostel Allocations</span>
+                <span class="action-card__desc">Manage room assignments</span>
               </a>
               <a href="/app/transport-route" class="action-card" target="_blank">
-                <div class="action-icon" style="background:rgba(14,184,166,0.1);color:#0d9488">
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="18" r="2"></circle><circle cx="6" cy="18" r="2"></circle><path d="M22 18H2M7 18L5 6M17 18l2-12"></path></svg>
-                </div>
-                <div class="action-content">
-                  <span class="action-label">Transport Routes</span>
-                  <span class="action-desc">Manage routes & vehicles</span>
-                </div>
+                <div class="action-card__icon" style="background:rgba(13,148,136,0.1);color:#0d9488" v-html="icons.layers"></div>
+                <span class="action-card__title">Transport Routes</span>
+                <span class="action-card__desc">Manage routes & vehicles</span>
               </a>
             </div>
           </div>
@@ -92,7 +76,7 @@
               :vertical="true"
               empty-title="No active issues"
               empty-description="All library items are returned"
-              empty-icon="📚"
+              :empty-icon="icons.books"
             >
               <template #actions="{ item }">
                 <a :href="`/app/library-transaction/${item.id}`" target="_blank" class="btn btn-ghost btn-xs">View</a>
@@ -100,7 +84,7 @@
             </TimelineList>
           </div>
           <div class="card-body" v-else>
-            <EmptyState title="No active issues" description="All library items are returned" icon="📚" size="sm" />
+            <EmptyState title="No active issues" description="All library items are returned" :icon="icons.books" size="sm" />
           </div>
         </div>
 
@@ -127,7 +111,7 @@
             </div>
           </div>
           <div class="card-body" v-else>
-            <EmptyState title="No hostels" description="No hostel data available" icon="🏠" size="sm" />
+            <EmptyState title="No hostels" description="No hostel data available" :icon="icons.home" size="sm" />
           </div>
         </div>
 
@@ -152,6 +136,7 @@
 <script setup>
 import { ref, computed, onMounted } from 'vue'
 import { getSessionUser, callAPI } from '../utils/api.js'
+import { icons } from '../utils/icons.js'
 import StatCard from '../components/StatCard.vue'
 import StatusBadge from '../components/StatusBadge.vue'
 import EmptyState from '../components/EmptyState.vue'
@@ -175,7 +160,7 @@ const greeting = computed(() => {
 })
 
 const heroMeta = computed(() => [
-  { label: 'Role', value: 'Facility Manager', icon: '🏫' }
+  { label: 'Role', value: 'Facility Manager', icon: icons.building }
 ])
 
 const overdueTrend = '+2 vs last week'
@@ -202,14 +187,14 @@ const transportChartData = computed(() => {
       data: [85, 72, 91, 68, 79],
       backgroundColor: [
         'rgba(14, 184, 166, 0.7)',
-        'rgba(124, 58, 237, 0.7)',
+        'rgba(15, 23, 42, 0.7)',
         'rgba(217, 119, 6, 0.7)',
         'rgba(30, 64, 175, 0.7)',
         'rgba(220, 38, 38, 0.7)'
       ],
       borderColor: [
         'rgba(14, 184, 166, 1)',
-        'rgba(124, 58, 237, 1)',
+        'rgba(15, 23, 42, 1)',
         'rgba(217, 119, 6, 1)',
         'rgba(30, 64, 175, 1)',
         'rgba(220, 38, 38, 1)'
@@ -253,13 +238,6 @@ onMounted(async () => {
 .stats-skeleton { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--space-4); }
 .dash-skeleton { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-4); }
 
-.stats-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: var(--space-4);
-  margin-bottom: var(--space-6);
-}
-
 .dash-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -271,26 +249,8 @@ onMounted(async () => {
 }
 
 .action-grid {
-  display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: var(--space-3);
 }
-
-.action-card {
-  display: flex;
-  align-items: flex-start;
-  gap: var(--space-3);
-  padding: var(--space-4);
-  border-radius: var(--radius-lg);
-  border: 1px solid var(--color-border-light);
-  text-decoration: none;
-  transition: all var(--transition-fast);
-}
-.action-card:hover { border-color: var(--color-accent-light); background: var(--color-accent-50); transform: translateY(-2px); box-shadow: var(--shadow-md); }
-.action-icon { width: 44px; height: 44px; border-radius: var(--radius-lg); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
-.action-content { display: flex; flex-direction: column; gap: 2px; }
-.action-label { font-size: var(--text-sm); font-weight: var(--font-weight-semibold); color: var(--color-text); }
-.action-desc { font-size: var(--text-xs); color: var(--color-text-muted); }
 
 .hostel-stats-grid {
   display: grid;
@@ -326,14 +286,12 @@ onMounted(async () => {
 }
 
 @media (max-width: 1024px) {
-  .stats-grid { grid-template-columns: repeat(2, 1fr); }
   .dash-grid { grid-template-columns: repeat(2, 1fr); }
   .dash-card--wide { grid-column: span 2; }
   .action-grid { grid-template-columns: 1fr; }
   .hostel-stats-grid { grid-template-columns: repeat(2, 1fr); }
 }
 @media (max-width: 768px) {
-  .stats-grid { grid-template-columns: 1fr; }
   .dash-grid { grid-template-columns: 1fr; }
   .dash-card--wide { grid-column: span 1; }
   .hostel-stats-grid { grid-template-columns: 1fr; }
