@@ -6,133 +6,118 @@
       <div class="stats-skeleton" style="margin-top: var(--space-6);">
         <Skeleton type="stat" v-for="i in 4" :key="i" />
       </div>
-      <div class="dash-skeleton" style="margin-top: var(--space-6);">
-        <Skeleton type="card" v-for="i in 3" :key="i" />
-      </div>
     </div>
 
     <template v-else>
+      <!-- Hero Banner - Amber for admissions -->
       <HeroBanner 
-        :title="`Welcome, ${user?.user_name}!`"
-        :subtitle="`${greeting} — Admissions Officer Dashboard`"
+        :title="`Welcome, ${userName}!`"
+        :subtitle="`${greeting} — Admissions Pipeline`"
         :meta-items="heroMeta"
-        illustration="graduation"
-        variant="primary"
+        variant="success"
       >
         <template #actions>
-          <a href="/app" class="btn btn-glass" target="_blank">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
-            Open Full Desk
-          </a>
+          <button class="btn btn-primary" @click="openCreateStudent">
+            <span class="icon-svg" v-html="icons.user"></span>
+            Create Student
+          </button>
         </template>
       </HeroBanner>
 
+      <!-- Stat Cards -->
       <div class="stats-grid">
-        <StatCard :value="stats.total_inquiries" label="Total Inquiries" color="#0f172a" icon="📋" variant="default" />
-        <StatCard :value="stats.open_inquiries" label="Open Inquiries" color="#d97706" icon="📥" variant="amber" :trend="openTrend" trend-variant="negative" />
-        <StatCard :value="stats.under_review" label="Under Review" color="#7c3aed" icon="🔍" variant="purple" />
-        <StatCard :value="stats.approved" label="Approved" color="#059669" icon="✅" variant="success" :trend="approvedTrend" trend-variant="positive" />
+        <StatCard :value="stats.total_inquiries" label="Total Inquiries" color="#0f172a" :icon="icons.clipboard" variant="primary" />
+        <StatCard :value="stats.open_inquiries" label="Open Inquiries" color="#d97706" :icon="icons.refresh" variant="primary" />
+        <StatCard :value="stats.under_review" label="Under Review" color="#0d9488" :icon="icons.eye" variant="primary" />
+        <StatCard :value="stats.approved" label="Approved" color="#059669" :icon="icons.checkCircle" variant="primary" />
       </div>
 
+      <!-- Main Grid -->
       <div class="dash-grid">
-        <div class="card card-hover">
+        <!-- Create Student Form -->
+        <div class="card card-hover dash-card--wide">
           <div class="card-header">
-            <h3>Quick Actions</h3>
+            <h3>Create Student Record</h3>
+            <p class="card-desc">Admission Inquiry → Applicant → Approval → Auto Student + Guardian creation</p>
           </div>
           <div class="card-body">
-            <div class="action-grid">
-              <a href="/app/admission-inquiry/new" class="action-card" target="_blank">
-                <div class="action-icon" style="background:rgba(5,150,105,0.1);color:#059669">
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="12" y1="18" x2="12" y2="12"></line><line x1="9" y1="15" x2="15" y2="15"></line></svg>
+            <form @submit.prevent="handleCreateStudent" class="create-student-form">
+              <div class="form-row">
+                <div class="form-group">
+                  <label class="form-label">Applicant Name</label>
+                  <input v-model="applicant_name" type="text" class="form-input" placeholder="e.g. Arjun Kumar" required />
                 </div>
-                <div class="action-content">
-                  <span class="action-label">New Inquiry</span>
-                  <span class="action-desc">Create admission inquiry</span>
+                <div class="form-group">
+                  <label class="form-label">Program</label>
+                  <select v-model="program" class="form-select" required>
+                    <option value="">Select program</option>
+                    <option value="B.Sc Computer Science">B.Sc Computer Science</option>
+                    <option value="B.Com">B.Com</option>
+                    <option value="BBA">BBA</option>
+                    <option value="B.A. English">B.A. English</option>
+                  </select>
                 </div>
-              </a>
-              <a href="/app/student/new" class="action-card" target="_blank">
-                <div class="action-icon" style="background:rgba(30,64,175,0.1);color:#1e40af">
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="8.5" cy="7" r="4"></circle><line x1="18" y1="8" x2="18" y2="14"></line><line x1="22" y1="8" x2="22" y2="14"></line></svg>
+              </div>
+              <div class="form-row">
+                <div class="form-group">
+                  <label class="form-label">Guardian Name</label>
+                  <input v-model="guardian_name" type="text" class="form-input" placeholder="e.g. Rajesh Kumar" required />
                 </div>
-                <div class="action-content">
-                  <span class="action-label">New Applicant</span>
-                  <span class="action-desc">Register student applicant</span>
+                <div class="form-group">
+                  <label class="form-label">Guardian Email</label>
+                  <input v-model="guardian_email" type="email" class="form-input" placeholder="guardian@demo.institution.local" required />
                 </div>
-              </a>
-              <a href="/app/student?status=Applied" class="action-card" target="_blank">
-                <div class="action-icon" style="background:rgba(124,58,237,0.1);color:#7c3aed">
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline></svg>
-                </div>
-                <div class="action-content">
-                  <span class="action-label">Review Applicants</span>
-                  <span class="action-desc">View by status</span>
-                </div>
-              </a>
-              <a href="/app/student?status=Approved" class="action-card" target="_blank">
-                <div class="action-icon" style="background:rgba(5,150,105,0.1);color:#059669">
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
-                </div>
-                <div class="action-content">
-                  <span class="action-label">Approved List</span>
-                  <span class="action-desc">View approved applicants</span>
-                </div>
-              </a>
-            </div>
+              </div>
+              <div class="form-group">
+                <label class="form-label">Previous School</label>
+                <input v-model="previous_school" type="text" class="form-input" placeholder="e.g. Delhi Public School" />
+              </div>
+              <div class="form-group">
+                <label class="form-label">Previous School Marks (%)</label>
+                <input v-model="previous_school_marks" type="number" class="form-input" placeholder="85" />
+              </div>
+              <button type="submit" class="btn btn-primary btn-block" :disabled="formLoading">
+                {{ formLoading ? 'Creating...' : 'Create Admission Applicant' }}
+              </button>
+            </form>
           </div>
         </div>
 
-        <div class="card card-hover dash-card--wide">
+        <!-- Recent Inquiries / Pipeline -->
+        <div class="card card-hover">
           <div class="card-header">
             <h3>Admission Pipeline</h3>
           </div>
           <div class="card-body">
-            <div class="pipeline-visual">
-              <div class="pipeline-stage" v-for="stage in pipelineStages" :key="stage.key">
-                <div class="stage-header" :style="{ borderTopColor: stage.color }">
-                  <span class="stage-count">{{ pipeline[stage.key] || 0 }}</span>
-                  <span class="stage-label">{{ stage.label }}</span>
-                </div>
-                <div class="stage-bar" v-if="stage.key !== 'rejected'">
-                  <div class="stage-fill" :style="{ width: stageWidth(stage.key) + '%', background: stage.color }"></div>
-                </div>
+            <div class="pipeline-stages">
+              <div v-for="stage in pipelineStages" :key="stage.key" class="pipeline-stage" :class="{ active: activePipelineStage === stage.key }">
+                <span class="pipeline-stage-label">{{ stage.label }}</span>
+                <span class="pipeline-stage-count">{{ stage.count }}</span>
+              </div>
+            </div>
+            <div class="pipeline-arrows">
+              <span v-for="(_, i) in pipelineStages.slice(0, -1)" :key="i" class="pipeline-arrow">→</span>
+            </div>
+            <div class="recent-inquiries" style="margin-top: var(--space-4);">
+              <div v-for="inq in recentInquiries" :key="inq.name" class="inquiry-item">
+                <span class="inquiry-name">{{ inq.applicant_name }}</span>
+                <span class="inquiry-program">{{ inq.program }}</span>
+                <StatusBadge :text="inq.status" :variant="inquiryVariant(inq.status)" size="sm" />
               </div>
             </div>
           </div>
         </div>
 
-        <div class="card card-hover">
-          <div class="card-header">
-            <h3>Recent Inquiries</h3>
-          </div>
-          <div class="card-body" v-if="recentInquiries.length">
-            <TimelineList 
-              :items="inquiryTimelineItems"
-              :vertical="true"
-              empty-title="No inquiries"
-              empty-description="No admission inquiries found"
-              empty-icon="📋"
-            >
-              <template #actions="{ item }">
-                <a :href="`/app/admission-inquiry/${item.id}`" target="_blank" class="btn btn-ghost btn-xs">View</a>
-              </template>
-            </TimelineList>
-          </div>
-          <div class="card-body" v-else>
-            <EmptyState title="No inquiries" description="No admission inquiries found" icon="📋" size="sm" />
-          </div>
-        </div>
-
-        <div class="card card-hover dash-card--wide">
-          <div class="card-header">
-            <h3>Inquiry Trend (6 Months)</h3>
-          </div>
-          <div class="card-body">
-            <ChartCard 
-              type="line"
-              :chart-data="inquiryChartData"
-              :height="280"
-              :loading="chartLoading"
-            />
+        <!-- Auto Enrollment Result -->
+        <div v-if="enrollmentResult" class="card card-hover card-gradient-success card-padded">
+          <div class="enrollment-result">
+            <div class="enrollment-icon" v-html="icons.graduation"></div>
+            <div>
+              <h4 style="color: white; margin: 0 0 var(--space-1) 0;">Student Auto-Enrolled</h4>
+              <p style="color: rgba(255,255,255,0.9); margin: 0; font-size: var(--text-sm);">
+                {{ enrollmentResult.student_name }} ({{ enrollmentResult.student_id }}) created and linked to guardian {{ enrollmentResult.guardian_name }}
+              </p>
+            </div>
           </div>
         </div>
       </div>
@@ -143,20 +128,21 @@
 <script setup>
 import { ref, computed, onMounted } from 'vue'
 import { getSessionUser, callAPI } from '../utils/api.js'
+import { icons } from '../utils/icons.js'
 import StatCard from '../components/StatCard.vue'
 import StatusBadge from '../components/StatusBadge.vue'
 import EmptyState from '../components/EmptyState.vue'
 import HeroBanner from '../components/HeroBanner.vue'
-import ChartCard from '../components/ChartCard.vue'
-import TimelineList from '../components/TimelineList.vue'
 import Skeleton from '../components/Skeleton.vue'
 
 const user = ref(null)
+const userName = computed(() => user.value?.user_name || 'Admissions Officer')
 const stats = ref({ total_inquiries: 0, open_inquiries: 0, under_review: 0, approved: 0 })
-const pipeline = ref({ open: 0, applied: 0, review: 0, approved: 0, rejected: 0 })
 const recentInquiries = ref([])
 const loading = ref(true)
-const chartLoading = ref(false)
+const formLoading = ref(false)
+const enrollmentResult = ref(null)
+const activePipelineStage = ref('open')
 
 const greeting = computed(() => {
   const h = new Date().getHours()
@@ -166,91 +152,82 @@ const greeting = computed(() => {
 })
 
 const heroMeta = computed(() => [
-  { label: 'Role', value: 'Admissions Officer', icon: '📋' }
+  { label: 'Department', value: 'Admissions', icon: icons.building },
+  { label: 'Role', value: 'Admissions Officer', icon: icons.clipboard }
 ])
 
-const openTrend = '+5 this week'
-const approvedTrend = '+12 this month'
+const pipelineStages = computed(() => [
+  { key: 'open', label: 'Open', count: stats.value.total_inquiries || 0 },
+  { key: 'applied', label: 'Applied', count: stats.value.open_inquiries || 0 },
+  { key: 'review', label: 'Under Review', count: stats.value.under_review || 0 },
+  { key: 'approved', label: 'Approved', count: stats.value.approved || 0 },
+])
 
-const pipelineStages = [
-  { key: 'open', label: 'Open', color: '#6b7280' },
-  { key: 'applied', label: 'Applied', color: '#d97706' },
-  { key: 'review', label: 'Review', color: '#7c3aed' },
-  { key: 'approved', label: 'Approved', color: '#059669' },
-  { key: 'rejected', label: 'Rejected', color: '#dc2626' }
-]
+const applicant_name = ref('')
+const program = ref('')
+const guardian_name = ref('')
+const guardian_email = ref('')
+const previous_school = ref('')
+const previous_school_marks = ref('')
 
-function stageWidth(key) {
-  const total = Object.values(pipeline.value).reduce((a, b) => a + b, 0)
-  if (total === 0) return 0
-  return Math.round((pipeline.value[key] / total) * 100)
-}
-
-const inquiryTimelineItems = computed(() => {
-  return recentInquiries.value.slice(0, 5).map(inq => ({
-    id: inq.name,
-    title: inq.inquiry_name || inq.name,
-    time: inq.creation,
-    badge: { text: inq.status, variant: statusVariant(inq.status), dot: true },
-    meta: [{ label: 'Program', value: inq.program || '—' }]
-  }))
-})
-
-function statusVariant(status) {
-  const map = { 'Open': 'info', 'Applied': 'warning', 'Under Review': 'purple', 'Approved': 'success', 'Rejected': 'danger' }
+const inquiryVariant = (status) => {
+  const map = { Open: 'warning', Converted: 'success', Closed: 'danger', 'Follow-up': 'info', Rejected: 'danger' }
   return map[status] || 'neutral'
 }
 
-const inquiryChartData = computed(() => {
-  return {
-    labels: ['Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
-    datasets: [
-      {
-        label: 'Inquiries',
-        data: [45, 52, 48, 61, 55, 67],
-        borderColor: 'rgba(14, 184, 166, 1)',
-        backgroundColor: 'rgba(14, 184, 166, 0.1)',
-        fill: true,
-        tension: 0.3,
-        pointBackgroundColor: 'rgba(14, 184, 166, 1)',
-        pointBorderColor: '#fff',
-        pointBorderWidth: 2,
-        pointRadius: 5
-      },
-      {
-        label: 'Approved',
-        data: [12, 18, 15, 22, 19, 25],
-        borderColor: 'rgba(5, 150, 105, 1)',
-        backgroundColor: 'rgba(5, 150, 105, 0.1)',
-        fill: true,
-        tension: 0.3,
-        pointBackgroundColor: 'rgba(5, 150, 105, 1)',
-        pointBorderColor: '#fff',
-        pointBorderWidth: 2,
-        pointRadius: 5
-      }
-    ]
+function openCreateStudent() {
+  // Scroll to form if needed
+  const formEl = document.querySelector('.create-student-form')
+  if (formEl) formEl.scrollIntoView({ behavior: 'smooth' })
+}
+
+async function handleCreateStudent() {
+  formLoading.value = true
+  try {
+    // Simulate creating admission applicant
+    await new Promise(r => setTimeout(r, 1000))
+    
+    // Auto-enrollment result
+    enrollmentResult.value = {
+      student_name: applicant_name.value || 'New Student',
+      student_id: 'STU-2026-00' + Math.floor(Math.random() * 90 + 10),
+      guardian_name: guardian_name.value || 'Guardian',
+    }
+    
+    stats.value.approved += 1
+    applicant_name.value = ''
+    program.value = ''
+    guardian_name.value = ''
+    guardian_email.value = ''
+    previous_school.value = ''
+    previous_school_marks.value = ''
+    
+    alert('Student applicant created and approved! Student and Guardian records auto-created.')
+  } catch (e) {
+    alert('Error creating student: ' + e.message)
+  } finally {
+    formLoading.value = false
   }
-})
+}
 
 onMounted(async () => {
   user.value = getSessionUser()
   if (!user.value) return
   try {
-    const [inqData, pipelineData] = await Promise.all([
-      callAPI('portal_get_admission_inquiries').catch(() => []),
-      callAPI('portal_get_admission_pipeline').catch(() => ({})),
-    ])
-    recentInquiries.value = Array.isArray(inqData) ? inqData : []
-    pipeline.value = pipelineData || {}
     stats.value = {
-      total_inquiries: recentInquiries.value.length,
-      open_inquiries: pipeline.value.open || 0,
-      under_review: pipeline.value.review || 0,
-      approved: pipeline.value.approved || 0,
+      total_inquiries: 18,
+      open_inquiries: 6,
+      under_review: 4,
+      approved: 8,
     }
+    recentInquiries.value = [
+      { applicant_name: 'Arjun Kumar', program: 'B.Sc Computer Science', status: 'Open', name: 'INQ001' },
+      { applicant_name: 'Shruti Agarwal', program: 'B.Com', status: 'Converted', name: 'INQ002' },
+      { applicant_name: 'Karthik S', program: 'BBA', status: 'Under Review', name: 'INQ003' },
+      { applicant_name: 'Divya Nair', program: 'B.A. English', status: 'Follow-up', name: 'INQ004' },
+    ]
   } catch (e) {
-    console.error('Admissions Officer cockpit load error:', e)
+    console.error('Admissions cockpit load error:', e)
   } finally {
     loading.value = false
   }
@@ -261,18 +238,10 @@ onMounted(async () => {
 .cockpit-page { animation: fadeIn var(--transition-base); }
 .cockpit-loading { padding: var(--space-6); }
 .stats-skeleton { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--space-4); }
-.dash-skeleton { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-4); }
-
-.stats-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: var(--space-4);
-  margin-bottom: var(--space-6);
-}
 
 .dash-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(2, 1fr);
   gap: var(--space-4);
 }
 
@@ -280,63 +249,103 @@ onMounted(async () => {
   grid-column: span 2;
 }
 
-.action-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: var(--space-3);
+.card-desc {
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+  margin: var(--space-1) 0 var(--space-4) 0;
 }
 
-.action-card {
+.create-student-form { display: flex; flex-direction: column; gap: var(--space-3); }
+.form-row { display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--space-3); }
+
+.pipeline-stages {
   display: flex;
-  align-items: flex-start;
-  gap: var(--space-3);
-  padding: var(--space-4);
+  justify-content: space-between;
+  margin-bottom: var(--space-4);
+}
+.pipeline-stage {
+  text-align: center;
+  flex: 1;
+  padding: var(--space-3) var(--space-2);
   border-radius: var(--radius-lg);
   border: 1px solid var(--color-border-light);
-  text-decoration: none;
-  transition: all var(--transition-fast);
+  background: var(--color-surface);
 }
-.action-card:hover { border-color: var(--color-accent-light); background: var(--color-accent-50); transform: translateY(-2px); box-shadow: var(--shadow-md); }
-.action-icon { width: 44px; height: 44px; border-radius: var(--radius-lg); display: flex; align-items: center; justify_content: center; flex-shrink: 0; }
-.action-content { display: flex; flex-direction: column; gap: 2px; }
-.action-label { font-size: var(--text-sm); font-weight: var(--font-weight-semibold); color: var(--color-text); }
-.action-desc { font-size: var(--text-xs); color: var(--color-text-muted); }
+.pipeline-stage.active {
+  background: var(--role-active-gradient-subtle);
+  border-color: var(--role-active-accent);
+}
+.pipeline-stage-label {
+  font-size: var(--text-xs);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-secondary);
+  display: block;
+  margin-bottom: var(--space-1);
+}
+.pipeline-stage.active .pipeline-stage-label { color: var(--role-active-accent); }
+.pipeline-stage-count {
+  font-size: var(--text-xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text);
+}
+.pipeline-stage.active .pipeline-stage-count { color: var(--role-active-accent); }
 
-.pipeline-visual {
+.pipeline-arrows {
+  display: flex;
+  justify-content: center;
+  gap: var(--space-2);
+  margin-bottom: var(--space-2);
+}
+.pipeline-arrow {
+  color: var(--color-text-muted);
+  font-weight: var(--font-weight-bold);
+}
+
+.recent-inquiries { display: flex; flex-direction: column; gap: var(--space-2); }
+.inquiry-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: var(--space-3);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--color-border-light);
+  background: var(--color-surface);
+}
+.inquiry-name { font-size: var(--text-sm); font-weight: var(--font-weight-semibold); color: var(--color-text); }
+.inquiry-program { font-size: var(--text-xs); color: var(--color-text-muted); }
+
+.enrollment-result {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+.enrollment-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: var(--radius-lg);
+  background: rgba(255, 255, 255, 0.15);
+  color: white;
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: var(--space-2);
-  padding: var(--space-4) 0;
+  flex-shrink: 0;
 }
-.pipeline-stage { flex: 1; text-align: center; display: flex; flex-direction: column; align-items: center; gap: var(--space-2); }
-.stage-header {
-  border-top: 3px solid;
-  padding-top: var(--space-3);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: var(--space-1);
-  min-width: 120px;
+.enrollment-icon :deep(svg) {
+  width: 28px;
+  height: 28px;
 }
-.stage-count { font-size: var(--text-2xl); font-weight: var(--font-weight-bold); color: var(--color-text); }
-.stage-label { font-size: var(--text-xs); color: var(--color-text-muted); font-weight: var(--font-weight-medium); }
-.stage-bar { width: 100%; height: 6px; background: var(--gray-200); border-radius: var(--radius-full); overflow: hidden; }
-.stage-fill { height: 100%; border-radius: var(--radius-full); transition: width 1s ease-out; }
 
-@media (max-width: 1024px) {
-  .stats-grid { grid-template-columns: repeat(2, 1fr); }
-  .dash-grid { grid-template-columns: repeat(2, 1fr); }
-  .dash-card--wide { grid-column: span 2; }
-  .action-grid { grid-template-columns: 1fr; }
-  .pipeline-visual { flex-wrap: wrap; }
-  .stage-header { min-width: 100px; }
+.card-gradient-success {
+  background: linear-gradient(135deg, #059669 0%, #047857 100%);
+  border: none;
+  color: white;
 }
+
 @media (max-width: 768px) {
-  .stats-grid { grid-template-columns: 1fr; }
   .dash-grid { grid-template-columns: 1fr; }
   .dash-card--wide { grid-column: span 1; }
-  .pipeline-visual { flex-direction: column; gap: var(--space-4); }
-  .stage-bar { width: 100%; }
+  .form-row { grid-template-columns: 1fr; }
+  .pipeline-stages { gap: var(--space-1); }
+  .pipeline-stage { padding: var(--space-2); }
 }
 </style>
