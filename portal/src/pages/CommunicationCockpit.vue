@@ -21,17 +21,17 @@
       >
         <template #actions>
           <a href="/app" class="btn btn-glass" target="_blank">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+            <span class="icon-svg" v-html="icons.layers"></span>
             Open Full Desk
           </a>
         </template>
       </HeroBanner>
 
       <div class="stats-grid">
-        <StatCard :value="stats.total_notices" label="Total Notices" color="#0f172a" icon="📢" variant="default" />
-        <StatCard :value="stats.published_notices" label="Published" color="#059669" icon="✅" variant="success" />
-        <StatCard :value="stats.pending_feedback" label="Feedback Queue" color="#d97706" icon="💬" variant="amber" :trend="feedbackTrend" trend-variant="negative" />
-        <StatCard :value="stats.open_logs" label="Communication Logs" color="#7c3aed" icon="📋" variant="purple" />
+        <StatCard :value="stats.total_notices" label="Total Notices" color="#0f172a" :icon="icons.bell" variant="default" />
+        <StatCard :value="stats.published_notices" label="Published" color="#059669" :icon="icons.checkCircle" variant="success" />
+        <StatCard :value="stats.pending_feedback" label="Feedback Queue" color="#d97706" :icon="icons.message" variant="amber" :trend="feedbackTrend" trend-variant="negative" />
+        <StatCard :value="stats.open_logs" label="Communication Logs" color="#0d9488" :icon="icons.clipboard" variant="default" />
       </div>
 
       <div class="dash-grid">
@@ -42,40 +42,24 @@
           <div class="card-body">
             <div class="action-grid">
               <a href="/app/notice/new" class="action-card" target="_blank">
-                <div class="action-icon" style="background:rgba(5,150,105,0.1);color:#059669">
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
-                </div>
-                <div class="action-content">
-                  <span class="action-label">Create Notice</span>
-                  <span class="action-desc">Compose and publish</span>
-                </div>
+                <div class="action-card__icon" style="background:rgba(5,150,105,0.1);color:#059669" v-html="icons.document"></div>
+                <span class="action-card__title">Create Notice</span>
+                <span class="action-card__desc">Compose and publish</span>
               </a>
               <a href="/app/notice" class="action-card" target="_blank">
-                <div class="action-icon" style="background:rgba(30,64,175,0.1);color:#1e40af">
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline></svg>
-                </div>
-                <div class="action-content">
-                  <span class="action-label">All Notices</span>
-                  <span class="action-desc">View and manage notices</span>
-                </div>
+                <div class="action-card__icon" style="background:rgba(15,23,42,0.08);color:#0f172a" v-html="icons.bell"></div>
+                <span class="action-card__title">All Notices</span>
+                <span class="action-card__desc">View and manage notices</span>
               </a>
               <a href="/app/communication-log" class="action-card" target="_blank">
-                <div class="action-icon" style="background:rgba(124,58,237,0.1);color:#7c3aed">
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22 6 12 13 9 13"></polyline></svg>
-                </div>
-                <div class="action-content">
-                  <span class="action-label">Communication Logs</span>
-                  <span class="action-desc">View history</span>
-                </div>
+                <div class="action-card__icon" style="background:rgba(13,148,136,0.1);color:#0d9488" v-html="icons.inbox"></div>
+                <span class="action-card__title">Communication Logs</span>
+                <span class="action-card__desc">View history</span>
               </a>
               <a href="/app/feedback" class="action-card" target="_blank">
-                <div class="action-icon" style="background:rgba(236,72,153,0.1);color:#ec4899">
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
-                </div>
-                <div class="action-content">
-                  <span class="action-label">Feedback</span>
-                  <span class="action-desc">Review feedback items</span>
-                </div>
+                <div class="action-card__icon" style="background:rgba(217,119,6,0.1);color:#d97706" v-html="icons.message"></div>
+                <span class="action-card__title">Feedback</span>
+                <span class="action-card__desc">Review feedback items</span>
               </a>
             </div>
           </div>
@@ -92,7 +76,7 @@
               :vertical="true"
               empty-title="No notices"
               empty-description="No notices found"
-              empty-icon="📢"
+              :empty-icon="icons.bell"
             >
               <template #actions="{ item }">
                 <a :href="`/app/notice/${item.id}`" target="_blank" class="btn btn-ghost btn-xs">Edit</a>
@@ -100,7 +84,7 @@
             </TimelineList>
           </div>
           <div class="card-body" v-else>
-            <EmptyState title="No notices" description="No notices found" icon="📢" size="sm" />
+            <EmptyState title="No notices" description="No notices found" :icon="icons.bell" size="sm" />
           </div>
         </div>
 
@@ -115,7 +99,7 @@
               :vertical="true"
               empty-title="All clear"
               empty-description="No pending feedback"
-              empty-icon="✅"
+              :empty-icon="icons.checkCircle"
             >
               <template #actions="{ item }">
                 <a :href="`/app/feedback/${item.id}`" target="_blank" class="btn btn-accent btn-sm">Review</a>
@@ -123,7 +107,7 @@
             </TimelineList>
           </div>
           <div class="card-body" v-else>
-            <EmptyState title="All clear" description="No pending feedback" icon="✅" size="sm" />
+            <EmptyState title="All clear" description="No pending feedback" :icon="icons.checkCircle" size="sm" />
           </div>
         </div>
       </div>
@@ -134,6 +118,7 @@
 <script setup>
 import { ref, computed, onMounted } from 'vue'
 import { getSessionUser, callAPI } from '../utils/api.js'
+import { icons } from '../utils/icons.js'
 import StatCard from '../components/StatCard.vue'
 import StatusBadge from '../components/StatusBadge.vue'
 import EmptyState from '../components/EmptyState.vue'
@@ -156,7 +141,7 @@ const greeting = computed(() => {
 })
 
 const heroMeta = computed(() => [
-  { label: 'Role', value: 'Communication Officer', icon: '📢' }
+  { label: 'Role', value: 'Communication Officer', icon: icons.bell }
 ])
 
 const feedbackTrend = '+3 new today'
@@ -216,13 +201,6 @@ onMounted(async () => {
 .stats-skeleton { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--space-4); }
 .dash-skeleton { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-4); }
 
-.stats-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: var(--space-4);
-  margin-bottom: var(--space-6);
-}
-
 .dash-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -234,35 +212,15 @@ onMounted(async () => {
 }
 
 .action-grid {
-  display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: var(--space-3);
 }
-
-.action-card {
-  display: flex;
-  align-items: flex-start;
-  gap: var(--space-3);
-  padding: var(--space-4);
-  border-radius: var(--radius-lg);
-  border: 1px solid var(--color-border-light);
-  text-decoration: none;
-  transition: all var(--transition-fast);
-}
-.action-card:hover { border-color: var(--color-accent-light); background: var(--color-accent-50); transform: translateY(-2px); box-shadow: var(--shadow-md); }
-.action-icon { width: 44px; height: 44px; border-radius: var(--radius-lg); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
-.action-content { display: flex; flex-direction: column; gap: 2px; }
-.action-label { font-size: var(--text-sm); font-weight: var(--font-weight-semibold); color: var(--color-text); }
-.action-desc { font-size: var(--text-xs); color: var(--color-text-muted); }
 
 @media (max-width: 1024px) {
-  .stats-grid { grid-template-columns: repeat(2, 1fr); }
   .dash-grid { grid-template-columns: repeat(2, 1fr); }
   .dash-card--wide { grid-column: span 2; }
   .action-grid { grid-template-columns: 1fr; }
 }
 @media (max-width: 768px) {
-  .stats-grid { grid-template-columns: 1fr; }
   .dash-grid { grid-template-columns: 1fr; }
   .dash-card--wide { grid-column: span 1; }
 }
