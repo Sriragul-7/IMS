@@ -104,6 +104,10 @@ const variantClass = computed(() => `stat-card--${props.variant}`)
   font-size: 1.5rem;
   flex-shrink: 0;
 }
+.stat-icon :deep(svg) {
+  width: 22px;
+  height: 22px;
+}
 .stat-subtitle {
   font-size: var(--text-xs);
   color: var(--color-text-muted);
