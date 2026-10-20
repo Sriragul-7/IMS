@@ -1,5 +1,5 @@
 <template>
-  <div class="hero-banner" :class="variantClass" :style="bannerStyle">
+  <div class="hero-banner" :class="variantClass">
     <div class="hero-bg-shapes" aria-hidden="true">
       <div v-for="i in 5" :key="i" class="hero-shape" :class="`hero-shape--${i}`"></div>
     </div>
@@ -75,10 +75,6 @@ const computedGreeting = computed(() => {
 })
 
 const variantClass = computed(() => `hero-banner--${props.variant}`)
-const bannerStyle = computed(() => {
-  if (props.variant === 'custom') return {}
-  return {}
-})
 
 // Inline SVG Illustration Components
 const CampusIllustration = {
@@ -300,13 +296,64 @@ const DashboardIllustration = {
   `
 }
 
+const LoginIllustration = {
+  template: `
+    <svg viewBox="0 0 400 300" fill="none" xmlns="http://www.w3.org/2000/svg" class="illustration-svg">
+      <defs>
+        <linearGradient id="loginBg" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#0f172a" stop-opacity="0.15"/>
+          <stop offset="50%" stop-color="#0d9488" stop-opacity="0.08"/>
+          <stop offset="100%" stop-color="#7c3aed" stop-opacity="0.1"/>
+        </linearGradient>
+        <radialGradient id="orbLogin1" cx="20%" cy="30%" r="40%">
+          <stop offset="0%" stop-color="#0d9488" stop-opacity="0.25"/>
+          <stop offset="100%" stop-color="#0f172a" stop-opacity="0"/>
+        </radialGradient>
+        <radialGradient id="orbLogin2" cx="80%" cy="70%" r="35%">
+          <stop offset="0%" stop-color="#7c3aed" stop-opacity="0.2"/>
+          <stop offset="100%" stop-color="#0f172a" stop-opacity="0"/>
+        </radialGradient>
+        <radialGradient id="orbLogin3" cx="50%" cy="10%" r="30%">
+          <stop offset="0%" stop-color="#d97706" stop-opacity="0.15"/>
+          <stop offset="100%" stop-color="#0f172a" stop-opacity="0"/>
+        </radialGradient>
+      </defs>
+      <rect width="400" height="300" fill="url(#loginBg)"/>
+      <circle cx="80" cy="90" r="100" fill="url(#orbLogin1)" class="orb-float" style="animation-delay: 0s"/>
+      <circle cx="320" cy="210" r="90" fill="url(#orbLogin2)" class="orb-float" style="animation-delay: 1s"/>
+      <circle cx="200" cy="30" r="80" fill="url(#orbLogin3)" class="orb-float" style="animation-delay: 2s"/>
+      <g stroke="rgba(14, 184, 166, 0.1)" stroke-width="1" fill="none" class="geo-rotate" style="animation-delay: 0s; transform-origin: 200px 150px;">
+        <polygon points="200,40 240,100 160,100"/>
+        <polygon points="200,60 220,100 180,100"/>
+      </g>
+      <g stroke="rgba(124, 58, 237, 0.1)" stroke-width="1" fill="none" class="geo-rotate-reverse" style="animation-delay: 1s; transform-origin: 200px 150px;">
+        <rect x="140" y="180" width="120" height="120" rx="12"/>
+        <rect x="155" y="195" width="90" height="90" rx="8"/>
+      </g>
+      <g class="sparkle" style="animation-delay: 0s" transform="translate(60, 60)">
+        <path d="M0 -8 L0 8 M-8 0 L8 0 M-6 -6 L6 6 M-6 6 L6 -6" stroke="rgba(14, 184, 166, 0.5)" stroke-width="1.5" stroke-linecap="round"/>
+      </g>
+      <g class="sparkle" style="animation-delay: 0.5s" transform="translate(340, 50)">
+        <path d="M0 -6 L0 6 M-6 0 L6 0 M-4 -4 L4 4 M-4 4 L4 -4" stroke="rgba(217, 119, 6, 0.5)" stroke-width="1" stroke-linecap="round"/>
+      </g>
+      <g class="sparkle" style="animation-delay: 1s" transform="translate(100, 220)">
+        <path d="M0 -7 L0 7 M-7 0 L7 0 M-5 -5 L5 5 M-5 5 L5 -5" stroke="rgba(124, 58, 237, 0.4)" stroke-width="1.5" stroke-linecap="round"/>
+      </g>
+      <g class="sparkle" style="animation-delay: 1.5s" transform="translate(300, 240)">
+        <path d="M0 -5 L0 5 M-5 0 L5 0 M-3 -3 L3 3 M-3 3 L3 -3" stroke="rgba(14, 184, 166, 0.4)" stroke-width="1" stroke-linecap="round"/>
+      </g>
+    </svg>
+  `
+}
+
 const illustrationComponent = computed(() => {
   const illustrations = {
     'campus': CampusIllustration,
     'graduation': GraduationIllustration,
     'abstract': AbstractIllustration,
     'books': BooksIllustration,
-    'dashboard': DashboardIllustration
+    'dashboard': DashboardIllustration,
+    'login': LoginIllustration
   }
   return illustrations[props.illustration] || CampusIllustration
 })
@@ -468,6 +515,11 @@ onMounted(() => {
 @keyframes cardFloat {
   0%, 100% { transform: translateY(0); }
   50% { transform: translateY(-5px); }
+}
+.sparkle { animation: sparklePulse 2s ease-in-out infinite; }
+@keyframes sparklePulse {
+  0%, 100% { transform: scale(1) rotate(0deg); opacity: 0.4; }
+  50% { transform: scale(1.3) rotate(90deg); opacity: 0.9; }
 }
 
 @media (max-width: 1024px) {
