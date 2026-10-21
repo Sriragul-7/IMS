@@ -50,6 +50,7 @@ app_include_css = ["/assets/institution_erp/css/inter-font.css", "/assets/instit
 # Portal
 # ------
 website_route_rules = [
+	{"from_route": "/", "to_route": "institution-portal"},
 	{"from_route": "/institution-portal/<path:app_path>", "to_route": "institution-portal"},
 ]
 
