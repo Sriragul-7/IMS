@@ -561,11 +561,11 @@ def get_permission_query_conditions_student(user):
 
 	student = _get_portal_student(user)
 	if student:
-		return f"`tabStudent`.name = '{student}'"
+		return f"`tabStudent`.name = {frappe.db.escape(student)}"
 
 	guardian_students = _get_portal_guardian_students(user)
 	if guardian_students:
-		students_str = ", ".join([f"'{s}'" for s in guardian_students])
+		students_str = ", ".join([frappe.db.escape(s) for s in guardian_students])
 		return f"`tabStudent`.name in ({students_str})"
 
 	return "1=0"
@@ -582,11 +582,11 @@ def get_permission_query_conditions_fees(user):
 
 	student = _get_portal_student(user)
 	if student:
-		return f"`tabFees`.student = '{student}'"
+		return f"`tabFees`.student = {frappe.db.escape(student)}"
 
 	guardian_students = _get_portal_guardian_students(user)
 	if guardian_students:
-		students_str = ", ".join([f"'{s}'" for s in guardian_students])
+		students_str = ", ".join([frappe.db.escape(s) for s in guardian_students])
 		return f"`tabFees`.student in ({students_str})"
 
 	return "1=0"
@@ -603,11 +603,11 @@ def get_permission_query_conditions_fee_payment(user):
 
 	student = _get_portal_student(user)
 	if student:
-		return f"`tabFee Payment`.student = '{student}'"
+		return f"`tabFee Payment`.student = {frappe.db.escape(student)}"
 
 	guardian_students = _get_portal_guardian_students(user)
 	if guardian_students:
-		students_str = ", ".join([f"'{s}'" for s in guardian_students])
+		students_str = ", ".join([frappe.db.escape(s) for s in guardian_students])
 		return f"`tabFee Payment`.student in ({students_str})"
 
 	return "1=0"
@@ -622,11 +622,11 @@ def get_permission_query_conditions_student_attendance(user):
 
 	student = _get_portal_student(user)
 	if student:
-		return f"`tabStudent Attendance`.student = '{student}'"
+		return f"`tabStudent Attendance`.student = {frappe.db.escape(student)}"
 
 	guardian_students = _get_portal_guardian_students(user)
 	if guardian_students:
-		students_str = ", ".join([f"'{s}'" for s in guardian_students])
+		students_str = ", ".join([frappe.db.escape(s) for s in guardian_students])
 		return f"`tabStudent Attendance`.student in ({students_str})"
 
 	if "Instructor" in frappe.get_roles(user):
@@ -644,7 +644,7 @@ def get_permission_query_conditions_student_attendance(user):
 		)
 		if not groups:
 			return "1=0"
-		groups_str = ", ".join([f"'{g}'" for g in groups])
+		groups_str = ", ".join([frappe.db.escape(g) for g in groups])
 		return f"`tabStudent Attendance`.student_group in ({groups_str})"
 
 	return "1=0"
@@ -666,7 +666,7 @@ def get_permission_query_conditions_assessment_result(user):
 		all_portal_students.extend(guardian_students)
 
 	if all_portal_students:
-		students_str = ", ".join([f"'{s}'" for s in all_portal_students])
+		students_str = ", ".join([frappe.db.escape(s) for s in all_portal_students])
 		return (
 			f"`tabAssessment Result`.student in ({students_str}) "
 			f"AND `tabAssessment Result`.assessment_plan IN ("
@@ -689,7 +689,7 @@ def get_permission_query_conditions_assessment_result(user):
 		)
 		if not plans:
 			return "1=0"
-		plans_str = ", ".join([f"'{p}'" for p in plans])
+		plans_str = ", ".join([frappe.db.escape(p) for p in plans])
 		return f"`tabAssessment Result`.assessment_plan in ({plans_str})"
 
 	return "1=0"
@@ -713,7 +713,7 @@ def get_permission_query_conditions_notice(user):
 		all_portal_students.extend(guardian_students)
 
 	if all_portal_students:
-		students_str = ", ".join([f"'{s}'" for s in all_portal_students])
+		students_str = ", ".join([frappe.db.escape(s) for s in all_portal_students])
 		return (
 			f"`tabNotice`.name IN ("
 			f"SELECT notice FROM `tabNotice Recipient` "
@@ -741,7 +741,7 @@ def get_permission_query_conditions_notice_recipient(user):
 		all_portal_students.extend(guardian_students)
 
 	if all_portal_students:
-		students_str = ", ".join([f"'{s}'" for s in all_portal_students])
+		students_str = ", ".join([frappe.db.escape(s) for s in all_portal_students])
 		return f"`tabNotice Recipient`.student in ({students_str})"
 
 	return "1=0"
@@ -767,7 +767,7 @@ def get_permission_query_conditions_feedback(user):
 		all_portal_students.extend(guardian_students)
 
 	if all_portal_students:
-		students_str = ", ".join([f"'{s}'" for s in all_portal_students])
+		students_str = ", ".join([frappe.db.escape(s) for s in all_portal_students])
 		return f"`tabFeedback`.student in ({students_str})"
 
 	return "1=0"
@@ -784,11 +784,11 @@ def get_permission_query_conditions_library_transaction(user):
 
 	student = _get_portal_student(user)
 	if student:
-		return f"`tabLibrary Transaction`.student = '{student}'"
+		return f"`tabLibrary Transaction`.student = {frappe.db.escape(student)}"
 
 	guardian_students = _get_portal_guardian_students(user)
 	if guardian_students:
-		students_str = ", ".join([f"'{s}'" for s in guardian_students])
+		students_str = ", ".join([frappe.db.escape(s) for s in guardian_students])
 		return f"`tabLibrary Transaction`.student in ({students_str})"
 
 	return "1=0"
@@ -816,11 +816,11 @@ def get_permission_query_conditions_library_membership(user):
 
 	student = _get_portal_student(user)
 	if student:
-		return f"`tabLibrary Membership`.student = '{student}'"
+		return f"`tabLibrary Membership`.student = {frappe.db.escape(student)}"
 
 	guardian_students = _get_portal_guardian_students(user)
 	if guardian_students:
-		students_str = ", ".join([f"'{s}'" for s in guardian_students])
+		students_str = ", ".join([frappe.db.escape(s) for s in guardian_students])
 		return f"`tabLibrary Membership`.student in ({students_str})"
 
 	return "1=0"
@@ -844,7 +844,7 @@ def get_permission_query_conditions_communication_log(user):
 		all_portal_students.extend(guardian_students)
 
 	if all_portal_students:
-		students_str = ", ".join([f"'{s}'" for s in all_portal_students])
+		students_str = ", ".join([frappe.db.escape(s) for s in all_portal_students])
 		return (
 			f"`tabCommunication Log`.reference_notice IN ("
 			f"SELECT notice FROM `tabNotice Recipient` "
@@ -1187,10 +1187,6 @@ def portal_get_notices():
 		frappe.throw("Not a portal user", frappe.PermissionError)
 
 	filters = {"status": "Published"}
-	if user_type == "student":
-		filters["audience_type"] = ["in", ["All", "Students"]]
-	elif user_type == "guardian":
-		filters["audience_type"] = ["in", ["All", "Guardians"]]
 
 	records = frappe.get_all(
 		"Notice",
@@ -1339,9 +1335,14 @@ def portal_get_attendance_summary():
 	today = frappe.utils.today()
 	today_classes = []
 	try:
-		schedules = frappe.get_all("Course Schedule",
-			filters={"instructor": frappe.session.user, "schedule_date": today},
-			fields=["name", "course", "student_group", "from_time", "to_time"])
+		# Resolve User email -> Instructor name (Link field)
+		instructor_name = frappe.db.get_value(
+			"Instructor", {"email": frappe.session.user}, "name")
+		schedules = []
+		if instructor_name:
+			schedules = frappe.get_all("Course Schedule",
+				filters={"instructor": instructor_name},
+				fields=["name", "course", "student_group", "from_time", "to_time", "day_of_week"])
 		for s in schedules:
 			time_slot = ""
 			if s.from_time and s.to_time:
@@ -1351,6 +1352,7 @@ def portal_get_attendance_summary():
 				"course": s.course,
 				"course_code": s.student_group or "",
 				"time_slot": time_slot,
+				"day": s.day_of_week or "",
 				"status": "Upcoming",
 			})
 	except Exception:
@@ -1376,8 +1378,14 @@ def portal_get_pending_assessments():
 		frappe.throw("Not authorized", frappe.PermissionError)
 
 	try:
+		# Resolve User email -> Instructor name (Link field)
+		instructor_name = frappe.db.get_value(
+			"Instructor", {"email": frappe.session.user}, "name")
+		filters = {}
+		if instructor_name:
+			filters["instructor"] = instructor_name
 		plans = frappe.get_all("Assessment Plan",
-			filters={"instructor": frappe.session.user},
+			filters=filters,
 			fields=["name", "assessment_group", "exam_date", "student_group"],
 			order_by="exam_date desc",
 			limit_page_length=20)
@@ -1559,29 +1567,29 @@ def portal_get_admission_inquiries():
 
 @frappe.whitelist()
 def portal_get_admission_pipeline():
-	"""Admissions Officer: pipeline stats by status."""
+	"""Admissions Officer: pipeline stats by workflow state."""
 	role, _ = _staff_user_info()
 	if role not in ("Admissions Officer", "Academic Head", "System Manager"):
 		frappe.throw("Not authorized", frappe.PermissionError)
 
 	try:
 		rows = frappe.db.sql("""
-			SELECT status, COUNT(name) AS cnt
-			FROM `tabStudent`
-			GROUP BY status
+			SELECT workflow_state, COUNT(name) AS cnt
+			FROM `tabStudent Applicant`
+			GROUP BY workflow_state
 		""", as_dict=True)
 		pipeline = {"open": 0, "applied": 0, "review": 0, "approved": 0, "rejected": 0}
 		for s in rows:
-			status = (s.status or "").lower()
-			if "pending" in status or "open" in status:
+			status = (s.workflow_state or "").lower()
+			if "draft" in status or "open" in status:
 				pipeline["open"] += s.cnt
 			elif "applied" in status:
 				pipeline["applied"] += s.cnt
 			elif "review" in status:
 				pipeline["review"] += s.cnt
-			elif "approved" in status or "active" in status:
+			elif "approved" in status:
 				pipeline["approved"] += s.cnt
-			elif "rejected" in status or "inactive" in status:
+			elif "rejected" in status:
 				pipeline["rejected"] += s.cnt
 		return pipeline
 	except Exception:
@@ -1665,7 +1673,11 @@ def portal_get_exam_performance():
 		result = []
 		for p in plans:
 			total = frappe.db.count("Assessment Result", {"assessment_plan": p.name})
-			submitted = frappe.db.count("Assessment Result", {"assessment_plan": p.name, "grade": ["is", "set"]})
+			# Count non-empty grades (handles both NULL and empty string)
+			submitted = frappe.db.count("Assessment Result", {
+				"assessment_plan": p.name,
+				"grade": ["!=", ""],
+			})
 			status = "Complete" if total > 0 and submitted >= total else "Pending"
 			result.append({
 				"assessment": p.assessment_group or p.name,
