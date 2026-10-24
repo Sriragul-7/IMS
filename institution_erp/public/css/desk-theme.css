@@ -1,4 +1,4 @@
-/* BIT Desk Theme — Phase 2 Design System Tokens applied to Frappe Desk */
+/* BIT Desk Theme — Presentation-Ready Design Tokens applied to Frappe Desk */
 
 :root {
   --bit-primary: #0f172a;
@@ -791,25 +791,25 @@ select:focus,
 }
 
 .alert-success {
-  background: var(--bit-success-light) !important;
-  color: var(--bit-success-dark) !important;
+  background: var(--color-success-light) !important;
+  color: var(--color-success-dark) !important;
   border-color: var(--bit-success) !important;
 }
 
 .alert-warning {
-  background: var(--bit-warning-light) !important;
-  color: var(--bit-warning-dark) !important;
+  background: var(--color-warning-light) !important;
+  color: var(--color-warning-dark) !important;
   border-color: var(--bit-warning) !important;
 }
 
 .alert-danger {
-  background: var(--bit-danger-light) !important;
-  color: var(--bit-danger-dark) !important;
+  background: var(--color-danger-light) !important;
+  color: var(--color-danger-dark) !important;
   border-color: var(--bit-danger) !important;
 }
 
 .alert-info {
-  background: var(--bit-info-light) !important;
+  background: var(--color-info-light) !important;
   color: var(--bit-info) !important;
   border-color: var(--bit-info) !important;
 }
