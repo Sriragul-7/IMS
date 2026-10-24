@@ -17,14 +17,14 @@
         </div>
         <div v-if="!loading && !chartData && !error" class="empty-chart">
           <div class="empty-state" style="padding: var(--space-8);">
-            <div class="empty-state-icon" style="background: var(--gray-100);">📊</div>
+            <div class="empty-state-icon" style="background: var(--gray-100); color: var(--color-text-muted);" v-html="icons.chart"></div>
             <div class="empty-state-title">No data available</div>
             <div class="empty-state-desc">{{ emptyMessage }}</div>
           </div>
         </div>
         <div v-if="error" class="error-chart">
           <div class="empty-state" style="padding: var(--space-8);">
-            <div class="empty-state-icon" style="background: var(--color-danger-light); color: var(--color-danger);">⚠️</div>
+            <div class="empty-state-icon" style="background: var(--color-danger-light); color: var(--color-danger);" v-html="icons.alert"></div>
             <div class="empty-state-title">Failed to load chart</div>
             <div class="empty-state-desc">{{ error }}</div>
           </div>
@@ -46,6 +46,8 @@
 
 <script setup>
 import { ref, onMounted, watch, nextTick, computed } from 'vue'
+import { Chart } from 'chart.js'
+import { icons } from '../utils/icons.js'
 
 const props = defineProps({
   type: { type: String, default: 'line' },
@@ -72,11 +74,6 @@ function createChart() {
   if (!canvas.value || !props.chartData) return
   
   try {
-    if (typeof Chart === 'undefined') {
-      console.warn('Chart.js not loaded')
-      return
-    }
-    
     if (chartInstance) {
       chartInstance.destroy()
     }
@@ -251,6 +248,28 @@ watch(() => props.type, () => {
 .chart-wrapper { position: relative; width: 100%; }
 .chart-skeleton { width: 100%; display: flex; align-items: center; justify-content: center; }
 .empty-chart, .error-chart { width: 100%; display: flex; align-items: center; justify-content: center; }
+.empty-state-icon {
+  width: 64px;
+  height: 64px;
+  border-radius: var(--radius-xl);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto var(--space-4);
+}
+.empty-state-icon :deep(svg) { width: 28px; height: 28px; }
+.empty-state-title {
+  font-size: var(--text-lg);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text);
+  margin-bottom: var(--space-1);
+  text-align: center;
+}
+.empty-state-desc {
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+  text-align: center;
+}
 .chart-card-legend {
   display: flex;
   flex-wrap: wrap;
