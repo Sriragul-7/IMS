@@ -18,7 +18,7 @@
           <div class="timeline-content">
             <div class="timeline-header" v-if="item.time || item.badge">
               <time v-if="item.time" class="timeline-time" :datetime="item.timeISO">{{ formatTime(item.time) }}</time>
-              <Badge v-if="item.badge" :text="item.badge.text" :variant="item.badge.variant" :dot="item.badge.dot" />
+              <StatusBadge v-if="item.badge" :text="item.badge.text" :variant="item.badge.variant" :dot="item.badge.dot" />
             </div>
             <div class="timeline-title" v-if="item.title">{{ item.title }}</div>
             <div class="timeline-body" v-if="item.body" v-html="item.body"></div>
@@ -47,9 +47,9 @@
 </template>
 
 <script setup>
-import { computed } from 'vue'
 import EmptyState from './EmptyState.vue'
 import StatusBadge from './StatusBadge.vue'
+import { icons } from '../utils/icons.js'
 
 const props = defineProps({
   items: { type: Array, default: () => [] },
@@ -59,7 +59,7 @@ const props = defineProps({
   loadMoreText: { type: String, default: 'Load more' },
   emptyTitle: { type: String, default: 'No items' },
   emptyDescription: { type: String, default: 'No items to display' },
-  emptyIcon: { type: String, default: '📋' },
+  emptyIcon: { type: String, default: icons.clipboard },
   skeletonItems: { type: Number, default: 3 },
   dotSize: { type: Number, default: 12 },
   lineWidth: { type: Number, default: 2 }
