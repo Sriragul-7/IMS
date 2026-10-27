@@ -78,6 +78,12 @@
   --gradient-card-info: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
   --gradient-subtle: linear-gradient(180deg, #ffffff 0%, #f5f7fb 100%);
   --gradient-overlay: linear-gradient(180deg, rgba(15, 23, 42, 0.9) 0%, rgba(15, 23, 42, 0.5) 50%, transparent 100%);
+  --gradient-stat-primary: linear-gradient(135deg, rgba(15, 23, 42, 0.08) 0%, rgba(15, 23, 42, 0.02) 100%);
+  --gradient-stat-accent: linear-gradient(135deg, rgba(13, 148, 136, 0.08) 0%, rgba(13, 148, 136, 0.02) 100%);
+  --gradient-stat-amber: linear-gradient(135deg, rgba(217, 119, 6, 0.08) 0%, rgba(217, 119, 6, 0.02) 100%);
+  --gradient-stat-success: linear-gradient(135deg, rgba(5, 150, 105, 0.08) 0%, rgba(5, 150, 105, 0.02) 100%);
+  --gradient-stat-purple: linear-gradient(135deg, rgba(124, 58, 237, 0.08) 0%, rgba(124, 58, 237, 0.02) 100%);
+  --gradient-stat-info: linear-gradient(135deg, rgba(37, 99, 235, 0.08) 0%, rgba(37, 99, 235, 0.02) 100%);
 
   /* ── Typography ── */
   --font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
@@ -170,6 +176,94 @@
   --chart-6: #dc2626;
   --chart-7: #059669;
   --chart-8: #f59e0b;
+
+  /* ── Role-Based Themes ── */
+  /* Student / Guardian — Blue */
+  --role-primary: #2563eb;
+  --role-primary-hover: #1d4ed8;
+  --role-primary-light: #dbeafe;
+  --role-accent: #2563eb;
+  --role-gradient: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+  --role-gradient-subtle: linear-gradient(135deg, rgba(37, 99, 235, 0.08) 0%, rgba(37, 99, 235, 0.02) 100%);
+  --role-badge: var(--color-info-light);
+  --role-badge-text: var(--color-info);
+
+  /* Staff — Green/Teal */
+  --role-staff-primary: #059669;
+  --role-staff-primary-hover: #047857;
+  --role-staff-primary-light: #d1fae5;
+  --role-staff-accent: #059669;
+  --role-staff-gradient: linear-gradient(135deg, #059669 0%, #047857 100%);
+  --role-staff-gradient-subtle: linear-gradient(135deg, rgba(5, 150, 105, 0.08) 0%, rgba(5, 150, 105, 0.02) 100%);
+  --role-staff-badge: var(--color-success-light);
+  --role-staff-badge-text: var(--color-success-dark);
+
+  /* Admin — Purple/Indigo */
+  --role-admin-primary: #7c3aed;
+  --role-admin-primary-hover: #6d28d9;
+  --role-admin-primary-light: #ede9fe;
+  --role-admin-accent: #7c3aed;
+  --role-admin-gradient: linear-gradient(135deg, #7c3aed 0%, #6d28d9 100%);
+  --role-admin-gradient-subtle: linear-gradient(135deg, rgba(124, 58, 237, 0.08) 0%, rgba(124, 58, 237, 0.02) 100%);
+  --role-admin-badge: var(--color-purple-light);
+  --role-admin-badge-text: var(--color-purple);
+
+  /* Admissions / Academic Head — Amber */
+  --role-admissions-primary: #d97706;
+  --role-admissions-primary-hover: #b45309;
+  --role-admissions-primary-light: #fef3c7;
+  --role-admissions-accent: #d97706;
+  --role-admissions-gradient: linear-gradient(135deg, #d97706 0%, #b45309 100%);
+  --role-admissions-gradient-subtle: linear-gradient(135deg, rgba(217, 119, 6, 0.08) 0%, rgba(217, 119, 6, 0.02) 100%);
+  --role-admissions-badge: var(--color-amber-100);
+  --role-admissions-badge-text: var(--color-amber);
+
+  /* Role theme applied via .role-* classes on body */
+  .role-student,
+  .role-guardian {
+    --role-active-primary: var(--role-primary);
+    --role-active-primary-hover: var(--role-primary-hover);
+    --role-active-primary-light: var(--role-primary-light);
+    --role-active-accent: var(--role-accent);
+    --role-active-gradient: var(--role-gradient);
+    --role-active-gradient-subtle: var(--role-gradient-subtle);
+    --role-active-badge: var(--role-badge);
+    --role-active-badge-text: var(--role-badge-text);
+  }
+  .role-instructor,
+  .role-fee-manager,
+  .role-facility-manager,
+  .role-communication-officer {
+    --role-active-primary: var(--role-staff-primary);
+    --role-active-primary-hover: var(--role-staff-primary-hover);
+    --role-active-primary-light: var(--role-staff-primary-light);
+    --role-active-accent: var(--role-staff-accent);
+    --role-active-gradient: var(--role-staff-gradient);
+    --role-active-gradient-subtle: var(--role-staff-gradient-subtle);
+    --role-active-badge: var(--role-staff-badge);
+    --role-active-badge-text: var(--role-staff-badge-text);
+  }
+  .role-system-manager {
+    --role-active-primary: var(--role-admin-primary);
+    --role-active-primary-hover: var(--role-admin-primary-hover);
+    --role-active-primary-light: var(--role-admin-primary-light);
+    --role-active-accent: var(--role-admin-accent);
+    --role-active-gradient: var(--role-admin-gradient);
+    --role-active-gradient-subtle: var(--role-admin-gradient-subtle);
+    --role-active-badge: var(--role-admin-badge);
+    --role-active-badge-text: var(--role-admin-badge-text);
+  }
+  .role-admissions-officer,
+  .role-academic-head {
+    --role-active-primary: var(--role-admissions-primary);
+    --role-active-primary-hover: var(--role-admissions-primary-hover);
+    --role-active-primary-light: var(--role-admissions-primary-light);
+    --role-active-accent: var(--role-admissions-accent);
+    --role-active-gradient: var(--role-admissions-gradient);
+    --role-active-gradient-subtle: var(--role-admissions-gradient-subtle);
+    --role-active-badge: var(--role-admissions-badge);
+    --role-active-badge-text: var(--role-admissions-badge-text);
+  }
 }
 
 /* ── Base Reset ── */
@@ -255,9 +349,9 @@ h6, .h6 { font-size: var(--text-md); font-weight: var(--font-weight-semibold); l
   box-shadow: var(--shadow-sm);
   border: 1px solid var(--color-border-light);
 }
-.card-padded { padding: var(--space-6); }
+.card-padded { padding: var(--space-4); }
 .card-header {
-  padding: var(--space-5) var(--space-6);
+  padding: var(--space-4) var(--space-4);
   border-bottom: 1px solid var(--color-border-light);
   display: flex;
   align-items: center;
@@ -268,9 +362,9 @@ h6, .h6 { font-size: var(--text-md); font-weight: var(--font-weight-semibold); l
   font-weight: var(--font-weight-semibold);
   color: var(--color-text);
 }
-.card-body { padding: var(--space-6); }
+.card-body { padding: var(--space-4); }
 .card-footer {
-  padding: var(--space-4) var(--space-6);
+  padding: var(--space-3) var(--space-4);
   border-top: 1px solid var(--color-border-light);
   display: flex;
   align-items: center;
@@ -372,6 +466,7 @@ h6, .h6 { font-size: var(--text-md); font-weight: var(--font-weight-semibold); l
 }
 .btn-danger:hover:not(:disabled) { background: var(--color-danger-dark); }
 .btn-sm { padding: var(--space-1-5) var(--space-3); font-size: var(--text-xs); }
+.btn-xs { padding: var(--space-1) var(--space-2); font-size: var(--text-xs); }
 .btn-lg { padding: var(--space-3) var(--space-6); font-size: var(--text-base); }
 .btn-xl { padding: var(--space-4) var(--space-8); font-size: var(--text-lg); }
 .btn-block { width: 100%; }
@@ -842,4 +937,156 @@ h6, .h6 { font-size: var(--text-md); font-weight: var(--font-weight-semibold); l
   flex: 1;
   height: 1px;
   background: var(--color-border);
+}
+
+/* ── Page Shell Layout ── */
+.page-shell {
+  min-height: 100vh;
+  display: flex;
+}
+.page-shell__sidebar {
+  width: 280px;
+  min-width: 280px;
+  background: var(--color-primary);
+  color: var(--gray-300);
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  z-index: var(--z-fixed);
+  overflow-y: auto;
+  transition: transform var(--transition-slow), width var(--transition-base), min-width var(--transition-base);
+}
+.page-shell__sidebar.collapsed {
+  width: 72px;
+  min-width: 72px;
+}
+.page-shell__main {
+  flex: 1;
+  margin-left: 280px;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  transition: margin-left var(--transition-base);
+}
+.page-shell__sidebar.collapsed + .page-shell__main { margin-left: 72px; }
+.page-shell__topbar {
+  padding: var(--space-4) var(--space-8);
+  background: var(--color-surface);
+  border-bottom: 1px solid var(--color-border-light);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: sticky;
+  top: 0;
+  z-index: var(--z-sticky);
+  gap: var(--space-4);
+  flex-wrap: wrap;
+}
+.page-shell__content { padding: var(--space-6) var(--space-8); flex: 1; width: 100%; max-width: none; }
+
+@media (min-width: 1025px) {
+  .page-shell__content,
+  .page-container,
+  .top-bar,
+  .page-shell__topbar {
+    max-width: none;
+    width: 100%;
+  }
+  .page-shell__content,
+  .page-container {
+    padding: var(--space-8) var(--space-10);
+  }
+}
+
+/* ── Shared page layout grids ── */
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--space-4);
+  margin-bottom: var(--space-6);
+}
+.stats-grid-3 { grid-template-columns: repeat(3, 1fr); }
+.stats-grid-2 { grid-template-columns: repeat(2, 1fr); }
+.dash-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-4);
+  margin-bottom: var(--space-6);
+}
+.dash-grid-2 { grid-template-columns: repeat(2, 1fr); }
+.action-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: var(--space-4);
+}
+.action-card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  padding: var(--space-4);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border-light);
+  border-radius: var(--radius-xl);
+  text-decoration: none;
+  color: inherit;
+  transition: box-shadow var(--transition-base), border-color var(--transition-fast), transform var(--transition-base);
+}
+.action-card:hover {
+  box-shadow: var(--shadow-md);
+  border-color: var(--color-border);
+  transform: translateY(-1px);
+}
+.action-card__icon {
+  width: 40px;
+  height: 40px;
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--gray-100);
+  color: var(--color-primary);
+}
+.action-card__title {
+  font-size: var(--text-sm);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text);
+}
+.action-card__desc {
+  font-size: var(--text-xs);
+  color: var(--color-text-muted);
+  line-height: var(--leading-relaxed);
+}
+.section-card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border-light);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-sm);
+  overflow: hidden;
+}
+.section-card + .section-card { margin-top: var(--space-4); }
+.page-stack { display: flex; flex-direction: column; gap: var(--space-6); }
+.icon-svg {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 0;
+}
+.icon-svg svg { width: 1em; height: 1em; }
+
+/* ── Desktop Only Layout ── */
+@media (max-width: 1024px) {
+  .stats-grid { grid-template-columns: repeat(2, 1fr); }
+  .stats-grid-3 { grid-template-columns: repeat(2, 1fr); }
+  .dash-grid { grid-template-columns: repeat(2, 1fr); }
+  .feedback-grid { grid-template-columns: 1fr; }
+}
+@media (max-width: 768px) {
+  .stats-grid,
+  .stats-grid-3,
+  .dash-grid { grid-template-columns: 1fr; }
+  .page-shell__content,
+  .page-container { padding: var(--space-4); }
 }
