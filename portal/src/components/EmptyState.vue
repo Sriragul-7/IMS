@@ -13,11 +13,12 @@
 
 <script setup>
 import { computed } from 'vue'
+import { icons } from '../utils/icons.js'
 
 const props = defineProps({
   title: { type: String, required: true },
   description: { type: String, default: '' },
-  icon: { type: String, default: '📄' },
+  icon: { type: String, default: icons.document },
   iconBg: { type: String, default: 'var(--gray-100)' },
   size: { type: String, default: 'md' }
 })
@@ -48,10 +49,15 @@ const sizeClass = computed(() => `empty-state--${props.size}`)
   font-size: 1.75rem;
   margin-bottom: var(--space-4);
   flex-shrink: 0;
+  color: var(--color-text-muted);
 }
-.empty-state--sm .empty-state-icon { width: 48px; height: 48px; font-size: 1.25rem; border-radius: var(--radius-lg); }
-.empty-state--lg .empty-state-icon { width: 80px; height: 80px; font-size: 2.5rem; border-radius: var(--radius-2xl); }
-.empty-state--xl .empty-state-icon { width: 96px; height: 96px; font-size: 3rem; border-radius: var(--radius-3xl); }
+.empty-state-icon :deep(svg) { width: 28px; height: 28px; }
+.empty-state--sm .empty-state-icon { width: 48px; height: 48px; border-radius: var(--radius-lg); }
+.empty-state--sm .empty-state-icon :deep(svg) { width: 22px; height: 22px; }
+.empty-state--lg .empty-state-icon { width: 80px; height: 80px; border-radius: var(--radius-2xl); }
+.empty-state--lg .empty-state-icon :deep(svg) { width: 36px; height: 36px; }
+.empty-state--xl .empty-state-icon { width: 96px; height: 96px; border-radius: var(--radius-3xl); }
+.empty-state--xl .empty-state-icon :deep(svg) { width: 44px; height: 44px; }
 
 .empty-state-title {
   font-size: var(--text-lg);
