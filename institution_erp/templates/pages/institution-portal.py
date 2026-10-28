@@ -7,3 +7,4 @@ def get_context(context):
     context.title = "Bannari Amman Institute of Technology - Student Portal"
     context.no_breadcrumbs = True
     context.no_header = True
+    context.full_width = True
