@@ -16,10 +16,10 @@
 
     <template v-else>
       <!-- Summary Stats -->
-      <div class="stats-grid" v-if="fees.length">
-        <StatCard :value="totalFees" label="Total Fees" format="currency" color="#0f172a" icon="💰" variant="default" />
-        <StatCard :value="totalPaid" label="Paid" format="currency" color="#059669" icon="✅" variant="success" :trend="paidTrend" trend-variant="positive" />
-        <StatCard :value="totalOutstanding" label="Outstanding" format="currency" color="#d97706" icon="⚠️" variant="amber" />
+      <div class="stats-grid stats-grid-3" v-if="fees.length">
+        <StatCard :value="totalFees" label="Total Fees" format="currency" color="#0f172a" :icon="icons.currency" variant="default" />
+        <StatCard :value="totalPaid" label="Paid" format="currency" color="#059669" :icon="icons.checkCircle" variant="success" />
+        <StatCard :value="totalOutstanding" label="Outstanding" format="currency" color="#d97706" :icon="icons.alert" variant="amber" />
       </div>
 
       <!-- Fee Records Table -->
@@ -51,7 +51,7 @@
             <StatusBadge :text="row.status" :variant="feeVariant(row.status)" size="sm" />
           </template>
         </DataTable>
-        <EmptyState v-else title="No fee records" description="No fees have been assigned to you yet" icon="💰" size="md" />
+        <EmptyState v-else title="No fee records" description="No fees have been assigned to you yet" :icon="icons.currency" size="md" />
       </div>
 
       <!-- Payment History -->
@@ -86,7 +86,7 @@
             :vertical="true"
             empty-title="No payments"
             empty-description="No payment history available"
-            empty-icon="💳"
+            :empty-icon="icons.creditCard"
           />
         </div>
       </div>
@@ -97,6 +97,7 @@
 <script setup>
 import { ref, computed, onMounted, watch } from 'vue'
 import { getSessionUser, callAPI } from '../utils/api.js'
+import { icons } from '../utils/icons.js'
 import PageHeader from '../components/PageHeader.vue'
 import StatCard from '../components/StatCard.vue'
 import StatusBadge from '../components/StatusBadge.vue'
@@ -113,10 +114,9 @@ const loading = ref(true)
 const totalFees = computed(() => fees.value.reduce((s, f) => s + (f.total_amount || 0), 0))
 const totalPaid = computed(() => fees.value.reduce((s, f) => s + (f.paid_amount || 0), 0))
 const totalOutstanding = computed(() => fees.value.reduce((s, f) => s + (f.outstanding_amount || 0), 0))
-const paidTrend = '+12% vs last term'
 
 const metaItems = computed(() => [
-  { label: 'Outstanding', value: formatCurrency(totalOutstanding.value), icon: '⚠️' }
+  { label: 'Outstanding', value: formatCurrency(totalOutstanding.value), icon: icons.alert }
 ])
 
 const feeColumns = [
@@ -189,19 +189,8 @@ watch(() => props.selectedChild, load)
 .page-loading { padding: var(--space-6); }
 .stats-skeleton { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-4); }
 
-.stats-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: var(--space-4);
-  margin-bottom: var(--space-6);
-}
-
 .text-success { color: var(--color-success); }
 .text-danger { color: var(--color-danger); font-weight: var(--font-weight-semibold); }
 .font-mono { font-family: var(--font-family-mono); font-variant-numeric: tabular-nums; }
 .overdue { color: var(--color-danger); font-weight: var(--font-weight-semibold); }
-
-@media (max-width: 768px) {
-  .stats-grid { grid-template-columns: 1fr; }
-}
 </style>
