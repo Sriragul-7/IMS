@@ -21,21 +21,21 @@
       >
         <template #actions>
           <a href="/app" class="btn btn-glass" target="_blank">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+            <span class="icon-svg" v-html="icons.layers"></span>
             Open Full Desk
           </a>
         </template>
       </HeroBanner>
 
       <div class="stats-grid stats-grid--8">
-        <StatCard :value="stats.total_students" label="Active Students" color="#0f172a" icon="👥" variant="default" :trend="studentsTrend" trend-variant="positive" />
-        <StatCard :value="stats.total_staff" label="Staff Members" color="#059669" icon="👨‍🏫" variant="success" />
-        <StatCard :value="stats.avg_attendance" label="Avg Attendance" format="percent" color="#d97706" icon="📊" variant="amber" />
-        <StatCard :value="stats.total_outstanding" label="Outstanding Fees" format="currency" color="#dc2626" icon="💰" variant="danger" :trend="outstandingTrend" trend-variant="negative" />
-        <StatCard :value="stats.total_programs" label="Programs" color="#7c3aed" icon="🎓" variant="purple" />
-        <StatCard :value="stats.total_courses" label="Courses" color="#2563eb" icon="📚" variant="info" />
-        <StatCard :value="stats.open_feedback" label="Open Feedback" color="#d97706" icon="💬" variant="amber" />
-        <StatCard :value="stats.library_active" label="Library Active" color="#059669" icon="📖" variant="success" />
+        <StatCard :value="stats.total_students" label="Active Students" color="#0f172a" :icon="icons.users" variant="default" :trend="studentsTrend" trend-variant="positive" />
+        <StatCard :value="stats.total_staff" label="Staff Members" color="#059669" :icon="icons.user" variant="success" />
+        <StatCard :value="stats.avg_attendance" label="Avg Attendance" format="percent" color="#d97706" :icon="icons.chart" variant="amber" />
+        <StatCard :value="stats.total_outstanding" label="Outstanding Fees" format="currency" color="#dc2626" :icon="icons.currency" variant="danger" :trend="outstandingTrend" trend-variant="negative" />
+        <StatCard :value="stats.total_programs" label="Programs" color="#0d9488" :icon="icons.graduation" variant="default" />
+        <StatCard :value="stats.total_courses" label="Courses" color="#2563eb" :icon="icons.books" variant="info" />
+        <StatCard :value="stats.open_feedback" label="Open Feedback" color="#d97706" :icon="icons.message" variant="amber" />
+        <StatCard :value="stats.library_active" label="Library Active" color="#059669" :icon="icons.book" variant="success" />
       </div>
 
       <div class="dash-grid">
@@ -136,6 +136,7 @@
 <script setup>
 import { ref, computed, onMounted } from 'vue'
 import { getSessionUser, callAPI } from '../utils/api.js'
+import { icons } from '../utils/icons.js'
 import StatCard from '../components/StatCard.vue'
 import StatusBadge from '../components/StatusBadge.vue'
 import EmptyState from '../components/EmptyState.vue'
@@ -160,36 +161,36 @@ const greeting = computed(() => {
 })
 
 const heroMeta = computed(() => [
-  { label: 'Role', value: 'System Manager', icon: '⚙️' }
+  { label: 'Role', value: 'System Manager', icon: icons.settings }
 ])
 
 const studentsTrend = '+45 this term'
 const outstandingTrend = '-8% vs last month'
 
 const modules = [
-  { key: 'students', label: 'Students', icon: '👥', color: '#0f172a', href: '/app/student' },
-  { key: 'instructors', label: 'Instructors', icon: '👨‍🏫', color: '#059669', href: '/app/instructor' },
-  { key: 'fees', label: 'Fees', icon: '💰', color: '#d97706', href: '/app/fees' },
-  { key: 'attendance', label: 'Attendance', icon: '📅', color: '#0d9488', href: '/app/student-attendance' },
-  { key: 'assessments', label: 'Assessments', icon: '📝', color: '#7c3aed', href: '/app/assessment-plan' },
-  { key: 'library', label: 'Library', icon: '📚', color: '#2563eb', href: '/app/library-transaction' },
-  { key: 'notices', label: 'Notices', icon: '📢', color: '#ec4899', href: '/app/notice' },
-  { key: 'hostel', label: 'Hostel', icon: '🏠', color: '#f59e0b', href: '/app/hostel' },
+  { key: 'students', label: 'Students', icon: icons.users, color: '#0f172a', href: '/app/student' },
+  { key: 'instructors', label: 'Instructors', icon: icons.user, color: '#059669', href: '/app/instructor' },
+  { key: 'fees', label: 'Fees', icon: icons.currency, color: '#d97706', href: '/app/fees' },
+  { key: 'attendance', label: 'Attendance', icon: icons.calendar, color: '#0d9488', href: '/app/student-attendance' },
+  { key: 'assessments', label: 'Assessments', icon: icons.clipboard, color: '#334155', href: '/app/assessment-plan' },
+  { key: 'library', label: 'Library', icon: icons.books, color: '#2563eb', href: '/app/library-transaction' },
+  { key: 'notices', label: 'Notices', icon: icons.bell, color: '#0f172a', href: '/app/notice' },
+  { key: 'hostel', label: 'Hostel', icon: icons.home, color: '#d97706', href: '/app/hostel' },
 ]
 
 const pipelineStages = [
   { key: 'open', label: 'Open', color: '#6b7280' },
   { key: 'applied', label: 'Applied', color: '#d97706' },
-  { key: 'review', label: 'Review', color: '#7c3aed' },
+  { key: 'review', label: 'Review', color: '#0d9488' },
   { key: 'approved', label: 'Approved', color: '#059669' },
   { key: 'rejected', label: 'Rejected', color: '#dc2626' }
 ]
 
 const healthItems = computed(() => [
-  { label: 'Total DocTypes', value: stats.total_doctypes || 48, icon: '📋', color: '#0f172a', variant: '' },
-  { label: 'Active Users', value: stats.active_users || 156, icon: '👤', color: '#0d9488', variant: '' },
-  { label: 'Open Feedback', value: stats.open_feedback || 0, icon: '💬', color: '#d97706', variant: stats.open_feedback > 0 ? 'warn' : 'good' },
-  { label: 'Outstanding Fees', value: formatCurrency(stats.total_outstanding || 0), icon: '💰', color: '#dc2626', variant: stats.total_outstanding > 0 ? 'warn' : 'good' },
+  { label: 'Total DocTypes', value: stats.value.total_doctypes || 48, icon: icons.clipboard, color: '#0f172a', variant: '' },
+  { label: 'Active Users', value: stats.value.active_users || 156, icon: icons.user, color: '#0d9488', variant: '' },
+  { label: 'Open Feedback', value: stats.value.open_feedback || 0, icon: icons.message, color: '#d97706', variant: stats.value.open_feedback > 0 ? 'warn' : 'good' },
+  { label: 'Outstanding Fees', value: formatCurrency(stats.value.total_outstanding || 0), icon: icons.currency, color: '#dc2626', variant: stats.value.total_outstanding > 0 ? 'warn' : 'good' },
 ])
 
 const enrollmentChartData = computed(() => {
@@ -263,12 +264,6 @@ onMounted(async () => {
 .stats-skeleton { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--space-4); }
 .dash-skeleton { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-4); }
 
-.stats-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: var(--space-4);
-  margin-bottom: var(--space-4);
-}
 .stats-grid--8 { margin-bottom: var(--space-6); }
 
 .dash-grid {
@@ -300,7 +295,7 @@ onMounted(async () => {
   text-align: center;
 }
 .module-card:hover { border-color: var(--color-accent-light); background: var(--color-accent-50); transform: translateY(-2px); box-shadow: var(--shadow-md); }
-.module-icon { width: 44px; height: 44px; border-radius: var(--radius-lg); display: flex; align-items: center; justify-content: center; font-size: 1.25rem; }
+.module-icon { width: 44px; height: 44px; border-radius: var(--radius-lg); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
 .module-label { font-size: var(--text-xs); font-weight: var(--font-weight-semibold); color: var(--color-text); }
 
 .pipeline-summary {
@@ -351,7 +346,7 @@ onMounted(async () => {
   transition: all var(--transition-fast);
 }
 .health-item:hover { border-color: var(--color-accent-light); box-shadow: var(--shadow-sm); }
-.health-icon { width: 36px; height: 36px; border-radius: var(--radius-md); display: flex; align-items: center; justify-content: center; font-size: 1rem; flex-shrink: 0; }
+.health-icon { width: 36px; height: 36px; border-radius: var(--radius-md); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
 .health-content { display: flex; flex-direction: column; gap: 2px; }
 .health-label { font-size: var(--text-sm); color: var(--color-text-secondary); }
 .health-value { font-size: var(--text-sm); font-weight: var(--font-weight-semibold); color: var(--color-text); font-variant-numeric: tabular-nums; }
@@ -359,7 +354,6 @@ onMounted(async () => {
 .health-value.warn { color: var(--color-warning); }
 
 @media (max-width: 1024px) {
-  .stats-grid { grid-template-columns: repeat(2, 1fr); }
   .stats-grid--8 { grid-template-columns: repeat(2, 1fr); }
   .dash-grid { grid-template-columns: repeat(2, 1fr); }
   .dash-card--wide { grid-column: span 2; }
@@ -367,7 +361,6 @@ onMounted(async () => {
   .health-grid { grid-template-columns: 1fr; }
 }
 @media (max-width: 768px) {
-  .stats-grid { grid-template-columns: 1fr; }
   .stats-grid--8 { grid-template-columns: 1fr; }
   .dash-grid { grid-template-columns: 1fr; }
   .dash-card--wide { grid-column: span 1; }
